@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "İnterfeys",
-        "NOTE": "Chatwoot panelinizin görünüşünü və hissini fərdiləşdirin.",
+        "NOTE": "ChannelX panelinizin görünüşünü və hissini fərdiləşdirin.",
         "FONT_SIZE": {
           "TITLE": "Şrift ölçüsü",
           "NOTE": "Panel boyunca mətn ölçüsünü üstünlüklərinizə uyğun tənzimləyin.",
@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! Heç bir Chatwoot hesabı tapılmadı. Davam etmək üçün yeni hesab yaradın.",
+    "NO_ACCOUNT_WARNING": "Uh oh! Heç bir ChannelX hesabı tapılmadı. Davam etmək üçün yeni hesab yaradın.",
     "NEW_ACCOUNT": "Yeni Hesab",
     "SELECTOR_SUBTITLE": "Yeni hesab yaradın",
     "API": {

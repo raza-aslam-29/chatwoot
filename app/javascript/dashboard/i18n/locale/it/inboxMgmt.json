@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Inserisci il nome del tuo sito web (ad esempio: Acme Srl)"
       },
       "FB": {
-        "HELP": "PS: Accedendo, abbiamo accesso solo ai messaggi della tua pagina. Chatwoot non potrà accedere ai tuoi messaggi privati.",
+        "HELP": "PS: Accedendo, abbiamo accesso solo ai messaggi della tua pagina. ChannelX non potrà accedere ai tuoi messaggi privati.",
         "CHOOSE_PAGE": "Scegli una Pagina",
         "CHOOSE_PLACEHOLDER": "Seleziona una pagina dalla lista",
         "INBOX_NAME": "Nome Inbox",
@@ -441,7 +441,7 @@
       },
       "AUTH": {
         "TITLE": "Scegli un canale",
-        "DESC": "Chatwoot supporta widget di live chat, Facebook Messenger, WhatsApp, Email e altro, come canali di comunicazione. Se vuoi creare un canale personalizzato, puoi farlo tramite il canale API. Per iniziare, scegli uno dei canali qui sotto.",
+        "DESC": "ChannelX supporta widget di live chat, Facebook Messenger, WhatsApp, Email e altro, come canali di comunicazione. Se vuoi creare un canale personalizzato, puoi farlo tramite il canale API. Per iniziare, scegli uno dei canali qui sotto.",
         "TITLE_NEXT": "Completa la configurazione",
         "TITLE_FINISH": "Voilà!",
         "CHANNEL": {
@@ -1115,8 +1115,8 @@
         "USER_MESSAGE": "Salve",
         "AGENT_MESSAGE": "Ciao"
       },
-      "BRANDING_TEXT": "Offerto da Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Offerto da ChannelX",
+      "SCRIPT_SETTINGS": "\n      window.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

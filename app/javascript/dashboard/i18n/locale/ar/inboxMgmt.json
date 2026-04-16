@@ -42,7 +42,7 @@
         "PLACEHOLDER": "أدخل اسم موقع الويب الخاص بك (مثال: Acme Inc)"
       },
       "FB": {
-        "HELP": "ملحوظة: بالمصادقة على حسابك، فنحن يمكننا فقط الوصول إلى الرسائل الواردة لصفحتك. لا يستطيع Chatwoot أبداً بأي شكل من الأشكال الوصول إلى رسائلك الخاصة في حسابك الشخصي.",
+        "HELP": "ملحوظة: بالمصادقة على حسابك، فنحن يمكننا فقط الوصول إلى الرسائل الواردة لصفحتك. لا يستطيع ChannelX أبداً بأي شكل من الأشكال الوصول إلى رسائلك الخاصة في حسابك الشخصي.",
         "CHOOSE_PAGE": "اختر صفحة",
         "CHOOSE_PLACEHOLDER": "اختر صفحة من القائمة",
         "INBOX_NAME": "اسم صندوق الوارد لقناة التواصل",
@@ -1115,8 +1115,8 @@
         "USER_MESSAGE": "مرحبا",
         "AGENT_MESSAGE": "مرحبا"
       },
-      "BRANDING_TEXT": "مدعوم بواسطة Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "مدعوم بواسطة ChannelX",
+      "SCRIPT_SETTINGS": "\n      window.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

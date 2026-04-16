@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Ilagay ang pangalan ng iyong website (hal: Acme Inc)"
       },
       "FB": {
-        "HELP": "PS: Sa pag-sign in, nakakakuha lang kami ng access sa mga mensahe ng iyong Pahina. Hindi kailanman maa-access ng Chatwoot ang iyong mga pribadong mensahe.",
+        "HELP": "PS: Sa pag-sign in, nakakakuha lang kami ng access sa mga mensahe ng iyong Pahina. Hindi kailanman maa-access ng ChannelX ang iyong mga pribadong mensahe.",
         "CHOOSE_PAGE": "Pumili ng Pahina",
         "CHOOSE_PLACEHOLDER": "Pumili ng pahina mula sa listahan",
         "INBOX_NAME": "Pangalan ng Inbox",
@@ -441,7 +441,7 @@
       },
       "AUTH": {
         "TITLE": "Pumili ng channel",
-        "DESC": "Sinusuportahan ng Chatwoot ang live-chat widgets, Facebook Messenger, WhatsApp, Emails, atbp., bilang mga channel. Kung nais mong gumawa ng custom na channel, maaari mo itong likhain gamit ang API channel. Upang magsimula, pumili ng isa sa mga channel sa ibaba.",
+        "DESC": "Sinusuportahan ng ChannelX ang live-chat widgets, Facebook Messenger, WhatsApp, Emails, atbp., bilang mga channel. Kung nais mong gumawa ng custom na channel, maaari mo itong likhain gamit ang API channel. Upang magsimula, pumili ng isa sa mga channel sa ibaba.",
         "TITLE_NEXT": "Kumpletuhin ang setup",
         "TITLE_FINISH": "Voilà!",
         "CHANNEL": {
@@ -1115,8 +1115,8 @@
         "USER_MESSAGE": "Kumusta",
         "AGENT_MESSAGE": "Kumusta"
       },
-      "BRANDING_TEXT": "Pinapagana ng Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Pinapagana ng ChannelX",
+      "SCRIPT_SETTINGS": "\n      window.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

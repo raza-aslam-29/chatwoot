@@ -17,7 +17,7 @@
       "ERROR": "Si è verificato un errore nella connessione a Shopify. Si prega di riprovare o contattare il supporto se il problema persiste."
     },
     "HEADER": "Integrazioni",
-    "DESCRIPTION": "Chatwoot si integra con più strumenti e servizi per migliorare l'efficienza del tuo team. Esplora l'elenco qui sotto per configurare le tue app preferite.",
+    "DESCRIPTION": "ChannelX si integra con più strumenti e servizi per migliorare l'efficienza del tuo team. Esplora l'elenco qui sotto per configurare le tue app preferite.",
     "LEARN_MORE": "Scopri di più sulle integrazioni",
     "LOADING": "Caricamento integrazioni",
     "SEARCH_PLACEHOLDER": "Cerca integrazioni...",
@@ -133,7 +133,7 @@
         "OPTION_LABEL": "Seleziona un canale",
         "UPDATE": "Aggiorna",
         "BUTTON_TEXT": "Connetti canale",
-        "DESCRIPTION": "Il tuo workspace Slack è ora collegato a Chatwoot. Tuttavia, l'integrazione è attualmente inattiva. Per attivare l'integrazione e collegare un canale a Chatwoot, fare clic sul pulsante qui sotto.\n\n**Nota:** Se stai tentando di collegare un canale privato, aggiungi l'app Chatwoot al canale Slack prima di procedere con questo passaggio.",
+        "DESCRIPTION": "Il tuo workspace Slack è ora collegato a Chatwoot. Tuttavia, l'integrazione è attualmente inattiva. Per attivare l'integrazione e collegare un canale a Chatwoot, fare clic sul pulsante qui sotto.\n\n**Nota:** Se stai tentando di collegare un canale privato, aggiungi l'app ChannelX al canale Slack prima di procedere con questo passaggio.",
         "ATTENTION_REQUIRED": "Attenzione richiesta",
         "EXPIRED": "La tua integrazione con Slack è scaduta. Per continuare a ricevere messaggi su Slack, elimina l'integrazione e connetti nuovamente il tuo workspace."
       },
@@ -235,7 +235,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "App Dashboard",
       "HEADER_BTN_TXT": "Aggiungi una nuova App Dashboard",
-      "SIDEBAR_TXT": "<p><b>App dashboard</b></p><p>Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno di Chatwoot per fornire informazioni aggiuntive agli operatorii. Questa funzione consente di creare un'applicazione in modo indipendente e incorporata all'interno della dashboard per fornire informazioni degli utenti, ad esempio ordini o pagamenti effettuati.</p><p>Quando integri la tua applicazione usando la dashboard Chatwoot, la tua applicazione avrà il context della conversazione e del contatto come evento window. Implementa un listener per l'evento del messaggio sulla tua pagina per ricevere i dati.</p><p>Per aggiungere una nuova app dashboard, clicca sul pulsante 'Aggiungi una nuova app dashboard'.</p>",
+      "SIDEBAR_TXT": "<p><b>App dashboard</b></p><p>Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno di ChannelX per fornire informazioni aggiuntive agli operatorii. Questa funzione consente di creare un'applicazione in modo indipendente e incorporata all'interno della dashboard per fornire informazioni degli utenti, ad esempio ordini o pagamenti effettuati.</p><p>Quando integri la tua applicazione usando la dashboard Chatwoot, la tua applicazione avrà il context della conversazione e del contatto come evento window. Implementa un listener per l'evento del messaggio sulla tua pagina per ricevere i dati.</p><p>Per aggiungere una nuova app dashboard, clicca sul pulsante 'Aggiungi una nuova app dashboard'.</p>",
       "DESCRIPTION": "Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno della dashboard per fornire dati aggiuntivi agli operatori. Questa funzione consente di creare un'applicazione in modo indipendente e incorporarla per fornire informazioni sull'utente, i suoi ordini o la loro cronologia di pagamento precedente.",
       "LEARN_MORE": "Scopri di più sulle App Dashboard",
       "COUNT": "{n} app dashboard | {n} app dashboard",

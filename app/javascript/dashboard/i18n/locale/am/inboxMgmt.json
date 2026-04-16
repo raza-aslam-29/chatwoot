@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "ቻናል ይምረጡ",
-        "BODY": "ከChatwoot ጋር ለመያዝ የሚፈልጉትን አቅራቢ ይምረጡ።."
+        "BODY": "ከChannelX ጋር ለመያዝ የሚፈልጉትን አቅራቢ ይምረጡ።."
       },
       "INBOX": {
         "TITLE": "ኢንቦክስ ይፍጠሩ",
@@ -441,7 +441,7 @@
       },
       "AUTH": {
         "TITLE": "ቻናል ይምረጡ",
-        "DESC": "Chatwoot የቀጥታ ውይይት ዊጅቶች፣ Facebook Messenger፣ WhatsApp፣ ኢሜይሎች እና ሌሎች ቻናሎችን ይደግፋል። በተለይ ቻናል ለመፍጠር ከፈለጉ በAPI ቻናል መፍጠር ይችላሉ። ለመጀመር ከታች አንዱን ቻናል ይምረጡ።.",
+        "DESC": "ChannelX የቀጥታ ውይይት ዊጅቶች፣ Facebook Messenger፣ WhatsApp፣ ኢሜይሎች እና ሌሎች ቻናሎችን ይደግፋል። በተለይ ቻናል ለመፍጠር ከፈለጉ በAPI ቻናል መፍጠር ይችላሉ። ለመጀመር ከታች አንዱን ቻናል ይምረጡ።.",
         "TITLE_NEXT": "ቅንብሩን አሟልተው ያጠናቀቁ",
         "TITLE_FINISH": "እሺ!",
         "CHANNEL": {
@@ -503,7 +503,7 @@
       },
       "FINISH": {
         "TITLE": "ተሳክቷል!",
-        "DESC": "የFacebook ገጹን በChatwoot ጋር በተሳካ ሁኔታ አገናኝተዋል። ቀጣዩ ጊዜ ደንበኛ ገጹን ሲያስተናግድ ውይይቱ በራስህ ኢንቦክስ ውስጥ በራስህ ይታያል።<br>እኛ እንዲሁም በድር ጣቢያዎ በቀላሉ ሊጨምሩት የሚችለውን የዊጅት ስክሪፕት እንሰጣለን። ይህ በድር ጣቢያዎ ሲኖር ደንበኞች ከማንኛውም ውጪ መሣሪያ እገዛ ሳይወስዱ ቀጥታ ከድር ጣቢያዎ መልእክት ማስተናገድ ይችላሉ እና ውይይቱ በChatwoot ውስጥ እዚህ ይታያል።<br>አሪፍ ነው, እኛም እንሞክራለን :)"
+        "DESC": "የFacebook ገጹን በChannelX ጋር በተሳካ ሁኔታ አገናኝተዋል። ቀጣዩ ጊዜ ደንበኛ ገጹን ሲያስተናግድ ውይይቱ በራስህ ኢንቦክስ ውስጥ በራስህ ይታያል።<br>እኛ እንዲሁም በድር ጣቢያዎ በቀላሉ ሊጨምሩት የሚችለውን የዊጅት ስክሪፕት እንሰጣለን። ይህ በድር ጣቢያዎ ሲኖር ደንበኞች ከማንኛውም ውጪ መሣሪያ እገዛ ሳይወስዱ ቀጥታ ከድር ጣቢያዎ መልእክት ማስተናገድ ይችላሉ እና ውይይቱ በChannelX ውስጥ እዚህ ይታያል።<br>አሪፍ ነው, እኛም እንሞክራለን :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "የኢሜል አቅራቢዎን ይምረጡ",
@@ -1115,8 +1115,8 @@
         "USER_MESSAGE": "ሰላም",
         "AGENT_MESSAGE": "ሰላም"
       },
-      "BRANDING_TEXT": "በChatwoot የተነሳ",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "በChannelX የተነሳ",
+      "SCRIPT_SETTINGS": "\n      window.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

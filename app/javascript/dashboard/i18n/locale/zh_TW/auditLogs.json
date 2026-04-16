@@ -6,11 +6,11 @@
     "DESCRIPTION": "稽核日誌儲存您賬戶中的活動記錄，允許您跟蹤和審計您的賬戶、團隊或服務。",
     "LEARN_MORE": "瞭解更多關於審計日誌的資訊",
     "SEARCH_404": "沒有任何項目符合此查詢",
-    "SIDEBAR_TXT": "<p><b>審計日誌</b></p><p>審計日誌是 Chatwoot 系統中事件和操作的痕跡。</p>",
+    "SIDEBAR_TXT": "<p><b>審計日誌</b></p><p>審計日誌是 ChannelX 系統中事件和操作的痕跡。</p>",
     "LIST": {
       "404": "此賬戶中沒有可用的審計日誌。",
       "TITLE": "管理審計日誌",
-      "DESC": "審計日誌是 Chatwoot 系統中事件和操作的痕跡。",
+      "DESC": "審計日誌是 ChannelX 系統中事件和操作的痕跡。",
       "TABLE_HEADER": {
         "ACTIVITY": "User",
         "TIME": "Action",

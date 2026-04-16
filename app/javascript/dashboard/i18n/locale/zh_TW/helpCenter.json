@@ -407,7 +407,7 @@
         "SLUG": {
           "LABEL": "網址代稱",
           "PLACEHOLDER": "類別的URL Slug",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.channelx.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug 為必填項"
         },
         "DESCRIPTION": {
@@ -438,7 +438,7 @@
         "SLUG": {
           "LABEL": "網址代稱",
           "PLACEHOLDER": "類別的URL Slug",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.channelx.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug 為必填項"
         },
         "DESCRIPTION": {
@@ -622,7 +622,7 @@
             "LABEL": "網址代稱",
             "PLACEHOLDER": "類別的URL Slug",
             "ERROR": "Slug 是必填項",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.channelx.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "描述資訊",
@@ -705,7 +705,7 @@
       "CONFIRM_BUTTON_LABEL": "建立",
       "NAME": {
         "LABEL": "姓名",
-        "PLACEHOLDER": "使用者指南 | Chatwoot",
+        "PLACEHOLDER": "使用者指南 | ChannelX",
         "MESSAGE": "為您的門戶選擇一個名稱。",
         "ERROR": "名稱為必填"
       },
@@ -785,7 +785,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS配置",
-            "DESCRIPTION": "登入您的 DNS 提供商賬戶，並新增一個指向 chatwoot.help 的子域名的 CNAME 記錄",
+            "DESCRIPTION": "登入您的 DNS 提供商賬戶，並新增一個指向 channelx.help 的子域名的 CNAME 記錄",
             "COPY": "已成功複製 CNAME",
             "SEND_INSTRUCTIONS": {
               "HEADER": "發送指令",

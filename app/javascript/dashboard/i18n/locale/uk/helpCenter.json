@@ -407,7 +407,7 @@
         "SLUG": {
           "LABEL": "Мітка",
           "PLACEHOLDER": "Мітка категорії для URL-адрес",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.channelx.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Необхідно вказати мітку"
         },
         "DESCRIPTION": {
@@ -438,7 +438,7 @@
         "SLUG": {
           "LABEL": "Мітка",
           "PLACEHOLDER": "Мітка категорії для URL-адрес",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.channelx.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Необхідно вказати мітку"
         },
         "DESCRIPTION": {
@@ -622,7 +622,7 @@
             "LABEL": "Мітка",
             "PLACEHOLDER": "Мітка категорії для URL-адрес",
             "ERROR": "Необхідно вказати мітку",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.channelx.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Опис",
@@ -705,7 +705,7 @@
       "CONFIRM_BUTTON_LABEL": "Створити",
       "NAME": {
         "LABEL": "Ім'я",
-        "PLACEHOLDER": "User Guide | Chatwoot",
+        "PLACEHOLDER": "User Guide | ChannelX",
         "MESSAGE": "Choose an name for your portal.",
         "ERROR": "Назва обов'язкова"
       },
@@ -785,7 +785,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
-            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
+            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to channelx.help",
             "COPY": "Successfully copied CNAME",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Send instructions",

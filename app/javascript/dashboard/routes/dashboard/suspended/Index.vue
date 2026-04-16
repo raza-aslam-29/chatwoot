@@ -3,8 +3,8 @@ import EmptyState from 'dashboard/components/widgets/EmptyState.vue';
 import { onMounted } from 'vue';
 
 const toggleSupportWidgetVisibility = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggleBubbleVisibility('show');
+  if (window.$channelx) {
+    window.$channelx.toggleBubbleVisibility('show');
   }
 };
 

@@ -407,7 +407,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug-ul categoriei pentru url-uri",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.channelx.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug-ul este obligatoriu"
         },
         "DESCRIPTION": {
@@ -438,7 +438,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug-ul categoriei pentru url-uri",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.channelx.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug-ul este obligatoriu"
         },
         "DESCRIPTION": {
@@ -622,7 +622,7 @@
             "LABEL": "Slug",
             "PLACEHOLDER": "Slug-ul categoriei pentru url-uri",
             "ERROR": "Slug-ul este obligatoriu",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.channelx.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Descriere",
@@ -705,7 +705,7 @@
       "CONFIRM_BUTTON_LABEL": "Creeaza",
       "NAME": {
         "LABEL": "Nume",
-        "PLACEHOLDER": "User Guide | Chatwoot",
+        "PLACEHOLDER": "User Guide | ChannelX",
         "MESSAGE": "Choose an name for your portal.",
         "ERROR": "Numele este obligatoriu"
       },
@@ -785,7 +785,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
-            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
+            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to channelx.help",
             "COPY": "Successfully copied CNAME",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Send instructions",

@@ -11,7 +11,9 @@ const validateSSOLoginParams = to => {
   return isLoginRoute && hasValidSSOParams;
 };
 
-export const validateRouteAccess = (to, next, chatwootConfig = {}) => {
+export const validateRouteAccess = (to, next, channelxConfig) => {
+  const resolvedConfig =
+    channelxConfig || window.channelxConfig || {};
   // Pages with ignoreSession:true would be rendered
   // even if there is an active session
   // Used for confirmation or password reset pages
@@ -37,14 +39,14 @@ export const validateRouteAccess = (to, next, chatwootConfig = {}) => {
   // Disable navigation to signup page if signups are disabled
   // Signup route has an attribute (requireSignupEnabled) in it's definition
   const isAnInalidSignupNavigation =
-    chatwootConfig.signupEnabled !== 'true' &&
+    resolvedConfig.signupEnabled !== 'true' &&
     to.meta &&
     to.meta.requireSignupEnabled;
 
   // Disable navigation to SAML login if enterprise is not enabled
   // SAML route has an attribute (requireEnterprise) in it's definition
   const isEnterpriseOnlyPath =
-    chatwootConfig.isEnterprise !== 'true' &&
+    resolvedConfig.isEnterprise !== 'true' &&
     to.meta &&
     to.meta.requireEnterprise;
 

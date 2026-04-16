@@ -17,7 +17,7 @@
       "ERROR": "Shopify-க்கு இணைக்கும்போது பிழை ஏற்பட்டது. தயவுசெய்து மீண்டும் முயற்சிக்கவும் அல்லது பிரச்சினை தொடர்ந்தால் ஆதரவுடன் தொடர்பு கொள்ளவும்."
     },
     "HEADER": "சேர்ப்புகள்",
-    "DESCRIPTION": "Chatwoot பல கருவிகள் மற்றும் சேவைகளுடன் ஒருங்கிணைக்கிறது, உங்கள் குழுவின் திறனை மேம்படுத்த. உங்கள் விருப்ப செயலிகளை அமைக்க கீழே உள்ள பட்டியலை ஆராயவும்.",
+    "DESCRIPTION": "ChannelX பல கருவிகள் மற்றும் சேவைகளுடன் ஒருங்கிணைக்கிறது, உங்கள் குழுவின் திறனை மேம்படுத்த. உங்கள் விருப்ப செயலிகளை அமைக்க கீழே உள்ள பட்டியலை ஆராயவும்.",
     "LEARN_MORE": "ஒருங்கிணைப்புகள் பற்றி மேலும் அறியவும்",
     "LOADING": "Fetching integrations",
     "SEARCH_PLACEHOLDER": "இணைப்புகளைத் தேடு...",
@@ -126,14 +126,14 @@
       },
       "HELP_TEXT": {
         "TITLE": "Using Slack Integration",
-        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through Chatwoot. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in Chatwoot under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
+        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through Chatwoot. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in ChannelX under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
         "SELECTED": "தேர்ந்தெடுக்கப்பட்டது"
       },
       "SELECT_CHANNEL": {
         "OPTION_LABEL": "ஒரு சேனலைத் தேர்ந்தெடுக்கவும்",
         "UPDATE": "புதுப்பிப்பு",
         "BUTTON_TEXT": "சேனலை இணைக்கவும்",
-        "DESCRIPTION": "உங்கள் Slack பணியிடம் இப்போது Chatwoot உடன் இணைக்கப்பட்டுள்ளது. இருப்பினும், இந்த ஒருங்கிணைப்பு தற்போது செயல்படவில்லை. ஒருங்கிணைப்பை செயல்படுத்தி Slack-இல் ஒரு சேனலை Chatwoot உடன் இணைக்க கீழே உள்ள பொத்தானை அழுத்தவும்.\n\n**குறிப்பு:** தனிப்பட்ட சேனலை இணைக்க முயற்சிக்கும்போது, இந்த படியை தொடரும் முன் Slack சேனலில் Chatwoot செயலியை சேர்க்கவும்.",
+        "DESCRIPTION": "உங்கள் Slack பணியிடம் இப்போது ChannelX உடன் இணைக்கப்பட்டுள்ளது. இருப்பினும், இந்த ஒருங்கிணைப்பு தற்போது செயல்படவில்லை. ஒருங்கிணைப்பை செயல்படுத்தி Slack-இல் ஒரு சேனலை ChannelX உடன் இணைக்க கீழே உள்ள பொத்தானை அழுத்தவும்.\n\n**குறிப்பு:** தனிப்பட்ட சேனலை இணைக்க முயற்சிக்கும்போது, இந்த படியை தொடரும் முன் Slack சேனலில் ChannelX செயலியை சேர்க்கவும்.",
         "ATTENTION_REQUIRED": "கவனத்திற்கு",
         "EXPIRED": "உங்கள் Slack ஒருங்கிணைப்பு காலாவதியானது. Slack-இல் செய்திகளை பெற தொடர, ஒருங்கிணைப்பை நீக்கி உங்கள் பணியிடத்தை மீண்டும் இணைக்கவும்."
       },
@@ -235,7 +235,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "டாஷ்போர்டு செயலிகள்",
       "HEADER_BTN_TXT": "புதிய டாஷ்போர்டு செயலியைச் சேர்க்கவும்",
-      "SIDEBAR_TXT": "<p><b>டாஷ்போர்டு செயலிகள்</b></p><p>டாஷ்போர்டு செயலிகள் நிறுவனங்களுக்கு Chatwoot டாஷ்போர்டு உள்ளே ஒரு செயலியை இணைக்க அனுமதிக்கிறது, இது வாடிக்கையாளர் ஆதரவு முகவர்களுக்கு சூழலை வழங்குகிறது. இந்த அம்சம், நீங்கள் தனியாக ஒரு செயலியை உருவாக்கி அதை டாஷ்போர்டில் இணைத்து பயனர் தகவல், அவர்களின் ஆர்டர்கள் அல்லது முந்தைய கட்டண வரலாறு போன்றவற்றை வழங்க உதவுகிறது.</p><p>Chatwoot டாஷ்போர்டில் உங்கள் செயலியை இணைக்கும் போது, உங்கள் செயலி உரையாடல் மற்றும் தொடர்பின் சூழலை ஒரு விண்டோ நிகழ்வாக பெறும். உங்கள் பக்கத்தில் message நிகழ்வுக்கான கேட்கும் செயலியை செயல்படுத்தவும்.</p><p>புதிய டாஷ்போர்டு செயலியை சேர்க்க, 'புதிய டாஷ்போர்டு செயலியைச் சேர்க்க' பொத்தானை கிளிக் செய்யவும்.</p>",
+      "SIDEBAR_TXT": "<p><b>டாஷ்போர்டு செயலிகள்</b></p><p>டாஷ்போர்டு செயலிகள் நிறுவனங்களுக்கு ChannelX டாஷ்போர்டு உள்ளே ஒரு செயலியை இணைக்க அனுமதிக்கிறது, இது வாடிக்கையாளர் ஆதரவு முகவர்களுக்கு சூழலை வழங்குகிறது. இந்த அம்சம், நீங்கள் தனியாக ஒரு செயலியை உருவாக்கி அதை டாஷ்போர்டில் இணைத்து பயனர் தகவல், அவர்களின் ஆர்டர்கள் அல்லது முந்தைய கட்டண வரலாறு போன்றவற்றை வழங்க உதவுகிறது.</p><p>ChannelX டாஷ்போர்டில் உங்கள் செயலியை இணைக்கும் போது, உங்கள் செயலி உரையாடல் மற்றும் தொடர்பின் சூழலை ஒரு விண்டோ நிகழ்வாக பெறும். உங்கள் பக்கத்தில் message நிகழ்வுக்கான கேட்கும் செயலியை செயல்படுத்தவும்.</p><p>புதிய டாஷ்போர்டு செயலியை சேர்க்க, 'புதிய டாஷ்போர்டு செயலியைச் சேர்க்க' பொத்தானை கிளிக் செய்யவும்.</p>",
       "DESCRIPTION": "டாஷ்போர்டு செயலிகள் நிறுவனங்களுக்கு டாஷ்போர்டு உள்ளே ஒரு செயலியை இணைத்து வாடிக்கையாளர் ஆதரவு முகவர்களுக்கு சூழலை வழங்க அனுமதிக்கிறது. இந்த அம்சம், நீங்கள் தனியாக ஒரு செயலியை உருவாக்கி அதை இணைத்து பயனர் தகவல், அவர்களின் ஆர்டர்கள் அல்லது முந்தைய கட்டண வரலாறு போன்றவற்றை வழங்க உதவுகிறது.",
       "LEARN_MORE": "Learn more about Dashboard Apps",
       "COUNT": "{n} டாஷ்போர்டு செயலி | {n} டாஷ்போர்டு செயலிகள்",
