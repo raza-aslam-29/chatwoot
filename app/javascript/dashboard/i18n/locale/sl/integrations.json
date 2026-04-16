@@ -17,7 +17,7 @@
       "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
     },
     "HEADER": "Integracije",
-    "DESCRIPTION": "Chatwoot se povezuje z več orodji in storitvami za izboljšanje učinkovitosti vaše ekipe. Raziščite spodnji seznam za konfiguracijo vaših priljubljenih aplikacij.",
+    "DESCRIPTION": "ChannelX se povezuje z več orodji in storitvami za izboljšanje učinkovitosti vaše ekipe. Raziščite spodnji seznam za konfiguracijo vaših priljubljenih aplikacij.",
     "LEARN_MORE": "Izvedite več o integracijah",
     "LOADING": "Pridobivanje integracij",
     "SEARCH_PLACEHOLDER": "Search integrations...",
@@ -133,7 +133,7 @@
         "OPTION_LABEL": "Izberite kanal",
         "UPDATE": "Posodobi",
         "BUTTON_TEXT": "Poveži kanal",
-        "DESCRIPTION": "Vaš Slack delovni prostor je zdaj povezan s Chatwoot. Vendar pa je integracija trenutno neaktivna. Za aktivacijo integracije in povezavo kanala s Chatwoot, prosimo, kliknite spodnji gumb.\n\n**Opomba:** Če poskušate povezati zasebni kanal, najprej dodajte aplikacijo Chatwoot v Slack kanal, preden nadaljujete s tem korakom.",
+        "DESCRIPTION": "Vaš Slack delovni prostor je zdaj povezan s Chatwoot. Vendar pa je integracija trenutno neaktivna. Za aktivacijo integracije in povezavo kanala s Chatwoot, prosimo, kliknite spodnji gumb.\n\n**Opomba:** Če poskušate povezati zasebni kanal, najprej dodajte aplikacijo ChannelX v Slack kanal, preden nadaljujete s tem korakom.",
         "ATTENTION_REQUIRED": "Potrebna pozornost",
         "EXPIRED": "Vaša integracija Slack je potekla. Če želite še naprej prejemati sporočila na Slack, prosimo, izbrišite integracijo in znova povežite delovno okolje."
       },
@@ -235,7 +235,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "Aplikacije nadzorne plošče",
       "HEADER_BTN_TXT": "Dodaj novo aplikacijo nadzorne plošče",
-      "SIDEBAR_TXT": "<p><b>Aplikacije nadzorne plošče</b></p><p>Aplikacije nadzorne plošče omogočajo organizacijam, da vgradijo aplikacijo znotraj Chatwoot nadzorne plošče, da zagotovijo kontekst za agente za podporo strankam. Ta funkcija vam omogoča, da neodvisno ustvarite aplikacijo in jo vgradite v nadzorno ploščo za prikaz informacij o uporabniku, njihovih naročilih ali pretekli zgodovini plačil.</p><p>Ko vgradite svojo aplikacijo z uporabo nadzorne plošče v Chatwoot, bo vaša aplikacija prejela kontekst pogovora in stika kot dogodek okna. Na svoji strani implementirajte poslušalca za dogodek sporočila, da prejmete kontekst.</p><p>Za dodajanje nove aplikacije nadzorne plošče kliknite na gumb 'Dodaj novo aplikacijo nadzorne plošče'.</p>",
+      "SIDEBAR_TXT": "<p><b>Aplikacije nadzorne plošče</b></p><p>Aplikacije nadzorne plošče omogočajo organizacijam, da vgradijo aplikacijo znotraj ChannelX nadzorne plošče, da zagotovijo kontekst za agente za podporo strankam. Ta funkcija vam omogoča, da neodvisno ustvarite aplikacijo in jo vgradite v nadzorno ploščo za prikaz informacij o uporabniku, njihovih naročilih ali pretekli zgodovini plačil.</p><p>Ko vgradite svojo aplikacijo z uporabo nadzorne plošče v Chatwoot, bo vaša aplikacija prejela kontekst pogovora in stika kot dogodek okna. Na svoji strani implementirajte poslušalca za dogodek sporočila, da prejmete kontekst.</p><p>Za dodajanje nove aplikacije nadzorne plošče kliknite na gumb 'Dodaj novo aplikacijo nadzorne plošče'.</p>",
       "DESCRIPTION": "Aplikacije nadzorne plošče omogočajo organizacijam, da vgradijo aplikacijo znotraj nadzorne plošče, da zagotovijo kontekst za agente za podporo strankam. Ta funkcija vam omogoča, da neodvisno ustvarite aplikacijo in jo vgradite za prikaz informacij o uporabniku, njihovih naročilih ali pretekli zgodovini plačil.",
       "LEARN_MORE": "Izvedite več o aplikacijah nadzorne plošče",
       "COUNT": "{n} dashboard app | {n} dashboard apps",

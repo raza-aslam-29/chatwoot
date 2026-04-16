@@ -123,8 +123,8 @@ const onClickBillingPortal = () => {
 };
 
 const onToggleChatWindow = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggle();
+  if (window.$channelx) {
+    window.$channelx.toggle();
   }
 };
 

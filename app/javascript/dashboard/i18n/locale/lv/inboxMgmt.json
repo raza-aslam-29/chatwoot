@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Ievadiet Jūsu tīmekļa vietnes nosaukumu (piemēram: Acme Inc)"
       },
       "FB": {
-        "HELP": "PS: Pierakstoties mēs iegūstam piekļuvi tikai pie Jūsu lapas ziņojumiem. Chatwoot nekad nevar piekļūt jūsu privātajām ziņām.",
+        "HELP": "PS: Pierakstoties mēs iegūstam piekļuvi tikai pie Jūsu lapas ziņojumiem. ChannelX nekad nevar piekļūt jūsu privātajām ziņām.",
         "CHOOSE_PAGE": "Izvēlieties Lapu",
         "CHOOSE_PLACEHOLDER": "Izvēlieties lapu no saraksta",
         "INBOX_NAME": "Iesūtnes Nosaukums",
@@ -449,7 +449,7 @@
       },
       "AUTH": {
         "TITLE": "Izvēlieties kanālu",
-        "DESC": "Chatwoot atbalsta tiešraides tērzēšanas logrīkus, Facebook Messenger, Twitter profilus, WhatsApp, e-pastus kā kanālus. Ja vēlaties izveidot pielāgotu kanālu, varat to izveidot, izmantojot API kanālu. Lai sāktu, izvēlieties vienu no tālāk norādītajiem kanāliem.",
+        "DESC": "ChannelX atbalsta tiešraides tērzēšanas logrīkus, Facebook Messenger, Twitter profilus, WhatsApp, e-pastus kā kanālus. Ja vēlaties izveidot pielāgotu kanālu, varat to izveidot, izmantojot API kanālu. Lai sāktu, izvēlieties vienu no tālāk norādītajiem kanāliem.",
         "TITLE_NEXT": "Complete the setup",
         "TITLE_FINISH": "Gatavs!",
         "CHANNEL": {
@@ -1123,8 +1123,8 @@
         "USER_MESSAGE": "Sveicināti",
         "AGENT_MESSAGE": "Labdien"
       },
-      "BRANDING_TEXT": "Darbināts ar Chatwoot",
-      "SCRIPT_SETTINGS": "\nwindow.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Darbināts ar ChannelX",
+      "SCRIPT_SETTINGS": "\nwindow.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

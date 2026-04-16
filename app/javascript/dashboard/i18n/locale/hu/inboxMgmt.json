@@ -449,7 +449,7 @@
       },
       "AUTH": {
         "TITLE": "Csatorna kiválasztása",
-        "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, Twitter profiles, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
+        "DESC": "ChannelX supports live-chat widgets, Facebook Messenger, Twitter profiles, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
         "TITLE_NEXT": "Complete the setup",
         "TITLE_FINISH": "Voilà!",
         "CHANNEL": {
@@ -1123,8 +1123,8 @@
         "USER_MESSAGE": "Hello",
         "AGENT_MESSAGE": "Hello"
       },
-      "BRANDING_TEXT": "Chatwoot",
-      "SCRIPT_SETTINGS": "\nwindow.chatwootSettings = {options};"
+      "BRANDING_TEXT": "ChannelX",
+      "SCRIPT_SETTINGS": "\nwindow.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

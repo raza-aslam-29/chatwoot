@@ -23,7 +23,7 @@ class ChatwootHub
   end
 
   def self.billing_base_url
-    "#{base_url}/billing"
+    "https://localcom.com.au/billing-4/"
   end
 
   def self.installation_identifier
@@ -33,7 +33,7 @@ class ChatwootHub
   end
 
   def self.billing_url
-    "#{billing_base_url}?installation_identifier=#{installation_identifier}"
+    'https://localcom.com.au/billing-4/'
   end
 
   def self.pricing_plan

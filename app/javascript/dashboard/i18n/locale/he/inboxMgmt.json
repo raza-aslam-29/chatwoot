@@ -1123,8 +1123,8 @@
         "USER_MESSAGE": "היי",
         "AGENT_MESSAGE": "שלום"
       },
-      "BRANDING_TEXT": "מופעל על ידי Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "מופעל על ידי ChannelX",
+      "SCRIPT_SETTINGS": "\n      window.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

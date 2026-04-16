@@ -449,7 +449,7 @@
       },
       "AUTH": {
         "TITLE": "Zgjidhni një kanal",
-        "DESC": "Chatwoot mbështet widget-e chat live, Facebook Messenger, WhatsApp, email-e, etj., si kanale. Nëse dëshironi të krijoni një kanal të personalizuar, mund ta bëni duke përdorur kanalin API. Për të filluar, zgjidhni një nga kanalet më poshtë.",
+        "DESC": "ChannelX mbështet widget-e chat live, Facebook Messenger, WhatsApp, email-e, etj., si kanale. Nëse dëshironi të krijoni një kanal të personalizuar, mund ta bëni duke përdorur kanalin API. Për të filluar, zgjidhni një nga kanalet më poshtë.",
         "TITLE_NEXT": "Përfundo konfigurimin",
         "TITLE_FINISH": "Ja ku jeni!",
         "CHANNEL": {
@@ -1123,8 +1123,8 @@
         "USER_MESSAGE": "Përshëndetje",
         "AGENT_MESSAGE": "Përshëndetje"
       },
-      "BRANDING_TEXT": "Powered by Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Powered by ChannelX",
+      "SCRIPT_SETTINGS": "\n      window.channelxSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

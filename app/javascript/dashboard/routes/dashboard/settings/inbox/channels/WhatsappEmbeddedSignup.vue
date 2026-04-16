@@ -216,13 +216,13 @@ const launchEmbeddedSignup = async () => {
 
     // Original JS SDK popup flow (fallback)
     await setupFacebookSdk(
-      window.chatwootConfig?.whatsappAppId,
-      window.chatwootConfig?.whatsappApiVersion
+      window.channelxConfig?.whatsappAppId,
+      window.channelxConfig?.whatsappApiVersion
     );
     fbSdkLoaded.value = true;
 
     const code = await initWhatsAppEmbeddedSignup(
-      window.chatwootConfig?.whatsappConfigurationId
+      window.channelxConfig?.whatsappConfigurationId
     );
 
     authCode.value = code;

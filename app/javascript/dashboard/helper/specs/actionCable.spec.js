@@ -13,7 +13,7 @@ vi.mock('dashboard/composables/useImpersonation', () => ({
   }),
 }));
 
-global.chatwootConfig = {
+global.channelxConfig = {
   websocketURL: 'wss://test.chatwoot.com',
 };
 

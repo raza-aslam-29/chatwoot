@@ -1,10 +1,10 @@
 import { useConfig } from '../useConfig';
 
 describe('useConfig', () => {
-  const originalChatwootConfig = window.chatwootConfig;
+  const originalChatwootConfig = window.channelxConfig;
 
   beforeEach(() => {
-    window.chatwootConfig = {
+    window.channelxConfig = {
       hostURL: 'https://example.com',
       vapidPublicKey: 'vapid-key',
       enabledLanguages: ['en', 'fr'],
@@ -14,7 +14,7 @@ describe('useConfig', () => {
   });
 
   afterEach(() => {
-    window.chatwootConfig = originalChatwootConfig;
+    window.channelxConfig = originalChatwootConfig;
   });
 
   it('returns the correct configuration values', () => {
@@ -28,7 +28,7 @@ describe('useConfig', () => {
   });
 
   it('handles missing configuration values', () => {
-    window.chatwootConfig = {};
+    window.channelxConfig = {};
     const config = useConfig();
 
     expect(config.hostURL).toBeUndefined();
@@ -38,8 +38,8 @@ describe('useConfig', () => {
     expect(config.enterprisePlanName).toBeUndefined();
   });
 
-  it('handles undefined window.chatwootConfig', () => {
-    window.chatwootConfig = undefined;
+  it('handles undefined window.channelxConfig', () => {
+    window.channelxConfig = undefined;
     const config = useConfig();
 
     expect(config.hostURL).toBeUndefined();
