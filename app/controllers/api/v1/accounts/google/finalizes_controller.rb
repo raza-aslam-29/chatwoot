@@ -14,6 +14,9 @@ class Api::V1::Accounts::Google::FinalizesController < Api::V1::Accounts::BaseCo
 
     inbox, already_exists = find_or_create_inbox
 
+    # Register the inbox/tenant with the Gateway to map inbound/outbound routing
+    register_with_gateway(gateway_url) if gateway_url.present?
+
     render json: {
       inbox_id: inbox.id,
       already_exists: already_exists
@@ -82,5 +85,12 @@ class Api::V1::Accounts::Google::FinalizesController < Api::V1::Accounts::BaseCo
 
   def parsed_body
     @parsed_body ||= @response.response.parsed
+  end
+
+  def register_with_gateway(gateway_url)
+    GatewayRegistrationService.new(
+      platform_type: :google,
+      platform_id: users_data['email']
+    ).perform
   end
 end
