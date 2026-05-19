@@ -51,44 +51,48 @@ const client = computed(() => {
   return googleClient;
 });
 
-// Google: gateway popup flow
-async function requestGoogleViaGateway(authUrl) {
+// Gateway popup flow — shared between google and microsoft providers.
+// The gateway posts back `{ type: '<provider>_auth', code, state }` after the OAuth redirect.
+async function requestViaGateway(authUrl, provider) {
   const width = 700;
   const height = 700;
   const left = window.screenX + (window.outerWidth - width) / 2;
   const top = window.screenY + (window.outerHeight - height) / 2;
 
-  console.log('[Google OAuth] Opening popup to:', authUrl);
+  const messageType = `${provider}_auth`;
+  const tag = `[${provider} OAuth]`;
+
+  console.log(`${tag} Opening popup to:`, authUrl);
 
   const popup = window.open(
     authUrl,
-    'google_auth',
+    messageType,
     `width=${width},height=${height},left=${left},top=${top}`
   );
 
   if (!popup) {
-    console.error('[Google OAuth] Popup was blocked by the browser!');
+    console.error(`${tag} Popup was blocked by the browser!`);
   } else {
-    console.log('[Google OAuth] Popup opened successfully');
+    console.log(`${tag} Popup opened successfully`);
   }
 
-  console.log('[Google OAuth] Listening for postMessage from gateway...');
+  console.log(`${tag} Listening for postMessage from gateway...`);
 
   return new Promise((resolve, reject) => {
     const handleMessage = async event => {
-      console.log('[Google OAuth] Received message event:', event.origin, event.data);
+      console.log(`${tag} Received message event:`, event.origin, event.data);
 
-      if (!event.data || event.data.type !== 'google_auth') {
-        console.log('[Google OAuth] Ignoring message — type is not google_auth:', event.data?.type);
+      if (!event.data || event.data.type !== messageType) {
+        console.log(`${tag} Ignoring message — type is not ${messageType}:`, event.data?.type);
         return;
       }
 
-      console.log('[Google OAuth] ✅ google_auth message received! Code present:', !!event.data.code);
+      console.log(`${tag} ✅ ${messageType} message received! Code present:`, !!event.data.code);
       window.removeEventListener('message', handleMessage);
 
       const { code, state } = event.data;
       if (!code) {
-        console.error('[Google OAuth] ❌ No code in google_auth message');
+        console.error(`${tag} ❌ No code in ${messageType} message`);
         reject(new Error('No auth code received from gateway'));
         return;
       }
@@ -96,12 +100,12 @@ async function requestGoogleViaGateway(authUrl) {
       try {
         isRequestingAuthorization.value = false;
         isProcessing.value = true;
-        console.log('[Google OAuth] Calling /finalize with code (first 20 chars):', code.substring(0, 20));
-        const response = await googleClient.finalizeCallback({ code, state });
-        console.log('[Google OAuth] ✅ Finalize response:', response.data);
+        console.log(`${tag} Calling /finalize with code (first 20 chars):`, code.substring(0, 20));
+        const response = await client.value.finalizeCallback({ code, state });
+        console.log(`${tag} ✅ Finalize response:`, response.data);
         resolve(response.data);
       } catch (err) {
-        console.error('[Google OAuth] ❌ Finalize API error:', err?.response?.data || err.message);
+        console.error(`${tag} ❌ Finalize API error:`, err?.response?.data || err.message);
         reject(err);
       }
     };
@@ -117,9 +121,9 @@ async function requestAuthorization() {
       data: { url },
     } = response;
 
-    // Google + gateway configured → popup flow
-    if (props.provider === 'google' && GATEWAY_URL) {
-      const result = await requestGoogleViaGateway(url);
+    // Gateway configured → popup flow (works for both google and microsoft)
+    if (GATEWAY_URL) {
+      const result = await requestViaGateway(url, props.provider);
       isProcessing.value = false;
       useAlert(t('INBOX_MGMT.FINISH.MESSAGE'));
       router.replace({
@@ -131,7 +135,7 @@ async function requestAuthorization() {
           : { page: 'new', inbox_id: result.inbox_id },
       });
     } else {
-      // Microsoft or no gateway → original redirect flow
+      // No gateway → original redirect flow
       window.location.href = url;
     }
   } catch (error) {
