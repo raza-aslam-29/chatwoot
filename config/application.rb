@@ -48,6 +48,11 @@ module Chatwoot
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('enterprise/lib')
     config.eager_load_paths << Rails.root.join('enterprise/listeners')
+
+    # Verify HMAC signatures the Channelx gateway attaches to forwarded
+    # webhook payloads. No-op when the header is absent on incoming requests.
+    require Rails.root.join('lib/rack/gateway_signature_verifier')
+    config.middleware.use Rack::GatewaySignatureVerifier
     # rubocop:disable Rails/FilePath
     config.eager_load_paths += Dir["#{Rails.root}/enterprise/app/**"]
     # rubocop:enable Rails/FilePath
