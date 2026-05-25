@@ -7,6 +7,7 @@ class Api::V1::Accounts::Whatsapp::AuthorizationsController < Api::V1::Accounts:
   def create
     validate_embedded_signup_params!
     channel = process_embedded_signup
+    register_with_gateway(channel.inbox) if ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
     render_success_response(channel.inbox)
   rescue StandardError => e
     render_error_response(e)
@@ -73,5 +74,14 @@ class Api::V1::Accounts::Whatsapp::AuthorizationsController < Api::V1::Accounts:
     return if missing_params.empty?
 
     raise ArgumentError, "Required parameters are missing: #{missing_params.join(', ')}"
+  end
+
+  def register_with_gateway(inbox)
+    GatewayRegistrationService.new(
+      platform_type: 'whatsapp',
+      platform_id: inbox.channel.phone_number
+    ).perform
+  rescue StandardError => e
+    Rails.logger.error "[WHATSAPP AUTHORIZATION] Gateway registration failed: #{e.message}"
   end
 end

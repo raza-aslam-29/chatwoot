@@ -6,6 +6,7 @@ class Webhooks::WhatsappEventsJob < MutexApplicationJob
   retry_on LockAcquisitionError, wait: 2.seconds, attempts: 20
 
   def perform(params = {})
+    params = params.with_indifferent_access
     channel = find_channel_from_whatsapp_business_payload(params)
 
     if channel_is_inactive?(channel)
@@ -114,18 +115,21 @@ class Webhooks::WhatsappEventsJob < MutexApplicationJob
   def find_channel_from_whatsapp_business_payload(params)
     # for the case where facebook cloud api support multiple numbers for a single app
     # https://github.com/chatwoot/chatwoot/issues/4712#issuecomment-1173838350
-    # we will give priority to the phone_number in the payload
-    return get_channel_from_wb_payload(params) if params[:object] == 'whatsapp_business_account'
+    # we will give priority to the phone_number_id in the payload
+    if params[:object] == 'whatsapp_business_account'
+      channel = get_channel_from_wb_payload(params)
+      return channel if channel.present?
+    end
 
     find_channel_by_url_param(params)
   end
 
   def get_channel_from_wb_payload(wb_params)
-    phone_number = "+#{wb_params[:entry].first[:changes].first.dig(:value, :metadata, :display_phone_number)}"
-    phone_number_id = wb_params[:entry].first[:changes].first.dig(:value, :metadata, :phone_number_id)
-    channel = Channel::Whatsapp.find_by(phone_number: phone_number)
-    # validate to ensure the phone number id matches the whatsapp channel
-    return channel if channel && channel.provider_config['phone_number_id'] == phone_number_id
+    phone_number_id = wb_params.dig(:entry, 0, :changes, 0, :value, :metadata, :phone_number_id)
+    return unless phone_number_id
+
+    # Find exactly by phone_number_id rather than depending on phone number format matching
+    Channel::Whatsapp.where("provider_config->>'phone_number_id' = ?", phone_number_id.to_s).first
   end
 end
 
