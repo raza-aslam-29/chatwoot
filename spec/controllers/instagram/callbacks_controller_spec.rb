@@ -69,6 +69,49 @@ RSpec.describe Instagram::CallbacksController do
       end
     end
 
+    context 'when authorization is successful via ChannelX Gateway' do
+      let(:gateway_url) { 'https://gateway.example.com' }
+      let(:source_server) { 'https://chatwoot.example.com' }
+      let(:raw_state_token) { "#{account.id}|valid_token" }
+      let(:encoded_state) do
+        Base64.urlsafe_encode64(
+          { token: raw_state_token, source_server: source_server }.to_json,
+          padding: false
+        )
+      end
+      let(:gateway_params) { { code: 'valid_code', state: encoded_state } }
+      let(:registration_service) { instance_double(GatewayRegistrationService) }
+
+      before do
+        allow(auth_code_object).to receive(:get_token).and_return(access_token)
+        allow(controller).to receive(:verify_instagram_token).with(raw_state_token).and_return(account.id)
+        allow(GatewayRegistrationService).to receive(:new).and_return(registration_service)
+        allow(registration_service).to receive(:perform)
+      end
+
+      it 'exchanges token with gateway redirect URI and creates channel/inbox' do
+        with_modified_env CHANNELX_GATEWAY_URL: gateway_url do
+          expect(auth_code_object).to receive(:get_token).with(
+            'valid_code',
+            redirect_uri: "#{gateway_url}/instagram/callback",
+            grant_type: 'authorization_code'
+          ).and_return(access_token)
+
+          expect(GatewayRegistrationService).to receive(:new).with(
+            platform_type: 'facebook',
+            platform_id: '12345'
+          ).and_return(registration_service)
+          expect(registration_service).to receive(:perform)
+
+          expect do
+            get :show, params: gateway_params
+          end.to change(Channel::Instagram, :count).by(1).and change(Inbox, :count).by(1)
+
+          expect(response).to redirect_to(app_instagram_inbox_agents_url(account_id: account.id, inbox_id: Inbox.last.id))
+        end
+      end
+    end
+
     context 'when user denies authorization' do
       it 'redirects to error page with authorization error details' do
         get :show, params: error_params

@@ -6,8 +6,11 @@ class InstagramChannel extends ApiClient {
     super('instagram', { accountScoped: true });
   }
 
-  generateAuthorization(payload) {
-    return axios.post(`${this.url}/authorization`, payload);
+  generateAuthorization(payload = {}) {
+    return axios.post(`${this.url}/authorization`, {
+      source_server: window.location.origin,
+      ...payload,
+    });
   }
 }
 

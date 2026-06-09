@@ -19,14 +19,20 @@ class Instagram::CallbacksController < ApplicationController
 
   # Process the authorization code and create inbox
   def process_successful_authorization
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    callback_redirect_uri = gateway_url.present? ? "#{gateway_url}/#{provider_name}/callback" : "#{base_url}/#{provider_name}/callback"
+
     @response = instagram_client.auth_code.get_token(
       oauth_code,
-      redirect_uri: "#{base_url}/#{provider_name}/callback",
+      redirect_uri: callback_redirect_uri,
       grant_type: 'authorization_code'
     )
 
     @long_lived_token_response = exchange_for_long_lived_token(@response.token)
     inbox, already_exists = find_or_create_inbox
+
+    # Register the inbox/tenant with the Gateway to map inbound/outbound routing
+    register_with_gateway(gateway_url, inbox) if gateway_url.present?
 
     if already_exists
       redirect_to app_instagram_inbox_settings_url(account_id: account_id, inbox_id: inbox.id)
@@ -144,9 +150,22 @@ class Instagram::CallbacksController < ApplicationController
   end
 
   def account_id
-    return unless params[:state]
+    token = parsed_state_token
+    return unless token
 
-    verify_instagram_token(params[:state])
+    verify_instagram_token(token)
+  end
+
+  # Transparently decodes a gateway state JSON or falls back to raw token
+  def parsed_state_token
+    return nil if params[:state].blank?
+
+    begin
+      decoded = JSON.parse(Base64.urlsafe_decode64(params[:state]))
+      decoded['token'] || decoded['sgid'] || params[:state]
+    rescue StandardError
+      params[:state]
+    end
   end
 
   def oauth_code
@@ -159,5 +178,12 @@ class Instagram::CallbacksController < ApplicationController
 
   def provider_name
     'instagram'
+  end
+
+  def register_with_gateway(gateway_url, inbox)
+    GatewayRegistrationService.new(
+      platform_type: 'facebook',
+      platform_id: inbox.channel.instagram_id
+    ).perform
   end
 end
