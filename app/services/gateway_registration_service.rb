@@ -24,6 +24,13 @@ class GatewayRegistrationService
 
     response = HTTParty.post(register_uri.to_s, body: body, headers: request_headers(body))
 
+    # If the gateway rejects the stored API key (e.g. gateway DB was reset), clear keys and retry with bootstrap token
+    if response.code == 401 && self.class.gateway_api_key.present?
+      Rails.logger.warn '[GatewayRegistration] Gateway returned 401 Unauthorized. Clearing keys and retrying...'
+      clear_keys!
+      response = HTTParty.post(register_uri.to_s, body: body, headers: request_headers(body))
+    end
+
     if response.success?
       persist_keys_from_response(response)
     else
@@ -100,5 +107,11 @@ class GatewayRegistrationService
 
   def base_url
     ENV.fetch('FRONTEND_URL', 'http://localhost:3000')
+  end
+
+  def clear_keys!
+    InstallationConfig.find_by(name: API_KEY_CONFIG)&.destroy
+    InstallationConfig.find_by(name: HMAC_KEY_CONFIG)&.destroy
+    GlobalConfig.clear_cache
   end
 end
