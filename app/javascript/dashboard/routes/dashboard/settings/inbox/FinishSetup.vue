@@ -48,13 +48,6 @@ const hasDuplicateInstagramInbox = computed(() => {
   );
 });
 
-const shouldShowWhatsAppWebhookDetails = computed(() => {
-  return (
-    isAWhatsAppCloudChannel.value &&
-    currentInbox.value.provider_config?.source !== 'embedded_signup'
-  );
-});
-
 const isWhatsAppEmbeddedSignup = computed(() => {
   return (
     isAWhatsAppCloudChannel.value &&
@@ -81,20 +74,14 @@ const message = computed(() => {
     )}`;
   }
 
-  if (isAWhatsAppCloudChannel.value && shouldShowWhatsAppWebhookDetails.value) {
+  if (isAWhatsAppCloudChannel.value) {
     return `${t('INBOX_MGMT.FINISH.MESSAGE')}. ${t(
-      'INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.SUBTITLE'
+      'INBOX_MGMT.FINISH.WHATSAPP_QR_INSTRUCTION'
     )}`;
   }
 
   if (currentInbox.value.web_widget_script) {
     return t('INBOX_MGMT.FINISH.WEBSITE_SUCCESS');
-  }
-
-  if (isWhatsAppEmbeddedSignup.value) {
-    return `${t('INBOX_MGMT.FINISH.MESSAGE')}. ${t(
-      'INBOX_MGMT.FINISH.WHATSAPP_QR_INSTRUCTION'
-    )}`;
   }
 
   return t('INBOX_MGMT.FINISH.MESSAGE');
@@ -188,26 +175,6 @@ onMounted(() => {
             v-if="isATwilioWhatsAppChannel"
             lang="html"
             :script="currentInbox.callback_webhook_url"
-          />
-        </div>
-        <div
-          v-if="shouldShowWhatsAppWebhookDetails"
-          class="w-[50%] max-w-[50%] ml-[25%]"
-        >
-          <p class="mt-8 font-medium text-n-slate-11">
-            {{ $t('INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.WEBHOOK_URL') }}
-          </p>
-          <woot-code lang="html" :script="currentInbox.callback_webhook_url" />
-          <p class="mt-8 font-medium text-n-slate-11">
-            {{
-              $t(
-                'INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.WEBHOOK_VERIFICATION_TOKEN'
-              )
-            }}
-          </p>
-          <woot-code
-            lang="html"
-            :script="currentInbox.provider_config.webhook_verify_token"
           />
         </div>
         <div class="w-[50%] max-w-[50%] ml-[25%]">

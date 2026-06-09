@@ -56,6 +56,8 @@ class Whatsapp::WebhookSetupService
   end
 
   def setup_webhook
+    return if ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
+
     callback_url = build_callback_url
     verify_token = @channel.provider_config['webhook_verify_token']
 
