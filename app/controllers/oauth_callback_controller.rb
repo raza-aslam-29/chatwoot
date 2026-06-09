@@ -1,8 +1,11 @@
 class OauthCallbackController < ApplicationController
   def show
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    callback_redirect_uri = gateway_url.present? ? "#{gateway_url}/#{provider_name}/callback" : "#{base_url}/#{provider_name}/callback"
+
     @response = oauth_client.auth_code.get_token(
       oauth_code,
-      redirect_uri: "#{base_url}/#{provider_name}/callback"
+      redirect_uri: callback_redirect_uri
     )
 
     handle_response
@@ -15,6 +18,9 @@ class OauthCallbackController < ApplicationController
 
   def handle_response
     inbox, already_exists = find_or_create_inbox
+
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    register_with_gateway(gateway_url) if gateway_url.present?
 
     if already_exists
       redirect_to app_email_inbox_settings_url(account_id: account.id, inbox_id: inbox.id)
@@ -59,6 +65,10 @@ class OauthCallbackController < ApplicationController
     raise NotImplementedError
   end
 
+  def register_with_gateway(gateway_url)
+    # To be implemented by subclasses if needed
+  end
+
   def oauth_client
     raise NotImplementedError
   end
@@ -84,10 +94,26 @@ class OauthCallbackController < ApplicationController
   def account_from_signed_id
     raise ActionController::BadRequest, 'Missing state variable' if params[:state].blank?
 
-    account = GlobalID::Locator.locate_signed(params[:state])
+    token = parsed_state_token
+    account = GlobalID::Locator.locate_signed(token)
     raise 'Invalid or expired state' if account.nil?
 
     account
+  end
+
+  def parsed_state_token
+    return nil if params[:state].blank?
+
+    begin
+      padded_state = params[:state]
+      missing_padding = padded_state.length % 4
+      padded_state += '=' * (4 - missing_padding) if missing_padding > 0
+
+      decoded = JSON.parse(Base64.urlsafe_decode64(padded_state))
+      decoded['sgid'] || params[:state]
+    rescue StandardError
+      params[:state]
+    end
   end
 
   def account

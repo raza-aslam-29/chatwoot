@@ -24,4 +24,11 @@ class Google::CallbacksController < OauthCallbackController
     # from GoogleConcern
     google_client
   end
+
+  def register_with_gateway(gateway_url)
+    GatewayRegistrationService.new(
+      platform_type: :google,
+      platform_id: users_data['email']
+    ).perform
+  end
 end
