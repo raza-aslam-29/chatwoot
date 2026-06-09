@@ -45,14 +45,16 @@ module ConversationReplyMailerHelper
   end
 
   def base_smtp_settings(domain)
+    # If the domain is Gmail, use SSL on port 465 because port 587 (TLS) is blocked/refused in this network environment.
+    use_ssl = domain == 'smtp.gmail.com'
     {
       address: domain,
-      port: 587,
+      port: use_ssl ? 465 : 587,
       user_name: @channel.imap_login,
       password: @channel.provider_config['access_token'],
       domain: domain,
-      tls: false,
-      enable_starttls_auto: true,
+      tls: use_ssl,
+      enable_starttls_auto: !use_ssl,
       openssl_verify_mode: 'none',
       open_timeout: 15,
       read_timeout: 15,

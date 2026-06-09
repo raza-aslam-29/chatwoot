@@ -279,6 +279,7 @@ Rails.application.routes.draw do
 
           namespace :google do
             resource :authorization, only: [:create]
+            resource :finalize, only: [:create]
           end
 
           namespace :instagram do

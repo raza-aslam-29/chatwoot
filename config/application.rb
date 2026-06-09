@@ -38,6 +38,12 @@ module Chatwoot
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # Relax Cross-Origin-Opener-Policy to same-origin-allow-popups
+    # This keeps window.opener intact for cross-origin OAuth/Gateway popups
+    config.action_dispatch.default_headers.merge!(
+      'Cross-Origin-Opener-Policy' => 'same-origin-allow-popups'
+    )
+
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('enterprise/lib')
     config.eager_load_paths << Rails.root.join('enterprise/listeners')
