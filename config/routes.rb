@@ -275,6 +275,7 @@ Rails.application.routes.draw do
 
           namespace :microsoft do
             resource :authorization, only: [:create]
+            resource :finalize, only: [:create]
           end
 
           namespace :google do
