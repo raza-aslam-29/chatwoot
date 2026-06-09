@@ -6,7 +6,9 @@ import { useAlert } from 'dashboard/composables';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { required } from '@vuelidate/validators';
 import LoadingState from 'dashboard/components/widgets/LoadingState.vue';
+import facebookClient from 'dashboard/api/channel/facebookClient';
 
+import { useI18n } from 'vue-i18n';
 import ChannelApi from '../../../../../api/channels';
 import PageHeader from '../../SettingsSubPageHeader.vue';
 import router from '../../../../index';
@@ -25,20 +27,24 @@ export default {
     ComboBox,
   },
   setup() {
-    const { accountId } = useAccount();
     const { replaceInstallationName } = useBranding();
+    const { t } = useI18n();
+    const { accountId } = useAccount();
     return {
       accountId,
       replaceInstallationName,
+      t,
       v$: useVuelidate(),
     };
   },
   data() {
     return {
+      isFetching: false,
+      isProcessing: false,
+      userAccessToken: '',
       isCreating: false,
       hasError: false,
       omniauth_token: '',
-      user_access_token: '',
       channel: 'facebook',
       selectedPage: { name: null, id: null },
       pageName: '',
@@ -64,7 +70,7 @@ export default {
 
   computed: {
     showLoader() {
-      return !this.user_access_token || this.isCreating;
+      return this.isFetching || this.isProcessing || this.isCreating;
     },
     getSelectablePages() {
       return this.pageList.filter(item => !item.exists);
@@ -75,27 +81,96 @@ export default {
         label: name,
       }));
     },
+    emptyState() {
+      return this.pageList.length === 0;
+    },
   },
 
   mounted() {
     window.fbAsyncInit = this.runFBInit;
+
+    // Handle redirect back from gateway-based Facebook OAuth flow
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorType = urlParams.get('error_type');
+    const errorMessage = urlParams.get('error_message');
+
+    // Clean up query params from URL immediately
+    window.history.replaceState({}, document.title, window.location.pathname);
+
+    if (errorMessage || errorType) {
+      this.hasLoginStarted = true;
+      this.hasError = true;
+      this.errorStateMessage = errorMessage || this.$t('INBOX_MGMT.DETAILS.ERROR_FB_AUTH');
+      return;
+    }
   },
 
   methods: {
+    async requestFacebookViaGateway(authUrl) {
+      const width = 700;
+      const height = 700;
+      const left = window.screenX + (window.outerWidth - width) / 2;
+      const top = window.screenY + (window.outerHeight - height) / 2;
+
+      const popup = window.open(
+        authUrl,
+        'facebook_auth',
+        `width=${width},height=${height},left=${left},top=${top}`
+      );
+
+      return new Promise((resolve, reject) => {
+        const handleMessage = async event => {
+          if (!event.data || event.data.type !== 'facebook_auth') return;
+
+          window.removeEventListener('message', handleMessage);
+          popup.close();
+
+          const { code } = event.data;
+          if (!code) {
+            reject(new Error('No auth code received'));
+            return;
+          }
+
+          try {
+            this.isProcessing = true;
+            const response = await facebookClient.finalizeCallback({ code });
+            resolve(response.data.user_access_token);
+          } catch (err) {
+            reject(err);
+          } finally {
+            this.isProcessing = false;
+          }
+        };
+        window.addEventListener('message', handleMessage);
+      });
+    },
+
     async startLogin() {
       this.hasLoginStarted = true;
+      const gatewayUrl = window.chatwootConfig?.channelxGatewayUrl;
+      if (gatewayUrl) {
+        // Gateway configured → popup flow
+        const loginUrl = `${gatewayUrl}/facebook/login?source_server=${encodeURIComponent(window.location.origin)}&account_id=${this.accountId}`;
+        try {
+          const userAccessToken = await this.requestFacebookViaGateway(loginUrl);
+          this.userAccessToken = userAccessToken;
+          this.fetchPages(userAccessToken);
+        } catch (error) {
+          useAlert(this.t('INBOX_MGMT.ADD.FB.ERROR_MESSAGE'));
+          this.hasLoginStarted = false;
+        }
+        return;
+      }
+
+      // No gateway → fallback to FB JS SDK popup (self-hosted installs)
       try {
-        // this will load the SDK in a promise, and resolve it when the sdk is loaded
-        // in case the SDK is already present, it will resolve immediately
         await this.loadFBsdk();
-        this.runFBInit(); // run init anyway, `tryFBlogin` won't wait for `fbAsyncInit` otherwise.
-        this.tryFBlogin(); // make an attempt to login
+        this.runFBInit();
+        this.tryFBlogin();
       } catch (error) {
         if (error.name === 'ScriptLoaderError') {
-          // if the error was related to script loading, we show a toast
           useAlert(this.$t('INBOX_MGMT.DETAILS.ERROR_FB_LOADING'));
         } else {
-          // if the error was anything else, we capture it and show a toast
           Sentry.captureException(error);
           useAlert(this.$t('INBOX_MGMT.DETAILS.ERROR_FB_AUTH'));
         }
@@ -144,10 +219,8 @@ export default {
           if (response.status === 'connected') {
             this.fetchPages(response.authResponse.accessToken);
           } else if (response.status === 'not_authorized') {
-            // eslint-disable-next-line no-console
             console.error('FACEBOOK AUTH ERROR', response);
             this.hasError = true;
-            // The person is logged into Facebook, but not your app.
             this.errorStateMessage = this.$t(
               'INBOX_MGMT.DETAILS.ERROR_FB_UNAUTHORIZED'
             );
@@ -155,11 +228,8 @@ export default {
               'INBOX_MGMT.DETAILS.ERROR_FB_UNAUTHORIZED_HELP'
             );
           } else {
-            // eslint-disable-next-line no-console
             console.error('FACEBOOK AUTH ERROR', response);
             this.hasError = true;
-            // The person is not logged into Facebook, so we're not sure if
-            // they are logged into this app or not.
             this.errorStateMessage = this.$t(
               'INBOX_MGMT.DETAILS.ERROR_FB_AUTH'
             );
@@ -174,6 +244,7 @@ export default {
     },
 
     async fetchPages(_token) {
+      this.isFetching = true;
       try {
         const response = await ChannelApi.fetchFacebookPages(
           _token,
@@ -183,15 +254,17 @@ export default {
           data: { data },
         } = response;
         this.pageList = data.page_details;
-        this.user_access_token = data.user_access_token;
+        this.userAccessToken = data.user_access_token;
       } catch (error) {
         // Ignore error
+      } finally {
+        this.isFetching = false;
       }
     },
 
     channelParams() {
       return {
-        user_access_token: this.user_access_token,
+        user_access_token: this.userAccessToken,
         page_access_token: this.selectedPage.access_token,
         page_id: this.selectedPage.id,
         inbox_name: this.selectedPage.name?.trim(),
@@ -226,7 +299,7 @@ export default {
       v-if="!hasLoginStarted"
       class="flex flex-col items-center justify-center h-full text-center"
     >
-      <a href="#" @click="startLogin()">
+      <a href="#" @click.prevent="startLogin()">
         <img
           class="w-auto h-10 rounded-md"
           src="~dashboard/assets/images/channels/facebook_login.png"
