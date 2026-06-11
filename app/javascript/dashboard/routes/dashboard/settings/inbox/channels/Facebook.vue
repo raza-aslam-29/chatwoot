@@ -147,7 +147,7 @@ export default {
 
     async startLogin() {
       this.hasLoginStarted = true;
-      const gatewayUrl = window.chatwootConfig?.channelxGatewayUrl;
+      const gatewayUrl = window.channelxConfig?.channelxGatewayUrl;
       if (gatewayUrl) {
         // Gateway configured → popup flow
         const loginUrl = `${gatewayUrl}/facebook/login?source_server=${encodeURIComponent(window.location.origin)}&account_id=${this.accountId}`;

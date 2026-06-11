@@ -15,7 +15,7 @@ const router = useRouter();
 const { t } = useI18n();
 
 // ── Gateway detection ──────────────────────────────────────────────────────
-const gatewayUrl = window.chatwootConfig?.channelxGatewayUrl || '';
+const gatewayUrl = window.channelxConfig?.channelxGatewayUrl || '';
 const useGateway = computed(() => !!gatewayUrl);
 
 // ── Gateway flow state ─────────────────────────────────────────────────────

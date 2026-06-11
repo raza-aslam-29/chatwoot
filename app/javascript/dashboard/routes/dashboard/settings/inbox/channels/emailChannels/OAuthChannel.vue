@@ -42,7 +42,7 @@ const isProcessing = ref(false);
 
 const showLoader = computed(() => isRequestingAuthorization.value || isProcessing.value);
 
-const GATEWAY_URL = window.chatwootConfig?.channelxGatewayUrl || '';
+const GATEWAY_URL = window.channelxConfig?.channelxGatewayUrl || '';
 
 const client = computed(() => {
   if (props.provider === 'microsoft') {

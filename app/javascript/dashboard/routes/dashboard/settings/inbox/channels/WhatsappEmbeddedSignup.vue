@@ -198,11 +198,11 @@ const launchEmbeddedSignup = async () => {
       'INBOX_MGMT.ADD.WHATSAPP.EMBEDDED_SIGNUP.AUTH_PROCESSING'
     );
 
-    const gatewayUrl = window.chatwootConfig?.channelxGatewayUrl;
+    const gatewayUrl = window.channelxConfig?.channelxGatewayUrl;
 
     if (gatewayUrl) {
       // Gateway popup flow
-      const configId = window.chatwootConfig?.whatsappConfigurationId || '';
+      const configId = window.channelxConfig?.whatsappConfigurationId || '';
       const sourceServer = encodeURIComponent(window.location.origin);
       const authUrl = `${gatewayUrl}/whatsapp_signup?source_server=${sourceServer}&config_id=${configId}`;
 
