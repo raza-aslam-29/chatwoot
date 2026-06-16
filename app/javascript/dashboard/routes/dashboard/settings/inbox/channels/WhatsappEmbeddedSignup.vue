@@ -162,6 +162,35 @@ const handleEmbeddedSignupData = async data => {
 
 const handleSignupMessage = createMessageHandler(handleEmbeddedSignupData);
 
+const requestWhatsAppViaGateway = async (authUrl) => {
+  const width = 800;
+  const height = 750;
+  const left = window.screenX + (window.outerWidth - width) / 2;
+  const top = window.screenY + (window.outerHeight - height) / 2;
+
+  const popup = window.open(
+    authUrl,
+    'whatsapp_auth',
+    `width=${width},height=${height},left=${left},top=${top}`
+  );
+
+  return new Promise((resolve, reject) => {
+    const handleGatewayMessage = (event) => {
+      if (!event.data || event.data.type !== 'whatsapp_embedded_auth') return;
+      window.removeEventListener('message', handleGatewayMessage);
+      popup.close();
+
+      const { code, data } = event.data;
+      if (code && data) {
+        resolve({ code, data });
+      } else {
+        reject(new Error('Auth failed via gateway'));
+      }
+    };
+    window.addEventListener('message', handleGatewayMessage);
+  });
+};
+
 const launchEmbeddedSignup = async () => {
   try {
     isAuthenticating.value = true;
@@ -169,6 +198,23 @@ const launchEmbeddedSignup = async () => {
       'INBOX_MGMT.ADD.WHATSAPP.EMBEDDED_SIGNUP.AUTH_PROCESSING'
     );
 
+    const gatewayUrl = window.chatwootConfig?.channelxGatewayUrl;
+
+    if (gatewayUrl) {
+      // Gateway popup flow
+      const configId = window.chatwootConfig?.whatsappConfigurationId || '';
+      const sourceServer = encodeURIComponent(window.location.origin);
+      const authUrl = `${gatewayUrl}/whatsapp_signup?source_server=${sourceServer}&config_id=${configId}`;
+
+      const { code, data } = await requestWhatsAppViaGateway(authUrl);
+      authCode.value = code;
+      authCodeReceived.value = true;
+      businessData.value = data;
+      completeSignupFlow(businessData.value);
+      return;
+    }
+
+    // Original JS SDK popup flow (fallback)
     await setupFacebookSdk(
       window.chatwootConfig?.whatsappAppId,
       window.chatwootConfig?.whatsappApiVersion

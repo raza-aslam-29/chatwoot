@@ -39,9 +39,20 @@ module Chatwoot
     config.load_defaults 7.0
     config.rails_i18n.enabled_modules = [:pluralization]
 
+    # Relax Cross-Origin-Opener-Policy to same-origin-allow-popups
+    # This keeps window.opener intact for cross-origin OAuth/Gateway popups
+    config.action_dispatch.default_headers.merge!(
+      'Cross-Origin-Opener-Policy' => 'same-origin-allow-popups'
+    )
+
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('enterprise/lib')
     config.eager_load_paths << Rails.root.join('enterprise/listeners')
+
+    # Verify HMAC signatures the Channelx gateway attaches to forwarded
+    # webhook payloads. No-op when the header is absent on incoming requests.
+    require Rails.root.join('lib/rack/gateway_signature_verifier')
+    config.middleware.use Rack::GatewaySignatureVerifier
     # rubocop:disable Rails/FilePath
     config.eager_load_paths += Dir["#{Rails.root}/enterprise/app/**"]
     # rubocop:enable Rails/FilePath

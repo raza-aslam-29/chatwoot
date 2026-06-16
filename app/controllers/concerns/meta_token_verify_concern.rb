@@ -19,10 +19,22 @@ module MetaTokenVerifyConcern
   private
 
   def verify_meta_signature!
+    return if valid_gateway_signature?
     return unless meta_signature_verification_required?
     return if valid_meta_signature?
 
     head :unauthorized
+  end
+
+  def valid_gateway_signature?
+    signature = request.headers['X-Channelx-Signature']
+    return false if signature.blank?
+
+    hmac_key = ENV.fetch('CHANNELX_GATEWAY_HMAC_KEY', nil) || GatewayRegistrationService.hmac_key
+    return false if hmac_key.blank?
+
+    expected_signature = OpenSSL::HMAC.hexdigest('SHA256', hmac_key, meta_request_body)
+    ActiveSupport::SecurityUtils.secure_compare(expected_signature, signature)
   end
 
   def valid_meta_signature?

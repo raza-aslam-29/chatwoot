@@ -12,6 +12,10 @@ RSpec.describe 'Callbacks API', type: :request do
       [{ 'id' => facebook_page.page_id, 'access_token' => SecureRandom.hex(10) }]
     )
     allow(koala_oauth).to receive(:exchange_access_token_info).and_return('access_token' => SecureRandom.hex(10))
+
+    registration_service = instance_double(GatewayRegistrationService)
+    allow(GatewayRegistrationService).to receive(:new).and_return(registration_service)
+    allow(registration_service).to receive(:perform)
   end
 
   let(:account) { create(:account) }

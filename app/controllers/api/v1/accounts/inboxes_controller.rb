@@ -43,6 +43,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
       )
       @inbox.save!
     end
+    register_whatsapp_with_gateway(@inbox) if whatsapp_inbox_with_gateway?
   end
 
   def update
@@ -185,6 +186,20 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def get_channel_attributes(channel_type)
     channel_type.constantize.const_defined?(:EDITABLE_ATTRS) ? channel_type.constantize::EDITABLE_ATTRS.presence : []
+  end
+
+  def whatsapp_inbox_with_gateway?
+    ENV.fetch('CHANNELX_GATEWAY_URL', '').present? &&
+      @inbox&.channel.is_a?(Channel::Whatsapp)
+  end
+
+  def register_whatsapp_with_gateway(inbox)
+    GatewayRegistrationService.new(
+      platform_type: 'whatsapp',
+      platform_id: inbox.channel.phone_number
+    ).perform
+  rescue StandardError => e
+    Rails.logger.error "[WHATSAPP] Gateway registration failed: #{e.message}"
   end
 end
 

@@ -15,6 +15,8 @@ class Api::V1::Accounts::CallbacksController < Api::V1::Accounts::BaseController
       set_instagram_id(page_access_token, facebook_channel)
       set_avatar(@facebook_inbox, page_id)
     end
+
+    register_with_gateway(@facebook_inbox) if ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
   rescue StandardError => e
     ChatwootExceptionTracker.new(e).capture_exception
     Rails.logger.error "Error in register_facebook_page: #{e.message}"
@@ -78,10 +80,12 @@ class Api::V1::Accounts::CallbacksController < Api::V1::Accounts::BaseController
       fb_page&.update!(user_access_token: @user_access_token, page_access_token: access_token)
       set_instagram_id(access_token, fb_page)
       fb_page&.reauthorized!
-    rescue StandardError => e
-      ChatwootExceptionTracker.new(e).capture_exception
-      Rails.logger.error "Error in update_fb_page: #{e.message}"
     end
+
+    register_with_gateway(fb_page.inbox) if fb_page&.inbox && ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
+  rescue StandardError => e
+    ChatwootExceptionTracker.new(e).capture_exception
+    Rails.logger.error "Error in update_fb_page: #{e.message}"
   end
 
   def get_fb_page(fb_page_id)
@@ -112,5 +116,19 @@ class Api::V1::Accounts::CallbacksController < Api::V1::Accounts::BaseController
   def set_avatar(facebook_inbox, page_id)
     avatar_url = "https://graph.facebook.com/#{page_id}/picture?type=large"
     Avatar::AvatarFromUrlJob.perform_later(facebook_inbox, avatar_url)
+  end
+
+  def register_with_gateway(inbox)
+    GatewayRegistrationService.new(
+      platform_type: 'facebook',
+      platform_id: inbox.channel.page_id
+    ).perform
+
+    if inbox.channel.instagram_id.present?
+      GatewayRegistrationService.new(
+        platform_type: 'facebook',
+        platform_id: inbox.channel.instagram_id
+      ).perform
+    end
   end
 end
