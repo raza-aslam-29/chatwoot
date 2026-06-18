@@ -16,11 +16,11 @@ const props = defineProps({
 const emit = defineEmits(['channelItemClick']);
 
 const hasFbConfigured = computed(() => {
-  return window.channelxConfig?.fbAppId;
+  return window.channelxConfig?.fbAppId || window.channelxConfig?.channelxGatewayUrl;
 });
 
 const hasInstagramConfigured = computed(() => {
-  return window.channelxConfig?.instagramAppId;
+  return window.channelxConfig?.instagramAppId || window.channelxConfig?.channelxGatewayUrl;
 });
 
 const hasTiktokConfigured = computed(() => {

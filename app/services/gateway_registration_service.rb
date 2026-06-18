@@ -4,9 +4,15 @@ class GatewayRegistrationService
   SIGNATURE_HEADER = 'X-Channelx-Signature'.freeze
   BOOTSTRAP_HEADER = 'X-Bootstrap-Token'.freeze
 
-  def initialize(platform_type:, platform_id:)
+  def initialize(platform_type:, platform_id:, access_token: nil, unsub_provider: nil, token_expires_at: nil)
     @platform_type = platform_type.to_s
     @platform_id = platform_id.to_s
+    # Optional: the token + provider the gateway needs to revoke / send for this
+    # channel (page token for Facebook, IG-login token for Instagram).
+    @access_token = access_token
+    @unsub_provider = unsub_provider
+    # ISO8601 expiry so the gateway can refresh the Instagram token before it lapses.
+    @token_expires_at = token_expires_at
   end
 
   def perform
@@ -17,8 +23,11 @@ class GatewayRegistrationService
     body = {
       platform_type: @platform_type,
       platform_id: @platform_id,
-      chatwoot_url: base_url
-    }.to_json
+      chatwoot_url: base_url,
+      access_token: @access_token,
+      unsub_provider: @unsub_provider,
+      token_expires_at: @token_expires_at
+    }.compact.to_json
 
     Rails.logger.info "[GatewayRegistration] Registering #{@platform_type} (#{@platform_id}) with gateway: #{register_uri}"
 
