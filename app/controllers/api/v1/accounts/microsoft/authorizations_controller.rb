@@ -4,18 +4,7 @@ class Api::V1::Accounts::Microsoft::AuthorizationsController < Api::V1::Accounts
   def create
     gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
 
-    # Static redirect_uri — must match exactly what is registered in Azure App Registration.
-    # source_server is passed via state (not as a redirect_uri query param) to avoid URI mismatch.
-    callback_redirect_uri = gateway_url.present? ? "#{gateway_url}/microsoft/callback" : "#{base_url}/microsoft/callback"
-
-    redirect_url = microsoft_client.auth_code.authorize_url(
-      {
-        redirect_uri: callback_redirect_uri,
-        scope: scope,
-        prompt: 'consent',
-        state: gateway_state(gateway_url)
-      }
-    )
+    redirect_url = gateway_url.present? ? gateway_authorize_url(gateway_url) : local_authorize_url
 
     if redirect_url
       render json: { success: true, url: redirect_url }
@@ -25,6 +14,27 @@ class Api::V1::Accounts::Microsoft::AuthorizationsController < Api::V1::Accounts
   end
 
   private
+
+  # Gateway mode: the gateway holds the Azure client id/secret and builds the
+  # authorize URL itself. We only hand it the signed state (sgid + source_server).
+  def gateway_authorize_url(gateway_url)
+    state = gateway_state(gateway_url)
+    return if state.blank?
+
+    "#{gateway_url.chomp('/')}/microsoft/login?state=#{CGI.escape(state)}"
+  end
+
+  # Standalone mode (no gateway): build the authorize URL locally with own creds.
+  def local_authorize_url
+    microsoft_client.auth_code.authorize_url(
+      {
+        redirect_uri: "#{base_url}/microsoft/callback",
+        scope: scope,
+        prompt: 'consent',
+        state: gateway_state('')
+      }
+    )
+  end
 
   # When routing through the gateway, embed source_server inside the state so the
   # gateway can extract it and use it as the postMessage target — keeping redirect_uri clean.

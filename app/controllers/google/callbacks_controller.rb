@@ -54,13 +54,12 @@ class Google::CallbacksController < OauthCallbackController
   end
 
   def register_with_gateway(_gateway_url)
-    # Email send/receive stays on Chatwoot. Hand the gateway the refresh token so it
-    # can refresh the access token (gateway holds the client secret) and revoke on demand.
+    # The gateway already stored the refresh token during /google/callback. This call
+    # just ensures the tenant exists and syncs the gateway api/hmac keys so Chatwoot can
+    # authenticate to /oauth/refresh later.
     GatewayRegistrationService.new(
       platform_type: :google,
-      platform_id: users_data['email'],
-      access_token: parsed_body[:refresh_token],
-      unsub_provider: 'google'
+      platform_id: users_data['email']
     ).perform
   end
 end
