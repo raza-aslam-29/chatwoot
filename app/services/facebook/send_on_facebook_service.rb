@@ -32,6 +32,9 @@ class Facebook::SendOnFacebookService < Base::SendOnChannelService
   end
 
   def deliver_message(delivery_params)
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    return deliver_via_gateway(gateway_url, delivery_params) if gateway_url.present?
+
     result = Facebook::Messenger::Bot.deliver(delivery_params, page_id: channel.page_id)
     JSON.parse(result)
   rescue JSON::ParserError
@@ -44,12 +47,33 @@ class Facebook::SendOnFacebookService < Base::SendOnChannelService
     nil
   end
 
+  # Route outbound through the gateway: it holds the page token and forwards to Meta,
+  # so it is the single control point (revoke = gateway refuses the send). The page
+  # token never lives on this instance. Mirrors Instagram::SendOnInstagramService.
+  def deliver_via_gateway(gateway_url, delivery_params)
+    body = delivery_params.to_json
+    uri = "#{gateway_url.chomp('/')}/send/facebook/#{channel.page_id}"
+    response = HTTParty.post(
+      uri,
+      body: body,
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Bearer #{GatewayRegistrationService.gateway_api_key}",
+        'X-Channelx-Signature' => GatewayRegistrationService.sign(body)
+      }
+    )
+    JSON.parse(response.body)
+  rescue JSON::ParserError
+    Messages::StatusUpdateService.new(message, 'failed', 'Facebook was unable to process this request').perform
+    Rails.logger.error "Facebook::SendOnFacebookService: Error parsing gateway response : Page - #{channel.page_id} : #{response&.body}"
+    nil
+  end
+
   def fb_text_message_params
     {
       recipient: { id: contact.get_source_id(inbox.id) },
       message: fb_text_message_payload,
-      messaging_type: 'MESSAGE_TAG',
-      tag: message_tag
+      **messaging_options
     }
   end
 
@@ -89,13 +113,21 @@ class Facebook::SendOnFacebookService < Base::SendOnChannelService
           }
         }
       },
-      messaging_type: 'MESSAGE_TAG',
-      tag: message_tag
+      **messaging_options
     }
   end
 
-  def message_tag
-    @message_tag ||= GlobalConfigService.load('ENABLE_MESSENGER_CHANNEL_HUMAN_AGENT', nil) ? 'HUMAN_AGENT' : 'ACCOUNT_UPDATE'
+  # Meta deprecated the ACCOUNT_UPDATE/CONFIRMED_EVENT_UPDATE/POST_PURCHASE_UPDATE
+  # message tags (rejected with error 100 / subcode 1893061). Agent replies happen
+  # inside the 24-hour standard messaging window, so send them as RESPONSE with no
+  # tag. Only when the Human Agent feature is enabled do we use the still-valid
+  # HUMAN_AGENT tag, which extends the window to 7 days.
+  def messaging_options
+    if GlobalConfigService.load('ENABLE_MESSENGER_CHANNEL_HUMAN_AGENT', nil)
+      { messaging_type: 'MESSAGE_TAG', tag: 'HUMAN_AGENT' }
+    else
+      { messaging_type: 'RESPONSE' }
+    end
   end
 
   def attachment_type(attachment)
