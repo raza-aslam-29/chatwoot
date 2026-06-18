@@ -18,18 +18,22 @@ const globalConfig = getters['globalConfig/get'];
 const isAChatwootInstance = getters['globalConfig/isAChatwootInstance'];
 
 const emailProviderList = computed(() => {
+  // When a Channelx gateway is configured, the OAuth credentials live on the gateway
+  // (not on this instance), so enable the providers based on the gateway being set.
+  const gatewayEnabled = !!window.channelxConfig?.channelxGatewayUrl;
+
   return [
     {
       title: t('INBOX_MGMT.EMAIL_PROVIDERS.MICROSOFT.TITLE'),
       description: t('INBOX_MGMT.EMAIL_PROVIDERS.MICROSOFT.DESCRIPTION'),
-      isEnabled: !!globalConfig.value.azureAppId,
+      isEnabled: !!globalConfig.value.azureAppId || gatewayEnabled,
       key: 'microsoft',
       icon: 'i-woot-outlook',
     },
     {
       title: t('INBOX_MGMT.EMAIL_PROVIDERS.GOOGLE.TITLE'),
       description: t('INBOX_MGMT.EMAIL_PROVIDERS.GOOGLE.DESCRIPTION'),
-      isEnabled: !!window.channelxConfig.googleOAuthClientId,
+      isEnabled: !!window.channelxConfig.googleOAuthClientId || gatewayEnabled,
       key: 'google',
       icon: 'i-woot-gmail',
     },

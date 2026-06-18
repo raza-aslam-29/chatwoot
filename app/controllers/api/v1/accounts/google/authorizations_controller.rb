@@ -4,21 +4,7 @@ class Api::V1::Accounts::Google::AuthorizationsController < Api::V1::Accounts::O
   def create
     gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
 
-    # Static redirect_uri — must match exactly what is registered in Google Cloud Console.
-    # source_server is passed via state (not as a redirect_uri query param) to avoid URI mismatch.
-    callback_redirect_uri = gateway_url.present? ? "#{gateway_url}/google/callback" : "#{base_url}/google/callback"
-
-    redirect_url = google_client.auth_code.authorize_url(
-      {
-        redirect_uri: callback_redirect_uri,
-        scope: scope,
-        response_type: 'code',
-        prompt: 'consent',
-        access_type: 'offline',
-        state: gateway_state(gateway_url),
-        client_id: GlobalConfigService.load('GOOGLE_OAUTH_CLIENT_ID', nil)
-      }
-    )
+    redirect_url = gateway_url.present? ? gateway_authorize_url(gateway_url) : local_authorize_url
 
     if redirect_url
       render json: { success: true, url: redirect_url }
@@ -28,6 +14,32 @@ class Api::V1::Accounts::Google::AuthorizationsController < Api::V1::Accounts::O
   end
 
   private
+
+  # Gateway mode: the gateway holds the Google client id/secret and builds the
+  # authorize URL itself. We only hand it the signed state (sgid + source_server).
+  # No Google credentials are needed on this instance.
+  def gateway_authorize_url(gateway_url)
+    state = gateway_state(gateway_url)
+    return if state.blank?
+
+    "#{gateway_url.chomp('/')}/google/login?state=#{CGI.escape(state)}"
+  end
+
+  # Standalone mode (no gateway): build the authorize URL locally with this
+  # instance's own Google credentials.
+  def local_authorize_url
+    google_client.auth_code.authorize_url(
+      {
+        redirect_uri: "#{base_url}/google/callback",
+        scope: scope,
+        response_type: 'code',
+        prompt: 'consent',
+        access_type: 'offline',
+        state: gateway_state(''),
+        client_id: GlobalConfigService.load('GOOGLE_OAUTH_CLIENT_ID', nil)
+      }
+    )
+  end
 
   # When routing through the gateway, embed source_server inside the state so the
   # gateway can extract it and use it as the postMessage target — keeping redirect_uri clean.
