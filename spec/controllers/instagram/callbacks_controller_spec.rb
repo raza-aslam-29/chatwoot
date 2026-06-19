@@ -98,8 +98,11 @@ RSpec.describe Instagram::CallbacksController do
           ).and_return(access_token)
 
           expect(GatewayRegistrationService).to receive(:new).with(
-            platform_type: 'facebook',
-            platform_id: '12345'
+            hash_including(
+              platform_type: 'instagram',
+              platform_id: '12345',
+              unsub_provider: 'instagram'
+            )
           ).and_return(registration_service)
           expect(registration_service).to receive(:perform)
 

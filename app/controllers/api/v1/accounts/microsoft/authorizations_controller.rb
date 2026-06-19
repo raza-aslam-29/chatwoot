@@ -18,6 +18,8 @@ class Api::V1::Accounts::Microsoft::AuthorizationsController < Api::V1::Accounts
   # Gateway mode: the gateway holds the Azure client id/secret and builds the
   # authorize URL itself. We only hand it the signed state (sgid + source_server).
   def gateway_authorize_url(gateway_url)
+    return unless ensure_gateway_tenant!
+
     state = gateway_state(gateway_url)
     return if state.blank?
 

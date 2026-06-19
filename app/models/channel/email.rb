@@ -61,8 +61,12 @@ class Channel::Email < ApplicationRecord
   end
 
   def gateway_unregister_routes
-    # The gateway stores the OAuth refresh token keyed by mailbox email (Gmail/Microsoft).
-    email.present? ? [{ platform_type: 'google', platform_id: email }] : []
+    return [] if email.blank?
+
+    # The gateway stores the OAuth refresh token keyed by mailbox email. platform_type must
+    # match what was registered (google finalize -> 'google', microsoft -> 'microsoft'),
+    # otherwise the route is never removed from the gateway.
+    [{ platform_type: microsoft? ? 'microsoft' : 'google', platform_id: email }]
   end
 
   def microsoft?

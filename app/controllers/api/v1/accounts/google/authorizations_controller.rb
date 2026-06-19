@@ -19,6 +19,8 @@ class Api::V1::Accounts::Google::AuthorizationsController < Api::V1::Accounts::O
   # authorize URL itself. We only hand it the signed state (sgid + source_server).
   # No Google credentials are needed on this instance.
   def gateway_authorize_url(gateway_url)
+    return unless ensure_gateway_tenant!
+
     state = gateway_state(gateway_url)
     return if state.blank?
 

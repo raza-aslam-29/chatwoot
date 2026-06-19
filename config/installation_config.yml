@@ -31,11 +31,11 @@
   display_title: 'Logo Dark Mode'
   description: 'The logo that would be used on the dashboard, login page etc. for dark mode'
 - name: BRAND_URL
-  value: 'https://localcom.com.au'
+  value: 'https://localcom.com.au/channelx/'
   display_title: 'Brand URL'
   description: 'The URL that would be used in emails under the section “Powered By”'
 - name: WIDGET_BRAND_URL
-  value: 'https://localcom.com.au'
+  value: 'https://localcom.com.au/channelx/'
   display_title: 'Widget Brand URL'
   description: 'The URL that would be used in the widget under the section “Powered By”'
 - name: BRAND_NAME
@@ -47,7 +47,7 @@
   display_title: 'Terms URL'
   description: 'The terms of service URL displayed in Signup Page'
 - name: PRIVACY_URL
-  value: 'https://localcom.com.au/wp-content/uploads/2025/06/Privacy-Policy-ChannelX-1.pdf'
+  value: 'https://localcom.com.au/channelx-privacy-policy/'
   display_title: 'Privacy URL'
   description: 'The privacy policy URL displayed in the app'
 - name: DISPLAY_MANIFEST
@@ -104,7 +104,7 @@
   locked: false
 - name: MAILER_SUPPORT_EMAIL
   display_title: 'Support Email'
-  value:
+  value: 'support@localcom.com.au'
   description: 'The support email address for your installation'
   locked: false
 - name: ACCOUNT_EMAILS_LIMIT

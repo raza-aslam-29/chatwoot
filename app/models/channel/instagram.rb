@@ -35,8 +35,8 @@ class Channel::Instagram < ApplicationRecord
   end
 
   def gateway_unregister_routes
-    # Registered with the gateway under platform_type 'facebook', keyed by instagram_id.
-    instagram_id.present? ? [{ platform_type: 'facebook', platform_id: instagram_id }] : []
+    # Registered with the gateway under platform_type 'instagram', keyed by instagram_id.
+    instagram_id.present? ? [{ platform_type: 'instagram', platform_id: instagram_id }] : []
   end
 
   def create_contact_inbox(instagram_id, name)

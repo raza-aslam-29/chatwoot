@@ -15,6 +15,13 @@ class Api::V1::Accounts::OauthAuthorizationController < Api::V1::Accounts::BaseC
     ENV.fetch('FRONTEND_URL', 'http://localhost:3000')
   end
 
+  # Registers this instance as a tenant on the Channelx gateway (bootstrap-token
+  # authenticated) before any OAuth redirect. Returns false until registration has
+  # succeeded, so gateway flows can refuse to start. No-op once already registered.
+  def ensure_gateway_tenant!
+    GatewayRegistrationService.ensure_tenant_registered!
+  end
+
   private
 
   def check_authorization
