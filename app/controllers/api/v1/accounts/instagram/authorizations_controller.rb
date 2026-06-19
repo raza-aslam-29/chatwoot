@@ -20,6 +20,8 @@ class Api::V1::Accounts::Instagram::AuthorizationsController < Api::V1::Accounts
   # Instagram authorize URL itself. We only hand it the signed state (account token
   # + source_server). No Instagram app credentials are needed on this instance.
   def gateway_authorize_url(gateway_url)
+    return unless ensure_gateway_tenant!
+
     state = gateway_state(gateway_url)
     return if state.blank?
 

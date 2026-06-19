@@ -4,7 +4,7 @@ class GatewayRegistrationService
   SIGNATURE_HEADER = 'X-Channelx-Signature'.freeze
   BOOTSTRAP_HEADER = 'X-Bootstrap-Token'.freeze
 
-  def initialize(platform_type:, platform_id:, access_token: nil, unsub_provider: nil, token_expires_at: nil)
+  def initialize(platform_type: nil, platform_id: nil, access_token: nil, unsub_provider: nil, token_expires_at: nil)
     @platform_type = platform_type.to_s
     @platform_id = platform_id.to_s
     # Optional: the token + provider the gateway needs to revoke / send for this
@@ -52,6 +52,32 @@ class GatewayRegistrationService
     nil
   end
 
+  # Tenant-only registration: creates/refreshes this Chatwoot instance as a tenant on
+  # the gateway using the bootstrap token, with no channel/route. This is the ONLY
+  # bootstrap-authenticated step — it must succeed before the gateway will allow OAuth
+  # or per-channel registration (those authenticate with the issued api_key + signature).
+  def register_tenant
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    return if gateway_url.blank?
+
+    register_uri = URI.join(gateway_url.to_s.strip.gsub(%r{/?$}, '/'), 'register')
+    body = { chatwoot_url: base_url }.to_json
+
+    Rails.logger.info "[GatewayRegistration] Registering tenant #{base_url} with gateway: #{register_uri}"
+    response = HTTParty.post(register_uri.to_s, body: body, headers: request_headers(body))
+
+    if response.success?
+      persist_keys_from_response(response)
+    else
+      Rails.logger.error "[GatewayRegistration] Tenant registration rejected: #{response.code} - #{response.body}"
+    end
+
+    response
+  rescue StandardError => e
+    Rails.logger.error "[GatewayRegistration] Error registering tenant with gateway: #{e.message}"
+    nil
+  end
+
   # Removes this platform_id's route from the gateway (called when an inbox/channel is
   # deleted). Authenticated the same way as registration. Matched by tenant + identifier.
   def unregister
@@ -73,6 +99,17 @@ class GatewayRegistrationService
   end
 
   class << self
+    # Ensures this instance is registered as a tenant on the gateway. No-op once the
+    # gateway api_key + hmac key are stored locally (already registered). Otherwise it
+    # performs the bootstrap-authenticated tenant registration. Returns true only when
+    # the instance is registered, so callers can refuse to start gateway flows until it is.
+    def ensure_tenant_registered!
+      return true if gateway_api_key.present? && hmac_key.present?
+
+      response = new.register_tenant
+      response.respond_to?(:success?) && response.success?
+    end
+
     def gateway_api_key
       GlobalConfigService.load(API_KEY_CONFIG, nil)
     end

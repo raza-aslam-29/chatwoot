@@ -207,7 +207,7 @@ class Instagram::CallbacksController < ApplicationController
 
   def register_with_gateway(gateway_url, inbox)
     GatewayRegistrationService.new(
-      platform_type: 'facebook',
+      platform_type: 'instagram',
       platform_id: inbox.channel.instagram_id,
       access_token: inbox.channel.access_token,
       unsub_provider: 'instagram',

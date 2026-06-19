@@ -188,7 +188,9 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   def register_whatsapp_with_gateway(inbox)
     GatewayRegistrationService.new(
       platform_type: 'whatsapp',
-      platform_id: inbox.channel.phone_number
+      # Match the identifier used on unregister (Channel::Whatsapp#gateway_unregister_routes):
+      # Meta routes WhatsApp Cloud webhooks by phone_number_id.
+      platform_id: inbox.channel.provider_config['phone_number_id']
     ).perform
   rescue StandardError => e
     Rails.logger.error "[WHATSAPP] Gateway registration failed: #{e.message}"
