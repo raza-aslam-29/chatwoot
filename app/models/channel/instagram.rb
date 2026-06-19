@@ -34,6 +34,11 @@ class Channel::Instagram < ApplicationRecord
     'Instagram'
   end
 
+  def gateway_unregister_routes
+    # Registered with the gateway under platform_type 'facebook', keyed by instagram_id.
+    instagram_id.present? ? [{ platform_type: 'facebook', platform_id: instagram_id }] : []
+  end
+
   def create_contact_inbox(instagram_id, name)
     @contact_inbox = ::ContactInboxWithContactBuilder.new({
                                                             source_id: instagram_id,

@@ -40,6 +40,11 @@ class Channel::Whatsapp < ApplicationRecord
     'Whatsapp'
   end
 
+  def gateway_unregister_routes
+    pid = provider_config && provider_config['phone_number_id']
+    pid.present? ? [{ platform_type: 'whatsapp', platform_id: pid }] : []
+  end
+
   def provider_service
     if provider == 'whatsapp_cloud'
       Whatsapp::Providers::WhatsappCloudService.new(whatsapp_channel: self)

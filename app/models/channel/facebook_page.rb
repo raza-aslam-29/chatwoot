@@ -65,4 +65,10 @@ class Channel::FacebookPage < ApplicationRecord
     Rails.logger.debug { "Rescued: #{e.inspect}" }
     true
   end
+
+  def gateway_unregister_routes
+    routes = [{ platform_type: 'facebook', platform_id: page_id }]
+    routes << { platform_type: 'facebook', platform_id: instagram_id } if instagram_id.present?
+    routes
+  end
 end

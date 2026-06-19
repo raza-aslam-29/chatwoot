@@ -52,6 +52,26 @@ class GatewayRegistrationService
     nil
   end
 
+  # Removes this platform_id's route from the gateway (called when an inbox/channel is
+  # deleted). Authenticated the same way as registration. Matched by tenant + identifier.
+  def unregister
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    return if gateway_url.blank? || @platform_id.blank?
+
+    register_uri = URI.join(gateway_url.to_s.strip.gsub(%r{/?$}, '/'), 'register')
+    body = {
+      platform_type: @platform_type,
+      platform_id: @platform_id,
+      chatwoot_url: base_url
+    }.compact.to_json
+
+    Rails.logger.info "[GatewayRegistration] Unregistering #{@platform_type} (#{@platform_id}) from gateway: #{register_uri}"
+    HTTParty.delete(register_uri.to_s, body: body, headers: request_headers(body))
+  rescue StandardError => e
+    Rails.logger.error "[GatewayRegistration] Error unregistering from gateway: #{e.message}"
+    nil
+  end
+
   class << self
     def gateway_api_key
       GlobalConfigService.load(API_KEY_CONFIG, nil)
