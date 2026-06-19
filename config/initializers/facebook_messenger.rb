@@ -5,7 +5,16 @@ class ChatwootFbProvider < Facebook::Messenger::Configuration::Providers::Base
   end
 
   def app_secret_for(_page_id)
-    GlobalConfigService.load('FB_APP_SECRET', '')
+    # In gateway mode no Meta/Facebook secret lives on this instance. Forwarded
+    # webhooks are authenticated by the Channelx gateway HMAC (see
+    # Rack::GatewaySignatureVerifier). The facebook-messenger gem still checks
+    # X-Hub-Signature, which the gateway re-signs with the fixed 'dummy_secret'
+    # constant — so we return that here and require no FB_APP_SECRET config.
+    # Standalone installs keep using their real configured secret.
+    configured = GlobalConfigService.load('FB_APP_SECRET', '')
+    return configured if configured.present?
+
+    ENV.fetch('CHANNELX_GATEWAY_URL', '').present? ? 'dummy_secret' : ''
   end
 
   def access_token_for(page_id)

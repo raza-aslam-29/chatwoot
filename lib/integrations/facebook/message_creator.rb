@@ -22,10 +22,27 @@ class Integrations::Facebook::MessageCreator
   private
 
   def agent_message_via_echo?
-    # TODO : check and remove send_from_chatwoot_app if not working
-    response.echo? && !response.sent_from_chatwoot_app?
-    # this means that it is an agent message from page, but not sent from chatwoot.
-    # User can send from fb page directly on mobile / web messenger, so this case should be handled as agent message
+    # An echo is an agent message from the page (sent directly via FB mobile/web
+    # messenger) that we must recreate — UNLESS it is our own outbound send echoing
+    # back, in which case it would be a duplicate.
+    response.echo? && !sent_from_chatwoot?
+  end
+
+  # Recognise our own sends without relying on FB_APP_ID. In gateway mode the Meta
+  # app id lives on the gateway, so the legacy app_id check (sent_from_chatwoot_app?)
+  # can't match and every echo would be duplicated. Our outbound send already stored
+  # the Send API message_id as the message source_id, so a matching source_id means
+  # this echo is ours and should be dropped.
+  def sent_from_chatwoot?
+    response.sent_from_chatwoot_app? || echo_already_recorded?
+  end
+
+  def echo_already_recorded?
+    return false if response.identifier.blank?
+
+    Channel::FacebookPage.where(page_id: response.sender_id).any? do |page|
+      page.inbox.messages.exists?(source_id: response.identifier)
+    end
   end
 
   def create_agent_message

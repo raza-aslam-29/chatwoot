@@ -7,18 +7,38 @@ class Instagram::SendOnInstagramService < Instagram::BaseSendService
 
   # Deliver a message with the given payload.
   # https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/messaging-api
+  #
+  # When a gateway is configured, outbound is routed THROUGH the gateway: the gateway
+  # holds the token and forwards to Meta, so it is the single control point (revoke =
+  # gateway refuses the send). Otherwise we call Meta directly.
   def send_message(message_content)
-    access_token = channel.access_token
-    query = { access_token: access_token }
-    instagram_id = channel.instagram_id.presence || 'me'
-
-    response = HTTParty.post(
-      "https://graph.instagram.com/v22.0/#{instagram_id}/messages",
-      body: message_content,
-      query: query
-    )
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    response = gateway_url.present? ? send_via_gateway(gateway_url, message_content) : send_direct(message_content)
 
     process_response(response, message_content)
+  end
+
+  def send_direct(message_content)
+    instagram_id = channel.instagram_id.presence || 'me'
+    HTTParty.post(
+      "https://graph.instagram.com/v22.0/#{instagram_id}/messages",
+      body: message_content,
+      query: { access_token: channel.access_token }
+    )
+  end
+
+  def send_via_gateway(gateway_url, message_content)
+    body = message_content.to_json
+    uri = "#{gateway_url.chomp('/')}/send/instagram/#{channel.instagram_id}"
+    HTTParty.post(
+      uri,
+      body: body,
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Bearer #{GatewayRegistrationService.gateway_api_key}",
+        'X-Channelx-Signature' => GatewayRegistrationService.sign(body)
+      }
+    )
   end
 
   def merge_human_agent_tag(params)

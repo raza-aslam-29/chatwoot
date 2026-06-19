@@ -93,8 +93,15 @@ class Api::V1::Accounts::CallbacksController < Api::V1::Accounts::BaseController
   end
 
   def fb_object
-    @user_access_token = long_lived_token(params[:omniauth_token])
+    # In gateway mode the gateway already exchanged the code for a long-lived user
+    # token (with its own Meta app credentials), so we use it as-is and never need
+    # FB_APP_ID/FB_APP_SECRET on this instance. Standalone installs still exchange.
+    @user_access_token = gateway_mode? ? params[:omniauth_token] : long_lived_token(params[:omniauth_token])
     Koala::Facebook::API.new(@user_access_token)
+  end
+
+  def gateway_mode?
+    ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
   end
 
   def long_lived_token(omniauth_token)
@@ -119,9 +126,13 @@ class Api::V1::Accounts::CallbacksController < Api::V1::Accounts::BaseController
   end
 
   def register_with_gateway(inbox)
+    # Hand the gateway the page token so it can send outbound on this page's behalf
+    # (gateway holds the token; Chatwoot routes sends through /send/facebook/{page_id}).
     GatewayRegistrationService.new(
       platform_type: 'facebook',
-      platform_id: inbox.channel.page_id
+      platform_id: inbox.channel.page_id,
+      access_token: inbox.channel.page_access_token,
+      unsub_provider: 'facebook'
     ).perform
 
     if inbox.channel.instagram_id.present?

@@ -20,15 +20,15 @@ class Instagram::CallbacksController < ApplicationController
   # Process the authorization code and create inbox
   def process_successful_authorization
     gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
-    callback_redirect_uri = gateway_url.present? ? "#{gateway_url}/#{provider_name}/callback" : "#{base_url}/#{provider_name}/callback"
 
-    @response = instagram_client.auth_code.get_token(
-      oauth_code,
-      redirect_uri: callback_redirect_uri,
-      grant_type: 'authorization_code'
-    )
-
-    @long_lived_token_response = exchange_for_long_lived_token(@response.token)
+    if gateway_url.present?
+      # Gateway mode: the gateway already redeemed the code with its app secret and
+      # handed us the long-lived token + IG identity. No app credentials needed here.
+      load_token_from_gateway
+    else
+      # Standalone mode: redeem the code locally with this instance's app credentials.
+      exchange_oauth_code
+    end
     inbox, already_exists = find_or_create_inbox
 
     # Register the inbox/tenant with the Gateway to map inbound/outbound routing
@@ -39,6 +39,30 @@ class Instagram::CallbacksController < ApplicationController
     else
       redirect_to app_instagram_inbox_agents_url(account_id: account_id, inbox_id: inbox.id)
     end
+  end
+
+  # Reads the long-lived token and IG identity returned by the gateway redirect.
+  def load_token_from_gateway
+    raise 'Gateway did not return an access token' if params[:access_token].blank?
+
+    @long_lived_token_response = {
+      'access_token' => params[:access_token],
+      'expires_in' => params[:expires_in].to_i
+    }
+    @instagram_user_details = {
+      'user_id' => params[:instagram_id].to_s,
+      'username' => params[:username].to_s
+    }
+  end
+
+  # Redeems the OAuth code locally (no gateway): requires the app secret on this instance.
+  def exchange_oauth_code
+    @response = instagram_client.auth_code.get_token(
+      oauth_code,
+      redirect_uri: "#{base_url}/#{provider_name}/callback",
+      grant_type: 'authorization_code'
+    )
+    @long_lived_token_response = exchange_for_long_lived_token(@response.token)
   end
 
   # Handle all errors that might occur during authorization
@@ -94,7 +118,8 @@ class Instagram::CallbacksController < ApplicationController
   end
 
   def find_or_create_inbox
-    user_details = fetch_instagram_user_details(@long_lived_token_response['access_token'])
+    # In gateway mode the IG identity was resolved by the gateway; otherwise look it up locally.
+    user_details = @instagram_user_details || fetch_instagram_user_details(@long_lived_token_response['access_token'])
     channel_instagram = find_channel_by_instagram_id(user_details['user_id'].to_s)
     channel_exists = channel_instagram.present?
 
@@ -183,7 +208,10 @@ class Instagram::CallbacksController < ApplicationController
   def register_with_gateway(gateway_url, inbox)
     GatewayRegistrationService.new(
       platform_type: 'facebook',
-      platform_id: inbox.channel.instagram_id
+      platform_id: inbox.channel.instagram_id,
+      access_token: inbox.channel.access_token,
+      unsub_provider: 'instagram',
+      token_expires_at: inbox.channel.expires_at&.iso8601
     ).perform
   end
 end

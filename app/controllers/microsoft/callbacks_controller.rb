@@ -1,7 +1,34 @@
 class Microsoft::CallbacksController < OauthCallbackController
   include MicrosoftConcern
 
+  # In gateway mode the gateway already exchanged the code and redirects here with the
+  # tokens, so skip the local exchange. Standalone mode falls back to the parent.
+  def show
+    return super unless gateway_mode?
+
+    handle_response
+  rescue StandardError => e
+    ChatwootExceptionTracker.new(e).capture_exception
+    redirect_to '/'
+  end
+
   private
+
+  def gateway_mode?
+    ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
+  end
+
+  # Gateway mode: tokens arrive as query params instead of being exchanged locally.
+  def parsed_body
+    return super unless gateway_mode?
+
+    @parsed_body ||= {
+      access_token: params[:access_token],
+      refresh_token: params[:refresh_token],
+      id_token: params[:id_token],
+      expires_in: params[:expires_in]
+    }.with_indifferent_access
+  end
 
   def oauth_client
     microsoft_client
@@ -61,7 +88,10 @@ class Microsoft::CallbacksController < OauthCallbackController
     user_email.split('@').first.parameterize.titleize
   end
 
-  def register_with_gateway(gateway_url)
+  def register_with_gateway(_gateway_url)
+    # The gateway already stored the refresh token during /microsoft/callback. This call
+    # just ensures the tenant exists and syncs the gateway api/hmac keys so Chatwoot can
+    # authenticate to /oauth/refresh later.
     GatewayRegistrationService.new(
       platform_type: :microsoft,
       platform_id: user_email

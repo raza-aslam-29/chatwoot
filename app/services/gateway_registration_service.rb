@@ -4,9 +4,15 @@ class GatewayRegistrationService
   SIGNATURE_HEADER = 'X-Channelx-Signature'.freeze
   BOOTSTRAP_HEADER = 'X-Bootstrap-Token'.freeze
 
-  def initialize(platform_type:, platform_id:)
+  def initialize(platform_type:, platform_id:, access_token: nil, unsub_provider: nil, token_expires_at: nil)
     @platform_type = platform_type.to_s
     @platform_id = platform_id.to_s
+    # Optional: the token + provider the gateway needs to revoke / send for this
+    # channel (page token for Facebook, IG-login token for Instagram).
+    @access_token = access_token
+    @unsub_provider = unsub_provider
+    # ISO8601 expiry so the gateway can refresh the Instagram token before it lapses.
+    @token_expires_at = token_expires_at
   end
 
   def perform
@@ -17,8 +23,11 @@ class GatewayRegistrationService
     body = {
       platform_type: @platform_type,
       platform_id: @platform_id,
-      chatwoot_url: base_url
-    }.to_json
+      chatwoot_url: base_url,
+      access_token: @access_token,
+      unsub_provider: @unsub_provider,
+      token_expires_at: @token_expires_at
+    }.compact.to_json
 
     Rails.logger.info "[GatewayRegistration] Registering #{@platform_type} (#{@platform_id}) with gateway: #{register_uri}"
 
@@ -40,6 +49,26 @@ class GatewayRegistrationService
     response
   rescue StandardError => e
     Rails.logger.error "[GatewayRegistration] Error registering with gateway: #{e.message}"
+    nil
+  end
+
+  # Removes this platform_id's route from the gateway (called when an inbox/channel is
+  # deleted). Authenticated the same way as registration. Matched by tenant + identifier.
+  def unregister
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    return if gateway_url.blank? || @platform_id.blank?
+
+    register_uri = URI.join(gateway_url.to_s.strip.gsub(%r{/?$}, '/'), 'register')
+    body = {
+      platform_type: @platform_type,
+      platform_id: @platform_id,
+      chatwoot_url: base_url
+    }.compact.to_json
+
+    Rails.logger.info "[GatewayRegistration] Unregistering #{@platform_type} (#{@platform_id}) from gateway: #{register_uri}"
+    HTTParty.delete(register_uri.to_s, body: body, headers: request_headers(body))
+  rescue StandardError => e
+    Rails.logger.error "[GatewayRegistration] Error unregistering from gateway: #{e.message}"
     nil
   end
 

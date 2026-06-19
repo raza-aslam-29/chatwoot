@@ -6,7 +6,6 @@ import { useAlert } from 'dashboard/composables';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { required } from '@vuelidate/validators';
 import LoadingState from 'dashboard/components/widgets/LoadingState.vue';
-import facebookClient from 'dashboard/api/channel/facebookClient';
 
 import { useI18n } from 'vue-i18n';
 import ChannelApi from '../../../../../api/channels';
@@ -119,27 +118,21 @@ export default {
       );
 
       return new Promise((resolve, reject) => {
-        const handleMessage = async event => {
+        const handleMessage = event => {
           if (!event.data || event.data.type !== 'facebook_auth') return;
 
           window.removeEventListener('message', handleMessage);
           popup.close();
 
-          const { code } = event.data;
-          if (!code) {
-            reject(new Error('No auth code received'));
+          // The gateway already exchanged the code for a long-lived user access
+          // token server-side (using its own Meta app credentials), so this
+          // instance never needs FB_APP_ID/FB_APP_SECRET. Consume the token directly.
+          const { user_access_token: userAccessToken } = event.data;
+          if (!userAccessToken) {
+            reject(new Error('No access token received'));
             return;
           }
-
-          try {
-            this.isProcessing = true;
-            const response = await facebookClient.finalizeCallback({ code });
-            resolve(response.data.user_access_token);
-          } catch (err) {
-            reject(err);
-          } finally {
-            this.isProcessing = false;
-          }
+          resolve(userAccessToken);
         };
         window.addEventListener('message', handleMessage);
       });

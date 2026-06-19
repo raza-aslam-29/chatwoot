@@ -23,6 +23,10 @@ class BaseRefreshOauthTokenService
   # Refresh the access tokens using the refresh token
   # Refer: https://github.com/microsoftgraph/msgraph-sample-rubyrailsapp/tree/b4a6869fe4a438cde42b161196484a929f1bee46
   def refresh_tokens
+    # Gateway mode: the refresh token lives only on the gateway. Ask it for a fresh
+    # access token by mailbox (it holds the client secret + the refresh token).
+    return gateway_refresh_tokens if gateway_url.present?
+
     oauth_strategy = build_oauth_strategy
     token_service = build_token_service(oauth_strategy)
 
@@ -42,6 +46,35 @@ class BaseRefreshOauthTokenService
   end
 
   private
+
+  def gateway_url
+    @gateway_url ||= ENV.fetch('CHANNELX_GATEWAY_URL', '')
+  end
+
+  # Ask the gateway to refresh by mailbox. Chatwoot holds no refresh token — the
+  # gateway looks it up, refreshes, and (for Microsoft) rotates it on its side.
+  def gateway_refresh_tokens
+    body = { provider: channel.provider, email: channel.email }.to_json
+
+    response = HTTParty.post(
+      "#{gateway_url.chomp('/')}/oauth/refresh",
+      body: body,
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Bearer #{GatewayRegistrationService.gateway_api_key}",
+        'X-Channelx-Signature' => GatewayRegistrationService.sign(body)
+      }
+    )
+    raise "Gateway refresh failed: #{response.code} #{response.body}" unless response.success?
+
+    data = response.parsed_response
+    update_channel_provider_config({
+                                     access_token: data['access_token'],
+                                     refresh_token: nil,
+                                     expires_at: Time.current.utc.to_i + data['expires_in'].to_i
+                                   })
+    channel.reload.provider_config
+  end
 
   def build_oauth_strategy
     raise NotImplementedError
