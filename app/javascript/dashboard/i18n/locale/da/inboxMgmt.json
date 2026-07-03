@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Vælg Kanal",
-        "BODY": "Vælg den udbyder, du vil integrere med Chatwoot."
+        "BODY": "Vælg den udbyder, du vil integrere med ChannelX."
       },
       "INBOX": {
         "TITLE": "Opret Indbakke",
@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Indtast dit websted navn (fx: Firma ApS)"
       },
       "FB": {
-        "HELP": "PS: Ved at logge ind får vi kun adgang til din sides beskeder. Dine private beskeder kan aldrig tilgås af Chatwoot.",
+        "HELP": "PS: Ved at logge ind får vi kun adgang til din sides beskeder. Dine private beskeder kan aldrig tilgås af ChannelX.",
         "CHOOSE_PAGE": "Vælg Side",
         "CHOOSE_PLACEHOLDER": "Vælg en side fra listen",
         "INBOX_NAME": "Indbakke Navn",
@@ -503,7 +503,7 @@
       },
       "FINISH": {
         "TITLE": "Du klarede det!",
-        "DESC": "Du er færdig med at integrere din Facebook-side med Chatwoot. Næste gang en kunde sender en meddelelse til din side, vil samtalen automatisk dukke op i din indbakke.<br>Vi giver dig også et widget script, som du nemt kan tilføje til din hjemmeside. Når dette er live på din hjemmeside, kan kunder sende dig en besked direkte fra din hjemmeside uden hjælp fra et eksternt værktøj, og samtalen vises lige her, på Chatwoot.<br>Cool, var? Nå ikke, vi forsøge at være :)"
+        "DESC": "Du er færdig med at integrere din Facebook-side med ChannelX. Næste gang en kunde sender en meddelelse til din side, vil samtalen automatisk dukke op i din indbakke.<br>Vi giver dig også et widget script, som du nemt kan tilføje til din hjemmeside. Når dette er live på din hjemmeside, kan kunder sende dig en besked direkte fra din hjemmeside uden hjælp fra et eksternt værktøj, og samtalen vises lige her, på ChannelX.<br>Cool, var? Nå ikke, vi forsøge at være :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Select your email provider",

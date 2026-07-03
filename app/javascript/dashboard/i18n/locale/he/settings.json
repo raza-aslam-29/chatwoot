@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "אה הו! לא הצלחנו למצוא חשבונות Chatwoot. נא ליצור חשבון חדש כדי להמשיך.",
+    "NO_ACCOUNT_WARNING": "אה הו! לא הצלחנו למצוא חשבונות ChannelX. נא ליצור חשבון חדש כדי להמשיך.",
     "NEW_ACCOUNT": "חשבון חדש",
     "SELECTOR_SUBTITLE": "צור חשבון חדש",
     "API": {

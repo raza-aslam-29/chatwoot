@@ -31,7 +31,7 @@ const senderNameKeyOptions = computed(() => [
     preview: {
       senderName: 'Smith',
       businessName: 'ChannelX',
-      email: '<support@channelx.com>',
+      email: '<support@channelx.au>',
     },
   },
   {
@@ -41,7 +41,7 @@ const senderNameKeyOptions = computed(() => [
     preview: {
       senderName: '',
       businessName: 'ChannelX',
-      email: '<support@channelx.com>',
+      email: '<support@channelx.au>',
     },
   },
 ]);

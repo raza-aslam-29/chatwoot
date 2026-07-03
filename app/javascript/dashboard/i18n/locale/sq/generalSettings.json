@@ -126,7 +126,7 @@
     "UPDATE_CHATWOOT": "An update {latestChannelXVersion} for ChannelX is available. Please update your instance.",
     "LEARN_MORE": "Learn more",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using ChannelX",
-    "UPGRADE": "Përmirësoni planin për të vazhduar përdorimin e Chatwoot.",
+    "UPGRADE": "Përmirësoni planin për të vazhduar përdorimin e ChannelX.",
     "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using ChannelX",
     "OPEN_BILLING": "Open billing"
   },

@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Chatwootアカウントが見つかりませんでした。続行するには新しいアカウントを作成してください。",
+    "NO_ACCOUNT_WARNING": "ChannelXアカウントが見つかりませんでした。続行するには新しいアカウントを作成してください。",
     "NEW_ACCOUNT": "新規アカウント",
     "SELECTOR_SUBTITLE": "新しいアカウントを作成",
     "API": {

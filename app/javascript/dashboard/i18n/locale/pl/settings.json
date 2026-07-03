@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Ups! Nie znaleziono żadnych kont Chatwoot. Aby kontynuować, utwórz nowe konto.",
+    "NO_ACCOUNT_WARNING": "Ups! Nie znaleziono żadnych kont ChannelX. Aby kontynuować, utwórz nowe konto.",
     "NEW_ACCOUNT": "Nowe konto",
     "SELECTOR_SUBTITLE": "Utwórz nowe konto",
     "API": {

@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://app.chatwoot.com/"
+      "url": "https://app.channelx.au/"
     }
   ],
   "paths": {
@@ -4241,7 +4241,7 @@
           "homepage_link": {
             "type": "string",
             "description": "link to main dashboard",
-            "example": "https://www.chatwoot.com/"
+            "example": "https://www.channelx.au/"
           },
           "name": {
             "type": "string",

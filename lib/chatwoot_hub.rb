@@ -1,6 +1,6 @@
 # TODO: lets use HTTParty instead of RestClient
 class ChatwootHub
-  DEFAULT_BASE_URL = 'https://hub.2.chatwoot.com'.freeze
+  DEFAULT_BASE_URL = 'https://hub.2.channelx.au'.freeze
 
   def self.base_url
     DEFAULT_BASE_URL

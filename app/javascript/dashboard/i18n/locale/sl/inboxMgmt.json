@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Izberite kanal",
-        "BODY": "Choose the provider you want to integrate with Chatwoot."
+        "BODY": "Choose the provider you want to integrate with ChannelX."
       },
       "INBOX": {
         "TITLE": "Ustvari poštni predal",
@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Vnesite ime vaše spletne strani (npr. Acme Inc)"
       },
       "FB": {
-        "HELP": "PS: By signing in, we only get access to your Page's messages. Your private messages can never be accessed by Chatwoot.",
+        "HELP": "PS: By signing in, we only get access to your Page's messages. Your private messages can never be accessed by ChannelX.",
         "CHOOSE_PAGE": "Izberite stran",
         "CHOOSE_PLACEHOLDER": "Izberite stran s seznama",
         "INBOX_NAME": "Ime prejemnika",
