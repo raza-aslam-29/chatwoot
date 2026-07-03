@@ -44,7 +44,7 @@
       "NO_RESULTS": "No webhooks found matching your search",
       "FORM": {
         "CANCEL": "Anuluj",
-        "DESC": "Webhooki dostarczają informacje o tym, co dzieje się w Twoim koncie Chatwoot. Wprowadź poprawny adres URL, aby skonfigurować webhook.",
+        "DESC": "Webhooki dostarczają informacje o tym, co dzieje się w Twoim koncie ChannelX. Wprowadź poprawny adres URL, aby skonfigurować webhook.",
         "SUBSCRIPTIONS": {
           "LABEL": "Wydarzenia",
           "EVENTS": {
@@ -78,7 +78,7 @@
       "HEADER_BTN_TXT": "Dodaj nowy webhook",
       "LOADING": "Pobieranie webhooków",
       "SEARCH_404": "Brak wyników pasujących do wyszukiwania",
-      "SIDEBAR_TXT": "<p><b>Webhooki</b> </p> <p>Webhooki są wywołaniami zwrotnymi HTTP, które mogą być zdefiniowane dla każdego konta. Są wywoływane przez zdarzenia takie jak utworzenie wiadomości w Chatwoot. Możesz utworzyć więcej niż jeden webhook dla tego konta. <br /><br /> Aby utworzyć <b>webhook</b>, kliknij przycisk <b>Dodaj nowy webhook</b>. Możesz również usunąć istniejący webhook, klikając przycisk Usuń.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooki</b> </p> <p>Webhooki są wywołaniami zwrotnymi HTTP, które mogą być zdefiniowane dla każdego konta. Są wywoływane przez zdarzenia takie jak utworzenie wiadomości w ChannelX. Możesz utworzyć więcej niż jeden webhook dla tego konta. <br /><br /> Aby utworzyć <b>webhook</b>, kliknij przycisk <b>Dodaj nowy webhook</b>. Możesz również usunąć istniejący webhook, klikając przycisk Usuń.</p>",
       "LIST": {
         "404": "Brak skonfigurowanych webhooków dla tego konta.",
         "TITLE": "Zarządzaj webhookami",
@@ -126,14 +126,14 @@
       },
       "HELP_TEXT": {
         "TITLE": "Using Slack Integration",
-        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through Chatwoot. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in ChannelX under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
+        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through ChannelX. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in ChannelX under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
         "SELECTED": "selected"
       },
       "SELECT_CHANNEL": {
         "OPTION_LABEL": "Select a channel",
         "UPDATE": "Aktualizuj",
         "BUTTON_TEXT": "Connect channel",
-        "DESCRIPTION": "Your Slack workspace is now linked with Chatwoot. However, the integration is currently inactive. To activate the integration and connect a channel to Chatwoot, please click the button below.\n\n**Note:** If you are attempting to connect a private channel, add the ChannelX app to the Slack channel before proceeding with this step.",
+        "DESCRIPTION": "Your Slack workspace is now linked with ChannelX. However, the integration is currently inactive. To activate the integration and connect a channel to ChannelX, please click the button below.\n\n**Note:** If you are attempting to connect a private channel, add the ChannelX app to the Slack channel before proceeding with this step.",
         "ATTENTION_REQUIRED": "Attention required",
         "EXPIRED": "Your Slack integration has expired. To continue receiving messages on Slack, please delete the integration and connect your workspace again."
       },

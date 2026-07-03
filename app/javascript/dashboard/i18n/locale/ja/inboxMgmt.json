@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "チャンネルを選択",
-        "BODY": "Chatwootと統合するプロバイダを選択してください。"
+        "BODY": "ChannelXと統合するプロバイダを選択してください。"
       },
       "INBOX": {
         "TITLE": "受信トレイを作成",
@@ -441,7 +441,7 @@
       },
       "AUTH": {
         "TITLE": "チャンネルを選択",
-        "DESC": "Chatwootは、ライブチャットウィジェット、Facebook Messenger、Twitterプロフィール、WhatsApp、Eメールなどのチャンネルをサポートしています。カスタムチャンネルを作成したい場合は、APIチャンネルを使用して作成できます。開始するには、以下のチャンネルのいずれかを選択してください。",
+        "DESC": "ChannelXは、ライブチャットウィジェット、Facebook Messenger、Twitterプロフィール、WhatsApp、Eメールなどのチャンネルをサポートしています。カスタムチャンネルを作成したい場合は、APIチャンネルを使用して作成できます。開始するには、以下のチャンネルのいずれかを選択してください。",
         "TITLE_NEXT": "Complete the setup",
         "TITLE_FINISH": "Voilà!",
         "CHANNEL": {

@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! Nu am putut găsi niciun cont Chatwoot. Vă rugăm să creați un cont nou pentru a continua.",
+    "NO_ACCOUNT_WARNING": "Uh oh! Nu am putut găsi niciun cont ChannelX. Vă rugăm să creați un cont nou pentru a continua.",
     "NEW_ACCOUNT": "Cont Nou",
     "SELECTOR_SUBTITLE": "Creează un cont nou",
     "API": {

@@ -5,12 +5,12 @@ info:
   version: 1.1.0
   termsOfService: https://localcom.com.au/policies/
   contact:
-    email: hello@chatwoot.com
+    email: hello@channelx.au
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://app.chatwoot.com/
+  - url: https://app.channelx.au/
 tags:
   - name: Contacts API
     description: APIs for managing contacts from client applications

@@ -78,7 +78,7 @@
       "HEADER_BTN_TXT": "Yeni webhook əlavə et",
       "LOADING": "Qoşulmuş webhooklar yüklənir",
       "SEARCH_404": "Bu sorğuya uyğun element yoxdur",
-      "SIDEBAR_TXT": "<p><b>Webhooklar</b> </p> <p>Webhooklar hər bir hesab üçün təyin edilə bilən HTTP çağırışlarıdır. Onlar Chatwoot-da mesaj yaradılması kimi hadisələr tərəfindən işə düşür. Bu hesab üçün bir neçə webhook yarada bilərsiniz. <br /><br /> <b>Webhook</b> yaratmaq üçün <b>Yeni webhook əlavə et</b> düyməsini klikləyin. Mövcud webhookları Sil düyməsini klikləyərək də silə bilərsiniz.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooklar</b> </p> <p>Webhooklar hər bir hesab üçün təyin edilə bilən HTTP çağırışlarıdır. Onlar ChannelX-da mesaj yaradılması kimi hadisələr tərəfindən işə düşür. Bu hesab üçün bir neçə webhook yarada bilərsiniz. <br /><br /> <b>Webhook</b> yaratmaq üçün <b>Yeni webhook əlavə et</b> düyməsini klikləyin. Mövcud webhookları Sil düyməsini klikləyərək də silə bilərsiniz.</p>",
       "LIST": {
         "404": "Bu hesab üçün heç bir webhook konfiqurasiya edilməyib.",
         "TITLE": "Webhookları idarə et",
@@ -126,14 +126,14 @@
       },
       "HELP_TEXT": {
         "TITLE": "Slack inteqrasiyasından necə istifadə etmək olar?",
-        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through Chatwoot. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in ChannelX under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
+        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through ChannelX. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in ChannelX under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
         "SELECTED": "seçilmiş"
       },
       "SELECT_CHANNEL": {
         "OPTION_LABEL": "Kanal seçin",
         "UPDATE": "Yenilə",
         "BUTTON_TEXT": "Kanalı qoş",
-        "DESCRIPTION": "Slack iş sahəniz artıq ChannelX ilə əlaqələndirilib. Lakin, inteqrasiya hazırda aktiv deyil. İnteqrasiyanı aktivləşdirmək və Chatwoot-a kanal qoşmaq üçün aşağıdakı düyməni basın.\n\n**Qeyd:** Əgər özəl kanalı qoşmağa çalışırsınızsa, bu addımı etməzdən əvvəl ChannelX tətbiqini Slack kanalına əlavə edin.",
+        "DESCRIPTION": "Slack iş sahəniz artıq ChannelX ilə əlaqələndirilib. Lakin, inteqrasiya hazırda aktiv deyil. İnteqrasiyanı aktivləşdirmək və ChannelX-akanal qoşmaq üçün aşağıdakı düyməni basın.\n\n**Qeyd:** Əgər özəl kanalı qoşmağa çalışırsınızsa, bu addımı etməzdən əvvəl ChannelX tətbiqini Slack kanalına əlavə edin.",
         "ATTENTION_REQUIRED": "Diqqət tələb olunur",
         "EXPIRED": "Slack inteqrasiyanızın müddəti bitib. Slack-də mesaj almağa davam etmək üçün inteqrasiyanı silin və iş sahənizi yenidən qoşun."
       },
