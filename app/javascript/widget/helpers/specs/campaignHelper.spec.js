@@ -5,7 +5,7 @@ import {
 } from '../campaignHelper';
 import campaigns from './campaignFixtures';
 
-global.chatwootWebChannel = {
+global.channelXWebChannel = {
   workingHoursEnabled: false,
 };
 describe('#Campaigns Helper', () => {
@@ -13,29 +13,29 @@ describe('#Campaigns Helper', () => {
     it('returns correct value if a valid URL is passed', () => {
       expect(
         isPatternMatchingWithURL(
-          'https://chatwoot.com/pricing*',
-          'https://chatwoot.com/pricing/'
+          'https://channelx.au/pricing*',
+          'https://channelx.au/pricing/'
         )
       ).toBe(true);
 
       expect(
         isPatternMatchingWithURL(
-          'https://*.chatwoot.com/pricing/',
-          'https://app.chatwoot.com/pricing/'
+          'https://*.channelx.au/pricing/',
+          'https://app.channelx.au/pricing/'
         )
       ).toBe(true);
 
       expect(
         isPatternMatchingWithURL(
-          'https://{*.}?chatwoot.com/pricing?test=true',
-          'https://app.chatwoot.com/pricing/?test=true'
+          'https://{*.}?channelx.au/pricing?test=true',
+          'https://app.channelx.au/pricing/?test=true'
         )
       ).toBe(true);
 
       expect(
         isPatternMatchingWithURL(
-          'https://{*.}?chatwoot.com/pricing*\\?*',
-          'https://chatwoot.com/pricing/?test=true'
+          'https://{*.}?channelx.au/pricing*\\?*',
+          'https://channelx.au/pricing/?test=true'
         )
       ).toBe(true);
     });
@@ -48,13 +48,13 @@ describe('#Campaigns Helper', () => {
           id: 1,
           timeOnPage: 3,
           triggerOnlyDuringBusinessHours: false,
-          url: 'https://www.chatwoot.com/pricing',
+          url: 'https://www.channelx.au/pricing',
         },
         {
           id: 2,
           triggerOnlyDuringBusinessHours: false,
           timeOnPage: 6,
-          url: 'https://www.chatwoot.com/about',
+          url: 'https://www.channelx.au/about',
         },
       ]);
     });
@@ -67,23 +67,23 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://www.chatwoot.com/pricing',
+              url: 'https://www.channelx.au/pricing',
               triggerOnlyDuringBusinessHours: false,
             },
             {
               id: 2,
               timeOnPage: 6,
-              url: 'https://www.chatwoot.com/about',
+              url: 'https://www.channelx.au/about',
               triggerOnlyDuringBusinessHours: false,
             },
           ],
-          currentURL: 'https://www.chatwoot.com/about/',
+          currentURL: 'https://www.channelx.au/about/',
         })
       ).toStrictEqual([
         {
           id: 2,
           timeOnPage: 6,
-          url: 'https://www.chatwoot.com/about',
+          url: 'https://www.channelx.au/about',
           triggerOnlyDuringBusinessHours: false,
         },
       ]);
@@ -95,24 +95,24 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://www.chatwoot.com/pricing',
+              url: 'https://www.channelx.au/pricing',
               triggerOnlyDuringBusinessHours: false,
             },
             {
               id: 2,
               timeOnPage: 6,
-              url: 'https://www.chatwoot.com/about',
+              url: 'https://www.channelx.au/about',
               triggerOnlyDuringBusinessHours: true,
             },
           ],
-          currentURL: 'https://www.chatwoot.com/about/',
+          currentURL: 'https://www.channelx.au/about/',
           isInBusinessHours: true,
         })
       ).toStrictEqual([
         {
           id: 2,
           timeOnPage: 6,
-          url: 'https://www.chatwoot.com/about',
+          url: 'https://www.channelx.au/about',
           triggerOnlyDuringBusinessHours: true,
         },
       ]);
@@ -124,17 +124,17 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://www.chatwoot.com/pricing',
+              url: 'https://www.channelx.au/pricing',
               triggerOnlyDuringBusinessHours: true,
             },
             {
               id: 2,
               timeOnPage: 6,
-              url: 'https://www.chatwoot.com/about',
+              url: 'https://www.channelx.au/about',
               triggerOnlyDuringBusinessHours: true,
             },
           ],
-          currentURL: 'https://www.chatwoot.com/about/',
+          currentURL: 'https://www.channelx.au/about/',
           isInBusinessHours: false,
         })
       ).toStrictEqual([]);

@@ -6,7 +6,7 @@
     "version": "1.1.0",
     "termsOfService": "https://localcom.com.au/policies/",
     "contact": {
-      "email": "hello@chatwoot.com"
+      "email": "hello@channelx.au"
     },
     "license": {
       "name": "MIT License",
@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://app.chatwoot.com/"
+      "url": "https://app.channelx.au/"
     }
   ],
   "paths": {
@@ -3914,7 +3914,7 @@
                       "color": "#1F93FF",
                       "custom_domain": "chatwoot.help",
                       "header_text": "Handbook",
-                      "homepage_link": "https://www.chatwoot.com",
+                      "homepage_link": "https://www.channelx.au",
                       "name": "Handbook",
                       "page_title": "Handbook",
                       "slug": "handbook",
@@ -3937,7 +3937,7 @@
                         "channel_type": "Channel::WebWidget",
                         "greeting_enabled": true,
                         "widget_color": "#1F93FF",
-                        "website_url": "chatwoot.com"
+                        "website_url": "channelx.au"
                       },
                       "logo": {
                         "id": 19399916,
@@ -4035,7 +4035,7 @@
                     },
                     "custom_domain": "chatwoot.help",
                     "header_text": "Handbook",
-                    "homepage_link": "https://www.chatwoot.com",
+                    "homepage_link": "https://www.channelx.au",
                     "name": "Handbook",
                     "slug": "handbook",
                     "page_title": "Handbook",
@@ -4043,7 +4043,7 @@
                     "inbox": {
                       "id": 123,
                       "name": "Chatwoot",
-                      "website_url": "chatwoot.com",
+                      "website_url": "channelx.au",
                       "channel_type": "Channel::WebWidget",
                       "avatar_url": "https://example.com/avatar.png",
                       "widget_color": "#1F93FF",
@@ -4446,7 +4446,7 @@
         ],
         "operationId": "newConversation",
         "summary": "Create New Conversation",
-        "description": "Creating a conversation in chatwoot requires a source id. \n\n Learn more about source_id: https://www.chatwoot.com/hc/user-guide/articles/1677839703-how-to-create-an-api-channel-inbox#send-messages-to-the-api-channel",
+        "description": "Creating a conversation in chatwoot requires a source id. \n\n Learn more about source_id: https://www.channelx.au/hc/user-guide/articles/1677839703-how-to-create-an-api-channel-inbox#send-messages-to-the-api-channel",
         "security": [
           {
             "userApiKey": []
@@ -12469,7 +12469,7 @@
           "homepage_link": {
             "type": "string",
             "description": "link to main dashboard",
-            "example": "https://www.chatwoot.com/"
+            "example": "https://www.channelx.au/"
           },
           "name": {
             "type": "string",

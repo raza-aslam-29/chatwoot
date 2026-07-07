@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! Vi kunne ikke finde nogen Chatwoot-konti. Opret venligst en ny konto for at fortsætte.",
+    "NO_ACCOUNT_WARNING": "Uh oh! Vi kunne ikke finde nogen ChannelX-konti. Opret venligst en ny konto for at fortsætte.",
     "NEW_ACCOUNT": "Ny Konto",
     "SELECTOR_SUBTITLE": "Opret en ny konto",
     "API": {

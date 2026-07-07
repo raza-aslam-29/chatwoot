@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Izvēlieties Kanālu",
-        "BODY": "Izvēlieties pakalpojumu sniedzēju, kuru vēlaties integrēt ar Chatwoot."
+        "BODY": "Izvēlieties pakalpojumu sniedzēju, kuru vēlaties integrēt ar ChannelX."
       },
       "INBOX": {
         "TITLE": "Izveidot Iesūtni",
@@ -499,11 +499,11 @@
       },
       "DETAILS": {
         "TITLE": "Informācija par Iesūtni",
-        "DESC": "Tālāk esošajā nolaižamajā izvēlnē izvēlieties Facebook lapu, kuru vēlaties savienot ar Chatwoot. Jūs varat savai iesūtnei, lai to labāk atpazītu, piešķirt pielāgotu nosaukumu."
+        "DESC": "Tālāk esošajā nolaižamajā izvēlnē izvēlieties Facebook lapu, kuru vēlaties savienot ar ChannelX. Jūs varat savai iesūtnei, lai to labāk atpazītu, piešķirt pielāgotu nosaukumu."
       },
       "FINISH": {
         "TITLE": "Sanāca!",
-        "DESC": "Jūs esat veiksmīgi pabeidzis savas Facebook lapas integrēšanu ar Chatwoot. Nākamreiz, kad klients nosūtīs ziņojumu Jūsu lapai, saruna automātiski parādīsies Jūsu iesūtnē.<br>Mēs nodrošinām Jums arī logrīka skriptu, ko varat viegli pievienot savai tīmekļa vietnei. Kad tas būs pieejams Jūsu vietnē, klienti varēs Jums nosūtīt ziņojumus tieši no Jūsu tīmekļa vietnes, neizmantojot ārējus rīkus, un saruna tiks parādīta tieši šeit, vietnē Chatwoot.<br>"
+        "DESC": "Jūs esat veiksmīgi pabeidzis savas Facebook lapas integrēšanu ar ChannelX. Nākamreiz, kad klients nosūtīs ziņojumu Jūsu lapai, saruna automātiski parādīsies Jūsu iesūtnē.<br>Mēs nodrošinām Jums arī logrīka skriptu, ko varat viegli pievienot savai tīmekļa vietnei. Kad tas būs pieejams Jūsu vietnē, klienti varēs Jums nosūtīt ziņojumus tieši no Jūsu tīmekļa vietnes, neizmantojot ārējus rīkus, un saruna tiks parādīta tieši šeit, vietnē ChannelX.<br>"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Izvēlieties savu e-pasta pakalpojumu sniedzēju",

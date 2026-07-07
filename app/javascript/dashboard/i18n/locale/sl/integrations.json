@@ -44,7 +44,7 @@
       "NO_RESULTS": "No webhooks found matching your search",
       "FORM": {
         "CANCEL": "Prekliči",
-        "DESC": "Webhook dogodki vam zagotavljajo informacije v realnem času o dogajanju v vašem računu Chatwoot. Prosimo, vnesite veljaven URL za nastavitev povratnega klica.",
+        "DESC": "Webhook dogodki vam zagotavljajo informacije v realnem času o dogajanju v vašem računu ChannelX. Prosimo, vnesite veljaven URL za nastavitev povratnega klica.",
         "SUBSCRIPTIONS": {
           "LABEL": "Dogodki",
           "EVENTS": {
@@ -78,7 +78,7 @@
       "HEADER_BTN_TXT": "Dodaj nov webhook",
       "LOADING": "Pridobivanje pripetih webhook",
       "SEARCH_404": "Ni elementov, ki bi ustrezali temu iskanju",
-      "SIDEBAR_TXT": "<p><b>Webhook</b> </p> <p>Webhook so HTTP povratni klici, ki jih je mogoče definirati za vsak račun. Aktivirajo se ob dogodkih, kot je ustvarjanje sporočila v Chatwoot. Za ta račun lahko ustvarite več kot en webhook. <br /><br /> Za ustvarjanje <b>webhooka</b> kliknite na gumb <b>Dodaj nov webhook</b>. Obstoječe webhook lahko odstranite s klikom na gumb Izbriši.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhook</b> </p> <p>Webhook so HTTP povratni klici, ki jih je mogoče definirati za vsak račun. Aktivirajo se ob dogodkih, kot je ustvarjanje sporočila v ChannelX. Za ta račun lahko ustvarite več kot en webhook. <br /><br /> Za ustvarjanje <b>webhooka</b> kliknite na gumb <b>Dodaj nov webhook</b>. Obstoječe webhook lahko odstranite s klikom na gumb Izbriši.</p>",
       "LIST": {
         "404": "Za ta račun niso konfigurirani nobeni webhook",
         "TITLE": "Upravljanje webhook",
@@ -133,7 +133,7 @@
         "OPTION_LABEL": "Izberite kanal",
         "UPDATE": "Posodobi",
         "BUTTON_TEXT": "Poveži kanal",
-        "DESCRIPTION": "Vaš Slack delovni prostor je zdaj povezan s Chatwoot. Vendar pa je integracija trenutno neaktivna. Za aktivacijo integracije in povezavo kanala s Chatwoot, prosimo, kliknite spodnji gumb.\n\n**Opomba:** Če poskušate povezati zasebni kanal, najprej dodajte aplikacijo ChannelX v Slack kanal, preden nadaljujete s tem korakom.",
+        "DESCRIPTION": "Vaš Slack delovni prostor je zdaj povezan s ChannelX. Vendar pa je integracija trenutno neaktivna. Za aktivacijo integracije in povezavo kanala s Chatwoot, prosimo, kliknite spodnji gumb.\n\n**Opomba:** Če poskušate povezati zasebni kanal, najprej dodajte aplikacijo ChannelX v Slack kanal, preden nadaljujete s tem korakom.",
         "ATTENTION_REQUIRED": "Potrebna pozornost",
         "EXPIRED": "Vaša integracija Slack je potekla. Če želite še naprej prejemati sporočila na Slack, prosimo, izbrišite integracijo in znova povežite delovno okolje."
       },

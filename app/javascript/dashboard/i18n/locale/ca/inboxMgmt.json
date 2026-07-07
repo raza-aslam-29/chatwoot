@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Triar canal",
-        "BODY": "Trieu el proveïdor que vulgueu integrar amb Chatwoot."
+        "BODY": "Trieu el proveïdor que vulgueu integrar amb ChannelX."
       },
       "INBOX": {
         "TITLE": "Crear safata d'entrada",
@@ -499,11 +499,11 @@
       },
       "DETAILS": {
         "TITLE": "Detalls de la safata d'entrada",
-        "DESC": "Des del següent menú desplegable, seleccioneu la pàgina de Facebook que voleu connectar a Chatwoot. També podeu donar un nom personalitzat a la safata d'entrada per a una millor identificació."
+        "DESC": "Des del següent menú desplegable, seleccioneu la pàgina de Facebook que voleu connectar a ChannelX. També podeu donar un nom personalitzat a la safata d'entrada per a una millor identificació."
       },
       "FINISH": {
         "TITLE": "L'has clavat!",
-        "DESC": "Heu acabat d'integrar la vostra pàgina de Facebook amb Chatwoot. La propera vegada que un client escrigui un missatge a la vostra pàgina, la conversa apareixerà automàticament a la safata d'entrada. <br>També us proporcionem un script del widget que podeu afegir fàcilment al vostre web. Una vegada que estigui operatiu al vostre web, els clients us podran enviar missatges des del web sense l’ajuda de cap eina externa i la conversa apareixerà aquí mateix, a Chatwoot. <br>Genial, eh? Bé, segur que intentem ser-ho :)"
+        "DESC": "Heu acabat d'integrar la vostra pàgina de Facebook amb ChannelX. La propera vegada que un client escrigui un missatge a la vostra pàgina, la conversa apareixerà automàticament a la safata d'entrada. <br>També us proporcionem un script del widget que podeu afegir fàcilment al vostre web. Una vegada que estigui operatiu al vostre web, els clients us podran enviar missatges des del web sense l’ajuda de cap eina externa i la conversa apareixerà aquí mateix, a ChannelX. <br>Genial, eh? Bé, segur que intentem ser-ho :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Selecciona el teu proveïdor de correu electrònic",

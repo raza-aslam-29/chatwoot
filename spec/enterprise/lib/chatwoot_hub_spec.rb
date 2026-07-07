@@ -6,7 +6,7 @@ RSpec.describe ChatwootHub do
       with_modified_env CHATWOOT_HUB_URL: 'https://custom.example.com' do
         allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
 
-        expect(described_class.base_url).to eq('https://hub.2.chatwoot.com')
+        expect(described_class.base_url).to eq('https://hub.2.channelx.au')
       end
     end
 

@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Nyní můžete přijímat e-maily na vaši vlastní doménu."
       }
     },
-    "UPDATE_CHATWOOT": "Je dostupná aktualizace {latestChannelXVersion} pro Chatwoot. Aktualizujte prosím svou instanci.",
+    "UPDATE_CHATWOOT": "Je dostupná aktualizace {latestChannelXVersion} pro ChannelX. Aktualizujte prosím svou instanci.",
     "LEARN_MORE": "Learn more",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using ChannelX",
     "UPGRADE": "Upgrade to continue using ChannelX",

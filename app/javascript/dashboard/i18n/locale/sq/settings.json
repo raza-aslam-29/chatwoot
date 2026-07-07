@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Ndërfaqja",
-        "NOTE": "Personalizoni pamjen dhe ndjesinë e panelit tuaj Chatwoot.",
+        "NOTE": "Personalizoni pamjen dhe ndjesinë e panelit tuaj ChannelX.",
         "FONT_SIZE": {
           "TITLE": "Madhësia e shkronjave",
           "NOTE": "Rregulloni madhësinë e tekstit në të gjithë panelin sipas preferencës suaj.",
@@ -610,7 +610,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! Nuk gjetëm asnjë llogari Chatwoot. Ju lutem krijoni një llogari të re për të vazhduar.",
+    "NO_ACCOUNT_WARNING": "Uh oh! Nuk gjetëm asnjë llogari ChannelX. Ju lutem krijoni një llogari të re për të vazhduar.",
     "NEW_ACCOUNT": "Llogari e Re",
     "SELECTOR_SUBTITLE": "Krijo një llogari të re",
     "API": {

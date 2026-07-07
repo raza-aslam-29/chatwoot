@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Pumili ng Channel",
-        "BODY": "Pumili ng provider na nais mong i-integrate sa Chatwoot."
+        "BODY": "Pumili ng provider na nais mong i-integrate sa ChannelX."
       },
       "INBOX": {
         "TITLE": "Gumawa ng Inbox",
@@ -499,11 +499,11 @@
       },
       "DETAILS": {
         "TITLE": "Mga Detalye ng Inbox",
-        "DESC": "Mula sa dropdown sa ibaba, piliin ang Facebook Page na nais mong ikonekta sa Chatwoot. Maaari ka ring magbigay ng pasadyang pangalan sa iyong inbox para sa mas madaling pagkilala."
+        "DESC": "Mula sa dropdown sa ibaba, piliin ang Facebook Page na nais mong ikonekta sa ChannelX. Maaari ka ring magbigay ng pasadyang pangalan sa iyong inbox para sa mas madaling pagkilala."
       },
       "FINISH": {
         "TITLE": "Tama na!",
-        "DESC": "Matagumpay mong natapos ang pag-integrate ng iyong Facebook Page sa Chatwoot. Sa susunod na mag-message ang isang customer sa iyong Pahina, awtomatikong lalabas ang pag-uusap sa iyong inbox.<br>Nagbibigay din kami sa iyo ng widget script na madali mong maidadagdag sa iyong website. Kapag ito ay live na sa iyong website, maaaring mag-message ang mga customer nang direkta mula sa iyong website nang hindi na kailangan ng anumang panlabas na tool at lalabas ang pag-uusap dito mismo, sa Chatwoot.<br>Astig, di ba? Sinisikap talaga namin :)"
+        "DESC": "Matagumpay mong natapos ang pag-integrate ng iyong Facebook Page sa ChannelX. Sa susunod na mag-message ang isang customer sa iyong Pahina, awtomatikong lalabas ang pag-uusap sa iyong inbox.<br>Nagbibigay din kami sa iyo ng widget script na madali mong maidadagdag sa iyong website. Kapag ito ay live na sa iyong website, maaaring mag-message ang mga customer nang direkta mula sa iyong website nang hindi na kailangan ng anumang panlabas na tool at lalabas ang pag-uusap dito mismo, sa ChannelX.<br>Astig, di ba? Sinisikap talaga namin :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Piliin ang iyong email provider",

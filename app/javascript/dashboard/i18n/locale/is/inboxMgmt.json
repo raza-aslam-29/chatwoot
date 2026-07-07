@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Veldu rás",
-        "BODY": "Veldu þjónustuveituna sem þú vilt samþætta við Chatwoot."
+        "BODY": "Veldu þjónustuveituna sem þú vilt samþætta við ChannelX."
       },
       "INBOX": {
         "TITLE": "Nýtt innhólf",
@@ -499,11 +499,11 @@
       },
       "DETAILS": {
         "TITLE": "Innhólfs Upplýsingar",
-        "DESC": "Í fellilistanum hér að neðan, veldu Facebook síðuna sem þú vilt tengja við Chatwoot. Þú getur líka gefið innhólfinu sérsniðið nafn til að þekkja það betur."
+        "DESC": "Í fellilistanum hér að neðan, veldu Facebook síðuna sem þú vilt tengja við ChannelX. Þú getur líka gefið innhólfinu sérsniðið nafn til að þekkja það betur."
       },
       "FINISH": {
         "TITLE": "Nailed It!",
-        "DESC": "Þú hefur lokið við að innleiða Facebook síðuna þína í Chatwoot. Næst þegar viðskiptavinur sendir skilaboð á síðunni þinni birtist samtalið sjálfkrafa í innhólfinu þínu.<br>Við erum líka að útvega þér netspjalls skriftu sem þú getur auðveldlega bætt við vefsíðuna þína. Þegar þetta er komið á vefsvæðið þitt geta viðskiptavinir sent þér skilaboð beint frá vefsíðunni þinni án hjálpar utanaðkomandi tóla og samtalið mun birtast hér, í Chatwoot.<br>Svalt, ha? Jæja, við reynum að vera það :)"
+        "DESC": "Þú hefur lokið við að innleiða Facebook síðuna þína í ChannelX. Næst þegar viðskiptavinur sendir skilaboð á síðunni þinni birtist samtalið sjálfkrafa í innhólfinu þínu.<br>Við erum líka að útvega þér netspjalls skriftu sem þú getur auðveldlega bætt við vefsíðuna þína. Þegar þetta er komið á vefsvæðið þitt geta viðskiptavinir sent þér skilaboð beint frá vefsíðunni þinni án hjálpar utanaðkomandi tóla og samtalið mun birtast hér, í ChannelX.<br>Svalt, ha? Jæja, við reynum að vera það :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Select your email provider",

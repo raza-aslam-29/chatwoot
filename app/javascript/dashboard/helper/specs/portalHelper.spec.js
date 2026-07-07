@@ -8,11 +8,11 @@ describe('PortalHelper', () => {
   describe('buildPortalURL', () => {
     it('returns the correct url', () => {
       window.channelxConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.channelx.au',
+        helpCenterURL: 'https://help.channelx.au',
       };
       expect(buildPortalURL('handbook')).toEqual(
-        'https://help.chatwoot.com/hc/handbook'
+        'https://help.channelx.au/hc/handbook'
       );
       window.channelxConfig = {};
     });
@@ -21,19 +21,19 @@ describe('PortalHelper', () => {
   describe('buildPortalArticleURL', () => {
     it('returns the correct url', () => {
       window.channelxConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.channelx.au',
+        helpCenterURL: 'https://help.channelx.au',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://help.chatwoot.com/hc/handbook/articles/article-slug');
+      ).toEqual('https://help.channelx.au/hc/handbook/articles/article-slug');
       window.channelxConfig = {};
     });
 
     it('returns the correct url with custom domain', () => {
       window.channelxConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.channelx.au',
+        helpCenterURL: 'https://help.channelx.au',
       };
       expect(
         buildPortalArticleURL(
@@ -48,8 +48,8 @@ describe('PortalHelper', () => {
 
     it('handles https in custom domain correctly', () => {
       window.channelxConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.channelx.au',
+        helpCenterURL: 'https://help.channelx.au',
       };
       expect(
         buildPortalArticleURL(
@@ -64,12 +64,12 @@ describe('PortalHelper', () => {
 
     it('uses hostURL when helpCenterURL is not available', () => {
       window.channelxConfig = {
-        hostURL: 'https://app.chatwoot.com',
+        hostURL: 'https://app.channelx.au',
         helpCenterURL: '',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://app.chatwoot.com/hc/handbook/articles/article-slug');
+      ).toEqual('https://app.channelx.au/hc/handbook/articles/article-slug');
     });
   });
 
