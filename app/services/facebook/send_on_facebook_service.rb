@@ -53,15 +53,22 @@ class Facebook::SendOnFacebookService < Base::SendOnChannelService
   def deliver_via_gateway(gateway_url, delivery_params)
     body = delivery_params.to_json
     uri = "#{gateway_url.chomp('/')}/send/facebook/#{channel.page_id}"
+    api_key = GatewayRegistrationService.api_key
+
+    Rails.logger.info "[GatewayRegistration] Sending outbound Facebook message to Gateway: #{uri}"
+    Rails.logger.info "[GatewayRegistration] Using API Key Prefix: #{api_key.to_s[0..7]}... (length: #{api_key.to_s.length})"
+
     response = HTTParty.post(
       uri,
       body: body,
       headers: {
         'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{GatewayRegistrationService.gateway_api_key}",
+        'Authorization' => "Bearer #{api_key}",
         'X-Channelx-Signature' => GatewayRegistrationService.sign(body)
       }
     )
+
+    Rails.logger.info "[GatewayRegistration] Gateway response: #{response.code} — #{response.body}"
     JSON.parse(response.body)
   rescue JSON::ParserError
     Messages::StatusUpdateService.new(message, 'failed', 'Facebook was unable to process this request').perform

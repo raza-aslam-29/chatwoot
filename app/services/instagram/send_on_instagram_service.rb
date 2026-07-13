@@ -30,15 +30,23 @@ class Instagram::SendOnInstagramService < Instagram::BaseSendService
   def send_via_gateway(gateway_url, message_content)
     body = message_content.to_json
     uri = "#{gateway_url.chomp('/')}/send/instagram/#{channel.instagram_id}"
-    HTTParty.post(
+    api_key = GatewayRegistrationService.api_key
+
+    Rails.logger.info "[GatewayRegistration] Sending outbound Instagram message to Gateway: #{uri}"
+    Rails.logger.info "[GatewayRegistration] Using API Key Prefix: #{api_key.to_s[0..7]}... (length: #{api_key.to_s.length})"
+
+    response = HTTParty.post(
       uri,
       body: body,
       headers: {
         'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{GatewayRegistrationService.gateway_api_key}",
+        'Authorization' => "Bearer #{api_key}",
         'X-Channelx-Signature' => GatewayRegistrationService.sign(body)
       }
     )
+
+    Rails.logger.info "[GatewayRegistration] Gateway response: #{response.code} — #{response.body}"
+    response
   end
 
   def merge_human_agent_tag(params)
