@@ -30,10 +30,11 @@ module MetaTokenVerifyConcern
     signature = request.headers['X-Channelx-Signature']
     return false if signature.blank?
 
-    hmac_key = ENV.fetch('CHANNELX_GATEWAY_HMAC_KEY', nil) || GatewayRegistrationService.hmac_key
-    return false if hmac_key.blank?
+    api_key = GatewayRegistrationService.api_key
+    return false if api_key.blank?
 
-    expected_signature = OpenSSL::HMAC.hexdigest('SHA256', hmac_key, meta_request_body)
+    expected_signature = OpenSSL::HMAC.hexdigest('SHA256', api_key, meta_request_body)
+
     ActiveSupport::SecurityUtils.secure_compare(expected_signature, signature)
   end
 
