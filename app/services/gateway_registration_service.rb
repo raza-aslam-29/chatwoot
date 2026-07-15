@@ -98,6 +98,10 @@ class GatewayRegistrationService
       ENV.fetch(API_KEY_ENV, nil)
     end
 
+    def gateway_api_key
+      api_key
+    end
+
 
     # Signs a request body with the static key using SHA-256 (used for outgoing Meta signature fallback check).
     def sign(body)
