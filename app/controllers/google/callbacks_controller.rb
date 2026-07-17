@@ -55,7 +55,7 @@ class Google::CallbacksController < OauthCallbackController
 
   def register_with_gateway(_gateway_url)
     # The gateway already stored the refresh token during /google/callback. This call
-    # just ensures the tenant exists and syncs the gateway api/hmac keys so Chatwoot can
+    # just ensures the tenant exists and syncs the gateway api/hmac keys so ChannelX can
     # authenticate to /oauth/refresh later.
     GatewayRegistrationService.new(
       platform_type: :google,

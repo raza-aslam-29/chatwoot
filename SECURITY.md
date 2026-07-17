@@ -27,7 +27,7 @@ Please try your best to describe a clear and realistic impact for your report, a
 - Performing limited admin actions without authorization
 - CSRF
 
-You can learn more about our triaging process [here](https://www.channelx.au/docs/contributing-guide/security-reports).
+You can learn more about our triaging process [here](https://docs.channelx.au/13-security/).
 
 ## Non-Qualifying Vulnerabilities
 

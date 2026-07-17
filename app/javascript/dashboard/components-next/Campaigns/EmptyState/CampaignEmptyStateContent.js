@@ -17,7 +17,7 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     enabled: true,
     campaign_type: 'ongoing',
     trigger_rules: {
-      url: 'https://www.channelx.au/features/chatbot/',
+      url: 'https://docs.channelx.au/15-bots-integrations/',
       time_on_page: 10,
     },
     trigger_only_during_business_hours: true,
@@ -42,7 +42,7 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     enabled: false,
     campaign_type: 'ongoing',
     trigger_rules: {
-      url: 'https://www.channelx.au/pricings',
+      url: 'https://localcom.com.au/billing-4',
       time_on_page: 10,
     },
     trigger_only_during_business_hours: false,
@@ -60,9 +60,9 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     },
     sender: {
       id: 1,
-      name: 'Chatwoot',
+      name: 'ChannelX',
     },
-    message: 'Hi! Chatwoot here. Need help setting up? Let me know!',
+    message: 'Hi! ChannelX here. Need help setting up? Let me know!',
     campaign_status: 'active',
     enabled: false,
     campaign_type: 'ongoing',
@@ -114,7 +114,7 @@ export const ONE_OFF_CAMPAIGN_EMPTY_STATE_CONTENT = [
       provider: 'default',
     },
     message:
-      'Hello! Enjoying our product? Share your feedback on G2 and earn a $25 Amazon coupon: https://chwt.app/g2-review',
+      'Hello! Enjoying our product? Share your feedback on G2 and earn a $25 Amazon coupon: https://localcom.com.au/channelx',
     campaign_status: 'active',
     enabled: true,
     campaign_type: 'one_off',

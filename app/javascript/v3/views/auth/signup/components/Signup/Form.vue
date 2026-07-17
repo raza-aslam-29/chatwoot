@@ -53,9 +53,9 @@ const globalConfig = computed(() => store.getters['globalConfig/get']);
 
 const termsLink = computed(() =>
   t('REGISTER.TERMS_ACCEPT')
-    .replace('https://www.channelx.au/terms', globalConfig.value.termsURL)
+    .replace('https://localcom.com.au/channelx-privacy-policy', globalConfig.value.termsURL)
     .replace(
-      'https://www.channelx.au/privacy-policy',
+      'https://localcom.com.au/channelx-privacy-policy',
       globalConfig.value.privacyURL
     )
 );

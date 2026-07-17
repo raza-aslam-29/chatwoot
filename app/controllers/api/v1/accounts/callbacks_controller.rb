@@ -127,7 +127,7 @@ class Api::V1::Accounts::CallbacksController < Api::V1::Accounts::BaseController
 
   def register_with_gateway(inbox)
     # Hand the gateway the page token so it can send outbound on this page's behalf
-    # (gateway holds the token; Chatwoot routes sends through /send/facebook/{page_id}).
+    # (gateway holds the token; ChannelX routes sends through /send/facebook/{page_id}).
     GatewayRegistrationService.new(
       platform_type: 'facebook',
       platform_id: inbox.channel.page_id,
