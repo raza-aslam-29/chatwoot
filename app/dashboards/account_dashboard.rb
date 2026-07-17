@@ -13,7 +13,7 @@ class AccountDashboard < Administrate::BaseDashboard
                                    limits: AccountLimitsField
                                  }
 
-                                 # Only show manually managed features in Chatwoot Cloud deployment
+                                 # Only show manually managed features in ChannelX Cloud deployment
                                  attributes[:manually_managed_features] = ManuallyManagedFeaturesField if ChatwootApp.chatwoot_cloud?
 
                                  # Add all_features last so it appears after manually_managed_features
@@ -119,7 +119,7 @@ class AccountDashboard < Administrate::BaseDashboard
   def permitted_attributes(action)
     attrs = super + [limits: {}]
 
-    # Add manually_managed_features to permitted attributes only for Chatwoot Cloud
+    # Add manually_managed_features to permitted attributes only for ChannelX Cloud
     attrs << { manually_managed_features: [] } if ChatwootApp.chatwoot_cloud?
 
     attrs

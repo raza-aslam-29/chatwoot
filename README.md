@@ -87,7 +87,7 @@ Publish help articles, FAQs, and guides through the built-in Help Center Portal.
 
 ## Documentation
 
-Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
+Detailed documentation is available at [docs.channelx.au/17-help-center](https://docs.channelx.au/17-help-center/).
 
 ## Translation process
 

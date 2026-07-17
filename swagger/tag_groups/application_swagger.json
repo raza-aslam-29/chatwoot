@@ -1,10 +1,10 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Chatwoot",
-    "description": "This is the API documentation for Chatwoot server.",
+    "title": "ChannelX",
+    "description": "This is the API documentation for ChannelX server.",
     "version": "1.1.0",
-    "termsOfService": "https://localcom.com.au/policies/",
+    "termsOfService": "https://localcom.com.au/channelx-privacy-policy/",
     "contact": {
       "email": "hello@channelx.au"
     },
@@ -2989,7 +2989,7 @@
         ],
         "operationId": "newConversation",
         "summary": "Create New Conversation",
-        "description": "Creating a conversation in chatwoot requires a source id. \n\n Learn more about source_id: https://www.channelx.au/hc/user-guide/articles/1677839703-how-to-create-an-api-channel-inbox#send-messages-to-the-api-channel",
+        "description": "Creating a conversation in channelx requires a source id. \n\n Learn more about source_id: https://docs.channelx.au/06-communication-channels/api-channel/#send-a-message-into-the-channel",
         "security": [
           {
             "userApiKey": []
@@ -9279,7 +9279,7 @@
           },
           "pubsub_token": {
             "type": "string",
-            "description": "The token to be used to connect to chatwoot websocket"
+            "description": "The token to be used to connect to channelx websocket"
           }
         }
       },

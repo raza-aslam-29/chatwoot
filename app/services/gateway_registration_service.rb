@@ -1,8 +1,8 @@
-# Handles all Chatwoot-to-Gateway communication using a single static API key.
+# Handles all ChannelX-to-Gateway communication using a single static API key.
 #
 # Authentication flow:
 #   * Every request to the gateway carries `Authorization: Bearer <key>`.
-#   * The key is stored in the customer's Chatwoot .env as `CHANNELX_GATEWAY_API_KEY`.
+#   * The key is stored in the customer's ChannelX .env as `CHANNELX_GATEWAY_API_KEY`.
 #   * No registration phase, no handshake, no write to `installation_configs`.
 #
 # Verification of incoming webhook signatures:

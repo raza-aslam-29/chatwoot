@@ -88,7 +88,7 @@ class Api::V1::Accounts::Google::FinalizesController < Api::V1::Accounts::BaseCo
   end
 
   def register_with_gateway(_gateway_url)
-    # Email send/receive stays on Chatwoot. We only hand the gateway the Google
+    # Email send/receive stays on ChannelX. We only hand the gateway the Google
     # refresh token so it can revoke it on demand (POST oauth2.googleapis.com/revoke,
     # which needs just the token — no client secret). On re-auth with no new refresh
     # token, this is nil and the gateway keeps the previously stored one.

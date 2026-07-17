@@ -14,7 +14,7 @@
 - name: BRAND_NAME
   value: 'ChannelX'
 - name: TERMS_URL
-  value: 'https://localcom.com.au/policies'
+  value: 'https://localcom.com.au/channelx-privacy-policy'
 - name: PRIVACY_URL
   value: 'https://localcom.com.au/wp-content/uploads/2025/06/Privacy-Policy-ChannelX-1.pdf'
 - name: DISPLAY_MANIFEST
