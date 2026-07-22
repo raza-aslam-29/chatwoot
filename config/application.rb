@@ -44,6 +44,9 @@ module Chatwoot
       'Cross-Origin-Opener-Policy' => 'same-origin-allow-popups'
     )
 
+    # Drop the X-Runtime header: it discloses per-request processing time.
+    config.middleware.delete Rack::Runtime
+
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('enterprise/lib')
     config.eager_load_paths << Rails.root.join('enterprise/listeners')
