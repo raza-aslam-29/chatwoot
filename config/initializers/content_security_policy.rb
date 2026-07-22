@@ -22,8 +22,13 @@ Rails.application.config.content_security_policy do |policy|
   end
 end
 
-# Start in report-only mode so legitimate resources (Vite assets, websockets,
-# inline scripts) are not blocked while violations are observed in the browser
-# console. Once no legitimate resources are reported as blocked, remove this
-# line to enforce the policy.
+# Generate a per-request nonce so inline scripts in layouts we control can be
+# allowlisted without falling back to :unsafe_inline.
+Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_directives = %w[script-src]
+
+# The application still renders inline scripts from layouts and admin-configured
+# DASHBOARD_SCRIPTS that are not nonce-tagged, so the app-wide policy stays in
+# report-only mode while those violations are observed. Controllers that render
+# fully nonce-tagged layouts opt into enforcement individually.
 Rails.application.config.content_security_policy_report_only = true

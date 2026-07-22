@@ -30,7 +30,8 @@
     <% end %>
     <link rel="icon" type="image/png" sizes="512x512" href="<%= @global_config['LOGO_THUMBNAIL'] %>">
     <%= csrf_meta_tags %>
-    <script>
+    <%= csp_meta_tag %>
+    <script nonce="<%= content_security_policy_nonce %>">
       window.channelxConfig = {
         hostURL: '<%= ENV.fetch('FRONTEND_URL', '') %>',
         helpCenterURL: '<%= ENV.fetch('HELPCENTER_URL', '') %>',
@@ -65,7 +66,7 @@
       window.errorLoggingConfig = '<%= ENV.fetch('SENTRY_FRONTEND_DSN', '') || ENV.fetch('SENTRY_DSN', '') %>'
     </script>
     <% if @global_config['CLOUD_ANALYTICS_TOKEN'].present? %>
-    <script>
+    <script nonce="<%= content_security_policy_nonce %>">
       window.analyticsConfig = {
         token: '<%= @global_config['CLOUD_ANALYTICS_TOKEN'] %>',
       }
