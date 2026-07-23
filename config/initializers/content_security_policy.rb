@@ -6,7 +6,7 @@
 
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
-  policy.font_src    :self, :data, :https
+  policy.font_src    :self, :data
   policy.img_src     :self, :data, :https
   policy.object_src  :none
   policy.script_src  :self
@@ -14,6 +14,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.connect_src :self, :https, :wss
   policy.frame_ancestors :self
   policy.base_uri    :self
+  policy.form_action :self
 
   # Allow @vite/client to hot reload changes in development
   if Rails.env.development?
