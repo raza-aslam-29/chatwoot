@@ -22,7 +22,8 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ActiveModel::Type::Boolean.new.cast(ENV.fetch('RAILS_SERVE_STATIC_FILES', true))
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.year.to_i}"
+    'Cache-Control' => "public, max-age=#{1.year.to_i}",
+    'X-Content-Type-Options' => 'nosniff'
   }
   # Compress JavaScripts and CSS.
   # config.assets.js_compressor = :uglifier
