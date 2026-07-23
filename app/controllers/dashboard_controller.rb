@@ -33,20 +33,11 @@ class DashboardController < ActionController::Base
   before_action :ensure_installation_onboarding, only: [:index]
   before_action :render_hc_if_custom_domain, only: [:index]
   before_action :ensure_html_format
-  before_action :enforce_content_security_policy
   layout 'vueapp'
 
   def index; end
 
   private
-
-  # The vueapp layout nonce-tags every inline script it renders, so the policy can
-  # be enforced here rather than merely reported. Admin-configured DASHBOARD_SCRIPTS
-  # are injected verbatim and cannot carry a nonce, so enforcement is skipped when
-  # they are present to avoid breaking those installations.
-  def enforce_content_security_policy
-    request.content_security_policy_report_only = false if @dashboard_scripts.blank?
-  end
 
   def ensure_html_format
     render json: { error: 'Please use API routes instead of dashboard routes for JSON requests' }, status: :not_acceptable if request.format.json?
