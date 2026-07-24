@@ -35,8 +35,13 @@ module ConversationReplyMailerHelper
     return unless @inbox.email? && @channel.imap_enabled
     return unless oauth_provider_domain
 
-    @options[:delivery_method] = :smtp
-    @options[:delivery_method_options] = base_smtp_settings(oauth_provider_domain)
+    if @inbox.channel.google?
+      @options[:delivery_method] = :gmail_api
+      @options[:delivery_method_options] = { user_name: @channel.imap_login }
+    else
+      @options[:delivery_method] = :smtp
+      @options[:delivery_method_options] = base_smtp_settings(oauth_provider_domain)
+    end
   end
 
   def oauth_provider_domain

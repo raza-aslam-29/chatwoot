@@ -7,12 +7,13 @@ module MailboxHelper
 
     @message = @conversation.messages.create!(
       account_id: @conversation.account_id,
-      sender: @conversation.contact,
+      sender: is_outgoing? ? nil : @conversation.contact,
       content: mail_content&.truncate(150_000),
       inbox_id: @conversation.inbox_id,
-      message_type: 'incoming',
+      message_type: is_outgoing? ? 'outgoing' : 'incoming',
       content_type: 'incoming_email',
       source_id: processed_mail.message_id,
+      created_at: processed_mail.date || Time.current,
       content_attributes: {
         email: processed_mail.serialized_data,
         cc_email: processed_mail.cc,
@@ -104,13 +105,16 @@ module MailboxHelper
     Rails.application.routes.url_helpers.url_for(blob)
   end
 
-  def create_contact
+  def create_contact(email = nil)
+    email ||= processed_mail.original_sender
+    name = is_outgoing? ? email.split('@').first : identify_contact_name
+
     @contact_inbox = ::ContactInboxWithContactBuilder.new(
-      source_id: processed_mail.original_sender,
+      source_id: email,
       inbox: @inbox,
       contact_attributes: {
-        name: identify_contact_name,
-        email: processed_mail.original_sender,
+        name: name,
+        email: email,
         additional_attributes: { source_id: "email:#{processed_mail.message_id}" }
       }
     ).perform
@@ -125,5 +129,9 @@ module MailboxHelper
     elsif processed_mail.html_content.present?
       processed_mail.html_content[:reply]
     end
+  end
+
+  def is_outgoing?
+    processed_mail.original_sender.to_s.casecmp?(@channel.email.to_s)
   end
 end
