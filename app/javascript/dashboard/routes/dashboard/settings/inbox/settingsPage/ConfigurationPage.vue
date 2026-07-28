@@ -54,7 +54,10 @@ export default {
       return this.inbox.provider_config?.source === 'embedded_signup';
     },
     whatsappAppId() {
-      return window.channelxConfig?.whatsappAppId;
+      return (
+        window.channelxConfig?.whatsappAppId ||
+        window.channelxConfig?.channelxGatewayUrl
+      );
     },
     isForwardingEnabled() {
       return !!this.inbox.forwarding_enabled;

@@ -27,9 +27,13 @@ const { t } = useI18n();
 const isRequestingAuthorization = ref(false);
 const isLoadingFacebook = ref(true);
 
-const whatsappAppId = computed(() => window.channelxConfig.whatsappAppId);
+const whatsappAppId = computed(
+  () =>
+    window.channelxConfig.whatsappAppId ||
+    window.channelxConfig?.channelxGatewayUrl
+);
 const whatsappConfigurationId = computed(
-  () => window.channelxConfig.whatsappConfigurationId
+  () => window.channelxConfig.whatsappConfigurationId || 'gateway'
 );
 
 const actionLabel = computed(() => {

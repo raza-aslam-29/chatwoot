@@ -21,12 +21,12 @@ const PROVIDER_TYPES = {
   THREE_SIXTY_DIALOG: '360dialog',
 };
 
-const hasWhatsappAppId = computed(() => {
-  return (
-    window.channelxConfig?.whatsappAppId &&
-    window.channelxConfig.whatsappAppId !== 'none'
-  );
-});
+const hasWhatsappAppId = computed(
+  () =>
+    (Boolean(window.channelxConfig?.whatsappAppId) &&
+      window.channelxConfig.whatsappAppId !== 'none') ||
+    Boolean(window.channelxConfig?.channelxGatewayUrl)
+);
 
 const selectedProvider = computed(() => route.query.provider);
 
