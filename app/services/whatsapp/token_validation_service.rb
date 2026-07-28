@@ -24,18 +24,27 @@ class Whatsapp::TokenValidationService
   end
 
   def extract_waba_scope(token_data)
+    return {} unless token_data.is_a?(Hash) && token_data['data'].is_a?(Hash)
+
     granular_scopes = token_data.dig('data', 'granular_scopes')
-    waba_scope = granular_scopes&.find { |scope| scope['scope'] == 'whatsapp_business_management' }
+    if granular_scopes.present?
+      waba_scope = granular_scopes.find do |scope|
+        scope['scope'] == 'whatsapp_business_management' || scope['scope'] == 'whatsapp_business_messaging'
+      end
+      return waba_scope if waba_scope.present?
+    end
 
-    raise 'No WABA scope found in token' unless waba_scope
+    scopes = token_data.dig('data', 'scopes') || []
+    return { 'target_ids' => [@waba_id.to_s] } if scopes.include?('whatsapp_business_management') || scopes.include?('whatsapp_business_messaging')
 
-    waba_scope
+    {}
   end
 
   def verify_waba_authorization(waba_scope)
-    authorized_waba_ids = waba_scope['target_ids'] || []
+    raise 'No WABA scope found in token' if waba_scope.blank?
 
-    return if authorized_waba_ids.include?(@waba_id)
+    authorized_waba_ids = (waba_scope['target_ids'] || []).map(&:to_s)
+    return if authorized_waba_ids.include?(@waba_id.to_s)
 
     raise "Token does not have access to WABA #{@waba_id}. Authorized WABAs: #{authorized_waba_ids}"
   end

@@ -22,13 +22,18 @@ class Whatsapp::CsatTemplateService
     template_name ||= CsatTemplateNameService.csat_template_name(@whatsapp_channel.inbox.id)
     response = HTTParty.delete(
       "#{business_account_path}/message_templates?name=#{template_name}",
-      headers: api_headers
+      headers: api_headers,
+      query: graph_credential_params
     )
     { success: response.success?, response_body: response.body }
   end
 
   def get_template_status(template_name)
-    response = HTTParty.get("#{business_account_path}/message_templates?name=#{template_name}", headers: api_headers)
+    response = HTTParty.get(
+      "#{business_account_path}/message_templates?name=#{template_name}",
+      headers: api_headers,
+      query: graph_credential_params
+    )
 
     if response.success? && response['data']&.any?
       template_data = response['data'].first
@@ -99,6 +104,7 @@ class Whatsapp::CsatTemplateService
     HTTParty.post(
       "#{business_account_path}/message_templates",
       headers: api_headers,
+      query: graph_credential_params,
       body: request_body.to_json
     )
   end
@@ -126,14 +132,26 @@ class Whatsapp::CsatTemplateService
     "#{api_base_path}/#{WHATSAPP_API_VERSION}/#{@whatsapp_channel.provider_config['business_account_id']}"
   end
 
+  # When routed through the gateway, Authorization must carry this tenant's own gateway
+  # API key — never the Meta access token, which is not a valid gateway credential. The
+  # Meta token still reaches Meta via the access_token query param (graph_credential_params).
   def api_headers
+    auth_token = gateway_enabled? ? ENV.fetch('CHANNELX_GATEWAY_API_KEY', '') : @whatsapp_channel.provider_config['api_key']
     {
-      'Authorization' => "Bearer #{@whatsapp_channel.provider_config['api_key']}",
+      'Authorization' => "Bearer #{auth_token}",
       'Content-Type' => 'application/json'
     }
   end
 
+  def gateway_enabled?
+    ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
+  end
+
+  def graph_credential_params
+    gateway_enabled? ? { access_token: @whatsapp_channel.provider_config['api_key'] } : {}
+  end
+
   def api_base_path
-    ENV.fetch('WHATSAPP_CLOUD_BASE_URL', 'https://graph.facebook.com')
+    gateway_enabled? ? "#{ENV.fetch('CHANNELX_GATEWAY_URL').chomp('/')}/send/whatsapp" : ENV.fetch('WHATSAPP_CLOUD_BASE_URL', 'https://graph.facebook.com')
   end
 end

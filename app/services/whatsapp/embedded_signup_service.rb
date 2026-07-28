@@ -32,7 +32,7 @@ class Whatsapp::EmbeddedSignupService
   private
 
   def exchange_code_for_token
-    Whatsapp::TokenExchangeService.new(@code).perform
+    Whatsapp::TokenExchangeService.new(@code, @waba_id).perform
   end
 
   def fetch_phone_info(access_token)
@@ -44,7 +44,21 @@ class Whatsapp::EmbeddedSignupService
   end
 
   def create_or_reauthorize_channel(access_token, phone_info)
-    if @inbox_id.present?
+    existing_channel = Channel::Whatsapp.find_by(account: @account, phone_number: phone_info[:phone_number])
+
+    if existing_channel
+      existing_channel.provider_config ||= {}
+      existing_channel.update!(
+        provider_config: existing_channel.provider_config.merge(
+          'api_key' => access_token,
+          'phone_number_id' => phone_info[:phone_number_id],
+          'business_account_id' => @waba_id,
+          'source' => 'embedded_signup'
+        )
+      )
+      ensure_inbox(existing_channel, phone_info)
+      existing_channel
+    elsif @inbox_id.present?
       Whatsapp::ReauthorizationService.new(
         account: @account,
         inbox_id: @inbox_id,
@@ -55,6 +69,17 @@ class Whatsapp::EmbeddedSignupService
       waba_info = { waba_id: @waba_id, business_name: phone_info[:business_name] }
       Whatsapp::ChannelCreationService.new(@account, waba_info, phone_info, access_token).perform
     end
+  end
+
+  def ensure_inbox(channel, phone_info)
+    return channel.inbox if channel.inbox.present?
+
+    business_name = phone_info[:business_name] || 'WhatsApp'
+    Inbox.create!(
+      account: @account,
+      name: "#{business_name} WhatsApp",
+      channel: channel
+    )
   end
 
   def check_channel_health_and_prompt_reauth(channel)

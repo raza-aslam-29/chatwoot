@@ -25,6 +25,7 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     response = HTTParty.post(
       "#{phone_id_path}/messages",
       headers: api_headers,
+      query: graph_credential_params,
       body: request_body.to_json
     )
 
@@ -38,8 +39,11 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     whatsapp_channel.update(message_templates: templates, message_templates_last_updated: Time.now.utc) if templates.present?
   end
 
+  # `url` is either our own gateway-routed request (first page) or a graph.facebook.com
+  # pagination URL Meta handed back directly (subsequent pages) — only the former needs
+  # the gateway's tenant credential; the latter already carries a working access_token.
   def fetch_whatsapp_templates(url)
-    response = HTTParty.get(url)
+    response = HTTParty.get(url, headers: request_headers_for(url))
     return [] unless response.success?
 
     next_url = next_url(response)
@@ -54,12 +58,33 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
   end
 
   def validate_provider_config?
-    response = HTTParty.get("#{business_account_path}/message_templates?access_token=#{whatsapp_channel.provider_config['api_key']}")
+    url = "#{business_account_path}/message_templates?access_token=#{whatsapp_channel.provider_config['api_key']}"
+    response = HTTParty.get(url, headers: request_headers_for(url))
     response.success?
   end
 
+  # When routed through the gateway, Authorization must carry this tenant's own gateway
+  # API key (CHANNELX_GATEWAY_API_KEY) — never the Meta access token, which is not a
+  # valid gateway credential. The Meta token still reaches Meta via the access_token
+  # query param (see graph_credential_params).
   def api_headers
-    { 'Authorization' => "Bearer #{whatsapp_channel.provider_config['api_key']}", 'Content-Type' => 'application/json' }
+    auth_token = gateway_enabled? ? ENV.fetch('CHANNELX_GATEWAY_API_KEY', '') : whatsapp_channel.provider_config['api_key']
+    { 'Authorization' => "Bearer #{auth_token}", 'Content-Type' => 'application/json' }
+  end
+
+  def gateway_enabled?
+    ENV.fetch('CHANNELX_GATEWAY_URL', '').present?
+  end
+
+  def graph_credential_params
+    gateway_enabled? ? { access_token: whatsapp_channel.provider_config['api_key'] } : {}
+  end
+
+  def request_headers_for(url)
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    return {} unless gateway_url.present? && url.start_with?(gateway_url)
+
+    { 'Authorization' => "Bearer #{ENV.fetch('CHANNELX_GATEWAY_API_KEY', '')}" }
   end
 
   def create_csat_template(template_config)
@@ -76,7 +101,11 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
   end
 
   def media_url(media_id)
-    "#{api_base_path}/v13.0/#{media_id}"
+    if gateway_enabled?
+      "#{api_base_path}/v13.0/#{media_id}?access_token=#{whatsapp_channel.provider_config['api_key']}"
+    else
+      "#{api_base_path}/v13.0/#{media_id}"
+    end
   end
 
   private
@@ -86,7 +115,12 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
   end
 
   def api_base_path
-    ENV.fetch('WHATSAPP_CLOUD_BASE_URL', 'https://graph.facebook.com')
+    gateway_url = ENV.fetch('CHANNELX_GATEWAY_URL', '')
+    if gateway_url.present?
+      "#{gateway_url.chomp('/')}/send/whatsapp"
+    else
+      ENV.fetch('WHATSAPP_CLOUD_BASE_URL', 'https://graph.facebook.com')
+    end
   end
 
   # TODO: See if we can unify the API versions and for both paths and make it consistent with out facebook app API versions
@@ -102,6 +136,7 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     response = HTTParty.post(
       "#{phone_id_path}/messages",
       headers: api_headers,
+      query: graph_credential_params,
       body: {
         messaging_product: 'whatsapp',
         context: whatsapp_reply_context(message),
@@ -125,6 +160,7 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     response = HTTParty.post(
       "#{phone_id_path}/messages",
       headers: api_headers,
+      query: graph_credential_params,
       body: {
         :messaging_product => 'whatsapp',
         :context => whatsapp_reply_context(message),
@@ -139,7 +175,9 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
 
   def error_message(response)
     # https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/#sample-response
-    response.parsed_response&.dig('error', 'message')
+    # Gateway-level failures (auth rejected, channel revoked, ...) come back as
+    # `{"detail": "..."}` instead of Meta's `{"error": {"message": ...}}` shape.
+    response.parsed_response&.dig('error', 'message') || response.parsed_response&.dig('detail')
   end
 
   def template_body_parameters(template_info)
@@ -194,6 +232,7 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     response = HTTParty.post(
       "#{phone_id_path}/messages",
       headers: api_headers,
+      query: graph_credential_params,
       body: {
         messaging_product: 'whatsapp',
         to: phone_number,
