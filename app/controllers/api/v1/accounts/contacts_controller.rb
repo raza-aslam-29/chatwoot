@@ -1,5 +1,6 @@
 class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   include Sift
+  include FilterParamsHelper
   sort_on :email, type: :string
   sort_on :name, internal_name: :order_on_name, type: :scope, scope_params: [:direction]
   sort_on :phone_number, type: :string
@@ -44,7 +45,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   def export
     column_names = params['column_names']
-    filter_params = { :payload => params.permit!['payload'], :label => params.permit!['label'] }
+    filter_params = { :payload => export_params['payload'], :label => export_params['label'] }
     Account::ContactsExportJob.perform_later(Current.account.id, Current.user.id, column_names, filter_params)
     head :ok, message: I18n.t('errors.contacts.export.success')
   end
@@ -60,7 +61,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def show; end
 
   def filter
-    result = ::Contacts::FilterService.new(Current.account, Current.user, params.permit!).perform
+    result = ::Contacts::FilterService.new(Current.account, Current.user, permitted_filter_params).perform
     contacts = result[:contacts]
     @contacts_count = result[:count]
     @contacts = fetch_contacts(contacts)
@@ -115,6 +116,10 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   private
+
+  def export_params
+    params.permit(:label, payload: FilterParamsHelper::FILTER_PAYLOAD_KEYS)
+  end
 
   # TODO: Move this to a finder class
   def resolved_contacts

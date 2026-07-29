@@ -18,8 +18,11 @@ class ConversationBuilder
   end
 
   def conversation_params
-    additional_attributes = params[:additional_attributes]&.permit! || {}
-    custom_attributes = params[:custom_attributes]&.permit! || {}
+    # These are free-form jsonb attribute bags with customer-defined keys, so an exact
+    # allowlist is not possible. They are assigned to their own columns below rather than
+    # mass-assigned, so converting to a plain hash is enough.
+    additional_attributes = permitted_attribute_bag(params[:additional_attributes])
+    custom_attributes = permitted_attribute_bag(params[:custom_attributes])
     status = params[:status].present? ? { status: params[:status] } : {}
 
     # TODO: temporary fallback for the old bot status in conversation, we will remove after couple of releases
@@ -36,5 +39,12 @@ class ConversationBuilder
       assignee_id: params[:assignee_id],
       team_id: params[:team_id]
     }.merge(status)
+  end
+
+  def permitted_attribute_bag(attributes)
+    return {} if attributes.blank?
+    return attributes.to_unsafe_h.to_h if attributes.respond_to?(:to_unsafe_h)
+
+    attributes.to_h
   end
 end
