@@ -155,11 +155,6 @@ By default, it renders:
     };
   </script>
   <% if @portal.channel_web_widget.present? && !@is_plain_layout_enabled %>
-  <%# rubocop:disable Rails/OutputSafety %>
-  <%# html_safe is required: web_widget_script is a <script> tag that must render as markup.
-      Its only interpolated values are website_token (has_secure_token, server-generated) and
-      the FRONTEND_URL env var, neither of which is user-writable. %>
   <%= @portal.channel_web_widget.web_widget_script.html_safe %>
-  <%# rubocop:enable Rails/OutputSafety %>
   <% end %>
 </html>
