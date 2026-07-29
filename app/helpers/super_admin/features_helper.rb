@@ -8,9 +8,17 @@ module SuperAdmin::FeaturesHelper
     quantity = ChatwootHub.pricing_plan_quantity
 
     if plan == 'premium'
-      "You are currently on the <span class='font-semibold'>#{plan}</span> plan with <span class='font-semibold'>#{quantity} agents</span>."
+      ActionController::Base.helpers.safe_join(
+        ['You are currently on the ', highlight_plan_detail(plan), ' plan with ', highlight_plan_detail("#{quantity} agents"), '.']
+      )
     else
-      "You are currently on the <span class='font-semibold'>#{plan}</span> edition plan."
+      ActionController::Base.helpers.safe_join(
+        ['You are currently on the ', highlight_plan_detail(plan), ' edition plan.']
+      )
     end
+  end
+
+  def self.highlight_plan_detail(value)
+    ActionController::Base.helpers.tag.span(value, class: 'font-semibold')
   end
 end
