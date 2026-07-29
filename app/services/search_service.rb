@@ -181,11 +181,22 @@ class SearchService
     @articles = articles_query.page(params[:page]).per(15)
   end
 
+  # Columns that may be interpolated into the time filter below. Every caller passes a
+  # hardcoded literal, and this allowlist keeps that true if a caller is ever changed.
+  TIME_FILTER_COLUMNS = [
+    'conversations.last_activity_at',
+    'messages.created_at',
+    'last_activity_at',
+    'updated_at'
+  ].freeze
+
   def apply_time_filter(query, column_name)
     return query if params[:since].blank? && params[:until].blank?
+    raise ArgumentError, "Unsupported time filter column: #{column_name}" unless TIME_FILTER_COLUMNS.include?(column_name)
 
-    query = query.where("#{column_name} >= ?", cap_since_time(params[:since])) if params[:since].present?
-    query = query.where("#{column_name} <= ?", cap_until_time(params[:until])) if params[:until].present?
+    column = query.connection.quote_table_name(column_name)
+    query = query.where("#{column} >= ?", cap_since_time(params[:since])) if params[:since].present?
+    query = query.where("#{column} <= ?", cap_until_time(params[:until])) if params[:until].present?
     query
   end
 
