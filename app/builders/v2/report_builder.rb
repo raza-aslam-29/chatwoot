@@ -5,6 +5,17 @@ class V2::ReportBuilder
 
   DEFAULT_GROUP_BY = 'day'.freeze
   AGENT_RESULTS_PER_PAGE = 25
+  VALID_METRICS = %w[
+    conversations_count
+    incoming_messages_count
+    outgoing_messages_count
+    avg_first_response_time
+    avg_resolution_time
+    reply_time
+    resolutions_count
+    bot_resolutions_count
+    bot_handoffs_count
+  ].freeze
 
   def initialize(account, params)
     @account = account
@@ -15,10 +26,16 @@ class V2::ReportBuilder
   end
 
   def timeseries
-    return send(params[:metric]) if metric_valid?
+    metric = VALID_METRICS.find { |valid_metric| valid_metric == params[:metric].to_s }
 
-    Rails.logger.error "ReportBuilder: Invalid metric - #{params[:metric]}"
-    {}
+    if metric.nil?
+      Rails.logger.error "ReportBuilder: Invalid metric - #{params[:metric]}"
+      return {}
+    end
+
+    # metric is a value from the frozen VALID_METRICS allowlist, never the raw param.
+    # send is required because the metric methods are private in ReportHelper.
+    send(metric)
   end
 
   # For backward compatible with old report
@@ -70,18 +87,6 @@ class V2::ReportBuilder
   end
 
   private
-
-  def metric_valid?
-    %w[conversations_count
-       incoming_messages_count
-       outgoing_messages_count
-       avg_first_response_time
-       avg_resolution_time reply_time
-       resolutions_count
-       bot_resolutions_count
-       bot_handoffs_count
-       reply_time].include?(params[:metric])
-  end
 
   def inbox
     @inbox ||= account.inboxes.find(params[:id])

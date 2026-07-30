@@ -53,7 +53,7 @@ class Api::V1::Accounts::Captain::DocumentsController < Api::V1::Accounts::BaseC
   end
 
   def permitted_params
-    params.permit(:assistant_id, :page, :id, :account_id)
+    params.permit(:assistant_id, :page, :id)
   end
 
   def document_params

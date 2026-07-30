@@ -2,13 +2,29 @@ class V2::Reports::OutgoingMessagesCountBuilder
   include DateRangeHelper
   attr_reader :account, :params
 
+  GROUP_BY_BUILDERS = {
+    'agent' => :build_by_agent,
+    'team' => :build_by_team,
+    'inbox' => :build_by_inbox,
+    'label' => :build_by_label
+  }.freeze
+
   def initialize(account, params)
     @account = account
     @params = params
   end
 
   def build
-    send("build_by_#{params[:group_by]}")
+    builder_method = GROUP_BY_BUILDERS[params[:group_by].to_s]
+
+    if builder_method.nil?
+      Rails.logger.error "OutgoingMessagesCountBuilder: Invalid group_by - #{params[:group_by]}"
+      return []
+    end
+
+    # builder_method is a literal symbol from the frozen GROUP_BY_BUILDERS map, never the raw param.
+    # send is required because the build_by_* methods are private.
+    send(builder_method)
   end
 
   private
