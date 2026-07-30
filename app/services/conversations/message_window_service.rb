@@ -7,6 +7,7 @@ class Conversations::MessageWindowService
   end
 
   def can_reply?
+    return false if @conversation.inbox.nil?
     return true if messaging_window.blank?
 
     last_message_in_messaging_window?(messaging_window)
@@ -15,6 +16,8 @@ class Conversations::MessageWindowService
   private
 
   def messaging_window
+    return if @conversation.inbox.nil?
+
     case @conversation.inbox.channel_type
     when 'Channel::Api'
       api_messaging_window
@@ -38,14 +41,14 @@ class Conversations::MessageWindowService
   end
 
   def api_messaging_window
-    return if @conversation.inbox.channel.additional_attributes['agent_reply_time_window'].blank?
+    return if @conversation.inbox&.channel&.additional_attributes&.dig('agent_reply_time_window').blank?
 
     @conversation.inbox.channel.additional_attributes['agent_reply_time_window'].to_i.hours
   end
 
   # Check medium of the inbox to determine the messaging window
   def twilio_messaging_window
-    @conversation.inbox.channel.medium == 'whatsapp' ? MESSAGING_WINDOW_24_HOURS : nil
+    @conversation.inbox&.channel&.medium == 'whatsapp' ? MESSAGING_WINDOW_24_HOURS : nil
   end
 
   def messenger_messaging_window
