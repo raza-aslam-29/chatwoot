@@ -34,11 +34,22 @@ class DashboardController < ActionController::Base
   before_action :render_hc_if_custom_domain, only: [:index]
   before_action :ensure_html_format
   before_action :enforce_content_security_policy
+  before_action :disable_response_caching
   layout 'vueapp'
 
   def index; end
 
   private
+
+  # Dashboard responses embed per-session state (CSRF token, account config), so
+  # they must never be held by a shared proxy cache. Rails' default of
+  # `max-age=0, private, must-revalidate` already prevents this; `no-store` states
+  # it outright for caches that only honour the explicit directive.
+  def disable_response_caching
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, private'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+  end
 
   # The vueapp layout nonce-tags every inline script it renders, so the policy can
   # be enforced here rather than merely reported. Admin-configured DASHBOARD_SCRIPTS

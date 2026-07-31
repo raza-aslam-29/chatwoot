@@ -21,8 +21,11 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ActiveModel::Type::Boolean.new.cast(ENV.fetch('RAILS_SERVE_STATIC_FILES', true))
+  # Static assets under public/ are content-hashed by Vite, so a changed file
+  # always arrives under a new name. `immutable` lets browsers skip revalidation
+  # for the cache lifetime.
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.year.to_i}",
+    'Cache-Control' => "public, max-age=#{1.year.to_i}, immutable",
     'X-Content-Type-Options' => 'nosniff'
   }
   # Compress JavaScripts and CSS.
