@@ -39,6 +39,7 @@ class ConversationReplyMailer < ApplicationMailer
     return unless smtp_config_set_or_development? || email_smtp_enabled? || (email_imap_enabled? && email_oauth_enabled?)
 
     @message = message
+    @quoted_message = quoted_message_for(message)
     prepare_mail(true)
   end
 
