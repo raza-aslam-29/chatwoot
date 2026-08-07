@@ -38,12 +38,18 @@ module ConversationReplyMailerHelper
     if @inbox.channel.google?
       @options[:delivery_method] = :gmail_api
       @options[:delivery_method_options] = { user_name: @channel.imap_login }
+    elsif @inbox.channel.microsoft?
+      @options[:delivery_method] = :microsoft_graph
+      @options[:delivery_method_options] = { user_name: @channel.imap_login }
     else
       @options[:delivery_method] = :smtp
       @options[:delivery_method_options] = base_smtp_settings(oauth_provider_domain)
     end
   end
 
+  # Provider domain is only used to decide whether an OAuth mailbox is in play and, for
+  # non-Graph/non-Gmail providers, which SMTP host to use. Google and Microsoft both send
+  # over their REST APIs above, so neither reaches base_smtp_settings.
   def oauth_provider_domain
     return 'smtp.gmail.com' if @inbox.channel.google?
     return 'smtp.office365.com' if @inbox.channel.microsoft?

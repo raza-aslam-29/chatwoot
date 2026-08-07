@@ -49,6 +49,17 @@ class Imap::ImapMailbox
     @inbound_mail['X-Gmail-Thread-ID']&.value
   end
 
+  def find_conversation_by_microsoft_thread_id
+    return if microsoft_thread_id.blank?
+
+    @inbox.conversations.find_by("additional_attributes->>'microsoft_thread_id' = ?", microsoft_thread_id)
+  end
+
+  # Outlook's conversationId, stamped by Imap::MicrosoftFetchEmailService.
+  def microsoft_thread_id
+    @inbound_mail['X-MS-Thread-ID']&.value
+  end
+
   def find_conversation_by_in_reply_to
     return if in_reply_to.blank?
 
@@ -100,30 +111,40 @@ class Imap::ImapMailbox
   end
 
   def find_or_create_conversation
-    @conversation = find_conversation_by_gmail_thread_id || find_conversation_by_in_reply_to || find_conversation_by_reference_ids || ::Conversation.create!(
-      {
-        account_id: @account.id,
-        inbox_id: @inbox.id,
-        contact_id: @contact.id,
-        contact_inbox_id: @contact_inbox.id,
-        created_at: processed_mail.date || Time.current,
-        additional_attributes: {
-          source: 'email',
-          in_reply_to: in_reply_to,
-          gmail_thread_id: gmail_thread_id,
-          auto_reply: @processed_mail.auto_reply?,
-          mail_subject: @processed_mail.subject,
-          initiated_at: {
-            timestamp: processed_mail.date || Time.now.utc
-          }
-        }
-      }
-    )
+    @conversation = find_conversation_by_gmail_thread_id || find_conversation_by_microsoft_thread_id ||
+                    find_conversation_by_in_reply_to || find_conversation_by_reference_ids || ::Conversation.create!(
+                      {
+                        account_id: @account.id,
+                        inbox_id: @inbox.id,
+                        contact_id: @contact.id,
+                        contact_inbox_id: @contact_inbox.id,
+                        created_at: processed_mail.date || Time.current,
+                        additional_attributes: {
+                          source: 'email',
+                          in_reply_to: in_reply_to,
+                          gmail_thread_id: gmail_thread_id,
+                          microsoft_thread_id: microsoft_thread_id,
+                          auto_reply: @processed_mail.auto_reply?,
+                          mail_subject: @processed_mail.subject,
+                          initiated_at: {
+                            timestamp: processed_mail.date || Time.now.utc
+                          }
+                        }
+                      }
+                    )
 
-    if @conversation && gmail_thread_id.present? && @conversation.additional_attributes['gmail_thread_id'].blank?
-      @conversation.additional_attributes = @conversation.additional_attributes.merge(gmail_thread_id: gmail_thread_id)
-      @conversation.save!
-    end
+    backfill_thread_id(:gmail_thread_id, gmail_thread_id)
+    backfill_thread_id(:microsoft_thread_id, microsoft_thread_id)
+  end
+
+  # A conversation matched by in-reply-to/references may predate the provider thread id
+  # (e.g. it was started by an agent reply). Stamp it so later messages match on it directly.
+  def backfill_thread_id(key, value)
+    return if @conversation.blank? || value.blank?
+    return if @conversation.additional_attributes[key.to_s].present?
+
+    @conversation.additional_attributes = @conversation.additional_attributes.merge(key => value)
+    @conversation.save!
   end
 
   def find_or_create_contact

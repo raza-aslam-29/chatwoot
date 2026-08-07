@@ -15,7 +15,10 @@ module MicrosoftConcern
 
   private
 
+  # Microsoft Graph scopes — the Outlook channel fetches and sends over Graph, not IMAP/SMTP.
+  # Mail.Read (not Mail.ReadBasic) is required to read a message's raw MIME via $value.
   def scope
-    'offline_access https://outlook.office.com/IMAP.AccessAsUser.All https://outlook.office.com/SMTP.Send openid profile email'
+    'offline_access openid profile email https://graph.microsoft.com/Mail.Read ' \
+      'https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/User.Read'
   end
 end
