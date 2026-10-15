@@ -82,6 +82,15 @@ const menuItems = computed(() => {
       },
     },
     {
+      show: true,
+      showOnCustomBrandedInstance: true,
+      label: t('SIDEBAR_ITEMS.DOCS'),
+      icon: 'i-lucide-book',
+      link: 'https://docs.channelx.au/',
+      nativeLink: true,
+      target: '_blank',
+    },
+    {
       show: currentUser.value.type === 'SuperAdmin',
       showOnCustomBrandedInstance: true,
       label: t('SIDEBAR_ITEMS.SUPER_ADMIN_CONSOLE'),
